@@ -4,7 +4,7 @@ Kisan Seva is a web project to help the farmers working with the motive of great
 
 # Authors
 
-Satyapriya Baral
+Satyapriya Baral_
 Saurabh Mehta
 
 # Technologies Used
