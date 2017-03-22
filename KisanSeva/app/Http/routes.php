@@ -30,3 +30,5 @@ Route::get('test', 'UsersController@index');
 // Route::get('test', function() {
 //     return view('evaluators.index');
 // });
+Route::get('register', 'PagesController@getRegister');
+Route::get('/', 'PagesController@getlogin');
