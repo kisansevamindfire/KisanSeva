@@ -1,10 +1,9 @@
 <?php
 /**
 * File: UsersController.php
-* Path: App/Http/Controllers/FMUser.php
 * Purpose: Calls the FMUser class to fetch the data from filemaker database
-* Date: 16-03-2017
-* Author: R S DEVI PRASAD
+* Date: 17/03/2017
+* Author: SatyaPriya Baral
 */
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
@@ -38,5 +37,9 @@ class UsersController extends Controller
         $datas = FMUser::showAll();
         return view('test', compact('datas'));
     }
+    public function ViewTips() {
+      $datas = FMUser::showAll();
+      return view('test',compact('records'));
 
+    }
 }

@@ -21,4 +21,15 @@ class FMUser
         }
         return ["No", "records", "Found", $result->getMessage()];
     }
+
+    public static function ViewTips()
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindAllCommand('Tips');
+        $result = $cmd->execute();
+        if(!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return ["No", "records", "Found", $result->getMessage()];
+    }
 }
