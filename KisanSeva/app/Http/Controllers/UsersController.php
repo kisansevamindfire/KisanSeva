@@ -23,12 +23,14 @@ class UsersController extends Controller
       //  $records = new FMUser();
        // $records->showall();
        //$records = Task::all();
-      //  return view('test', compact('records'));
+      //  return view('test', c
         $records1 = FMUser::showAll('User');
         $records2 = FMUser::showAll('Tips');
         return view('test', compact('records1', 'records2'));
         /*$datas = FMUser::showAll();
         return view('test', compact('datas'));*/
+        $records = FMUser::showAll();
+        return view('test', compact('records'));
 
     }
     

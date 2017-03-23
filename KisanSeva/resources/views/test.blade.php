@@ -18,6 +18,7 @@
             @endforeach
 
         @endif
+
         <h1>All  tips</h1>
          @if(empty($records2))
             Nothing to show.

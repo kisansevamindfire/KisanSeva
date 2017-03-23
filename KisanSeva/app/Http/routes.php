@@ -19,7 +19,22 @@ Route::get('admin', function() {
 	return view('admin.index');
 });
 Route::get('farmer', function() {
-    return view('farmer');
+    return view('farmer.index');
+});
+Route::get('profile', function() {
+    return view('farmer.profile');
+});
+Route::get('viewpost', function() {
+    return view('farmer.ViewPost');
+});
+Route::get('addpost', function() {
+    return view('farmer.addPost');
+});
+Route::get('farmingtips', function() {
+    return view('farmer.farmingtips');
+});
+Route::get('viewbids', function() {
+    return view('farmer.viewbids');
 });
 Route::get('test1', function() {
     return view('test1');
