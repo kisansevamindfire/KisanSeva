@@ -61,10 +61,10 @@
           <div class="form-group">
             <div class="row">
               <div class="col-sm-6">
-                <h2 class="user"><a href="/"><strong>Login</strong></a></h2>
+                <h2 class="user"><a href="/KisanSeva/KisanSeva/public/"><strong>Login</strong></a></h2>
               </div>
               <div class="col-sm-6">
-                <h2><a href="/register">Register</a></h2>
+                <h2><a href="/KisanSeva/KisanSeva/public/register">Register</a></h2>
               </div>
               <div class="form-group col-md-12">
                 <label for="email">Email</label>

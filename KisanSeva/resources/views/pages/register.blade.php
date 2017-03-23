@@ -63,10 +63,10 @@
         <div class="form-group">
           <div class="row">
             <div class="col-sm-6">
-              <h2 class="user"><a href="/">Login</a></h2>
+              <h2 class="user"><a href="/KisanSeva/KisanSeva/public/">Login</a></h2>
             </div>
             <div class="col-sm-6">
-              <h2 class="user"><a href="/register"><strong>Register</strong></a></h2>
+              <h2 class="user"><a href="/KisanSeva/KisanSeva/public/register"><strong>Register</strong></a></h2>
             </div>
             <div class="form-group col-md-12">
               <label>Register As</label>

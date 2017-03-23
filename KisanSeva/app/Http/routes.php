@@ -39,13 +39,11 @@ Route::get('viewbids', function() {
 Route::get('test1', function() {
     return view('test1');
 });
-Route::get('test', 'UsersController@index');
-Route::get('test', 'UsersController@ViewTips');
 
-//Route::get('test', 'UsersController@index1');
-
-// Route::get('test', function() {
-//     return view('evaluators.index');
-// });
-Route::get('register', 'PagesController@getRegister');
+// Login Page
 Route::get('/', 'PagesController@getlogin');
+// Register Page 
+Route::get('register', 'PagesController@getRegister');
+// Test page which will read data of users and tips from Filemaker
+Route::get('test', 'UsersController@index');
+Route::get('AddUser', 'UsersController@create');
