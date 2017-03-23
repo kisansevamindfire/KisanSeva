@@ -15,15 +15,5 @@
             @endforeach
 
         @endif
-        @if(empty($datas))
-            Nothing to show.
-        @else
-            @foreach($datas as $data)
-                <div>
-                    {{ $data->getField('UserName_xt') }}
-                </div>
-            @endforeach
-
-        @endif
     </body>
 </html>

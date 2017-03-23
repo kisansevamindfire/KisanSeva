@@ -27,9 +27,6 @@ class UsersController extends Controller
       //  return view('test', compact('records'));
         $records = FMUser::showAll();
         return view('test', compact('records'));
-        $datas = FMUser::showAll();
-        return view('test', compact('datas'));
-
     }
     public function index1()
     {
