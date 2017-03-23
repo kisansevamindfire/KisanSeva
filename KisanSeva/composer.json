@@ -18,8 +18,7 @@
     },
     "autoload": {
         "classmap": [
-            "database",
-            "vendor/filemakerapi/FileMaker.php"
+            "database"
         ],
         "psr-4": {
             "App\\": "app/"

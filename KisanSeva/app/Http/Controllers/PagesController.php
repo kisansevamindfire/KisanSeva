@@ -1,5 +1,10 @@
 <?php
-
+/**
+* File: PagesController.php
+* Purpose: Calls the FMUser class to fetch the data from filemaker database
+* Date: 20/03/2017
+* Author: Saurabh Mehta
+*/
 namespace App\Http\Controllers;
 
 

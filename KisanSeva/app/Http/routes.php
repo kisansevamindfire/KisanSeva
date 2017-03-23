@@ -25,6 +25,8 @@ Route::get('test1', function() {
     return view('test1');
 });
 Route::get('test', 'UsersController@index');
+Route::get('test', 'UsersController@ViewTips');
+
 //Route::get('test', 'UsersController@index1');
 
 // Route::get('test', function() {
