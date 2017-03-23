@@ -15,16 +15,5 @@
             @endforeach
 
         @endif
-        <h2>All Tips</h2>
-        @if(empty($datas))
-            Nothing to show.
-        @else
-            @foreach($datas as $data)
-                <div>
-                    {{ $data->getField('TipName_xt') }}
-                </div>
-            @endforeach
-
-        @endif
     </body>
 </html>

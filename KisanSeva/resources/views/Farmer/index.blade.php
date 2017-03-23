@@ -1,21 +1,54 @@
+<!--
+* File    : index.blade.php
+* Author  : Satyapriya Baral
+* Date    : 22-Mar-2017
+* Purpose : Farmers home Screen  -->
+
 @extends('layouts.master')
-@section('content')
-      <ul class="sidebar-menu">
+@section('title')
+  <title>Farmer | Home</title>
+@stop
+@section('header')
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/bootstrap/css/bootstrap.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/AdminLTE.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/iCheck/flat/blue.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/morris/morris.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/datepicker/datepicker3.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/daterangepicker/daterangepicker.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+</head>
+@stop
+@section('sidebar')
+  <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="#">
+          <a href="{{ URL::to('farmer') }}">
             <i class="fa fa-home"></i>
             <span>Home</span>
           </a>
         </li>
         <li class="treeview">
-          <a href="index.php">
+          <a href="{{ URL::to('addpost') }}">
             <i class="fa fa-plus"></i>
             <span>Add Post</span>
           </a>
         </li>
         <li class="treeview">
-          <a href="#">
+          <a href="{{ URL::to('viewpost') }}">
             <i class="fa fa-files-o"></i>
             <span>View Post</span>
             <span class="pull-right-container">
@@ -24,14 +57,22 @@
           </a>
         </li>
         <li class="treeview">
-          <a href="#">
+          <a href="{{ URL::to('viewbids') }}">
+            <i class="fa fa-files-o"></i>
+            <span>View Bids</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="{{ URL::to('farmingtips') }}">
             <i class="fa fa-edit"></i> <span>Farming Tips</span>
           </a>
         </li>
       </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+@stop
+@section('content')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -742,9 +783,47 @@
       <!-- /.tab-pane -->
     </div>
   </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
+
   <div class="control-sidebar-bg"></div>
 </div>
+@stop
+@section('footer')
+<script src="{{ asset('bower_components/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+
+<script src="{{ asset('bower_components/AdminLTE/bootstrap/js/bootstrap.min.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="{{ asset('bower_components/AdminLTE/plugins/morris/morris.min.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+<script src="{{ asset('bower_components/AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/plugins/knob/jquery.knob.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="{{ asset('bower_components/AdminLTE/plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/plugins/fastclick/fastclick.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/dist/js/app.min.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/dist/js/pages/dashboard.js') }}"></script>
+
+<script src="{{ asset('bower_components/AdminLTE/dist/js/demo.js') }}"></script>
+</body>
+</html>
 @stop

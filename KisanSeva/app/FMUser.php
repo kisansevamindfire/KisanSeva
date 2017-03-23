@@ -1,9 +1,10 @@
 <?php
 /**
 * File: FMUser.php
+* Author: Satyapriya Baral
+* Path: App/FMUser.php
 * Purpose: fetches data from filemaker database and serves to controller
-* Date: 18/03/2017
-* Author: Saurabh Mehta
+* Date: 16-03-2017
 */
 namespace App;
 use App\Classes\FilemakerWrapper;
