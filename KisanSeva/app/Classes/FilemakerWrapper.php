@@ -6,9 +6,10 @@
 * Purpose: Connects to filemaker database
 * Date: 16-03-2017
 */
+
 namespace App\Classes;
 use FileMaker;
-/*class FilemakerWrapper
+class FilemakerWrapper
 {
     public static function getConnection()
     {
@@ -19,8 +20,8 @@ use FileMaker;
         env("DB_PASSWORD")
         );
     }
-}*/
-class FilemakerWrapper
+}
+/*class FilemakerWrapper
 {
     protected $db;
     function __construct()
@@ -36,4 +37,4 @@ class FilemakerWrapper
     {
         return $this->db;
     }
-}
+}*/

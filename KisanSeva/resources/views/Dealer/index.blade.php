@@ -1,12 +1,12 @@
 <!--
 * File    : index.blade.php
-* Author  : Satyapriya Baral
-* Date    : 22-Mar-2017
-* Purpose : Farmers home Screen  -->
+* Author  : Saurabh Mehta
+* Date    : 24-Mar-2017
+* Purpose : Admin home Screen  -->
 
 @extends('layouts.master')
 @section('title')
-  <title>Farmer | Home</title>
+  <title>Dealer | Home</title>
 @stop
 @section('header')
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -36,27 +36,27 @@
   <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="{{ URL::to('farmer') }}">
+          <a href="{{ URL::to('dealer') }}">
             <i class="fa fa-home"></i>
             <span>Home</span>
           </a>
         </li>
-        <li class="treeview">
+       <!-- <li class="treeview">
           <a href="{{ URL::to('addpost') }}">
             <i class="fa fa-plus"></i>
             <span>Add Post</span>
           </a>
-        </li>
+        </li>-->
         <li class="treeview">
-          <a href="{{ URL::to('viewpost') }}">
+          <a href="{{ URL::to('viewadds') }}">
             <i class="fa fa-files-o"></i>
-            <span>View Post</span>
+            <span>View Adds</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
             </span>
           </a>
         </li>
-        <li class="treeview">
+       <!-- <li class="treeview">
           <a href="{{ URL::to('viewbids') }}">
             <i class="fa fa-files-o"></i>
             <span>View Bids</span>
@@ -69,7 +69,7 @@
           <a href="{{ URL::to('farmingtips') }}">
             <i class="fa fa-edit"></i> <span>Farming Tips</span>
           </a>
-        </li>
+        </li>-->
       </ul>
 @stop
 @section('content')
@@ -80,7 +80,7 @@
     <section class="content-header">
       <h1>
         Dashboard
-        <small>Farmer</small>
+        <small>Dealer</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
