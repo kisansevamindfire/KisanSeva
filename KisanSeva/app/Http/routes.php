@@ -30,9 +30,9 @@ Route::get('viewpost', function() {
 Route::get('addpost', function() {
     return view('farmer.addPost');
 });
-Route::get('farmingtips', function() {
+/*Route::get('farmingtips', function() {
     return view('farmer.farmingtips');
-});
+});*/
 Route::get('viewbids', function() {
     return view('farmer.viewbids');
 });
@@ -42,8 +42,21 @@ Route::get('test1', function() {
 
 // Login Page
 Route::get('/', 'PagesController@getlogin');
+
 // Register Page 
 Route::get('register', 'PagesController@getRegister');
+
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
-Route::get('AddUser', 'UsersController@create');
+
+// Display farmingtips 
+Route::get('farmingtips', 'UsersController@viewtips');
+
+// Home page for Dealer
+Route::get('dealer', 'DealerController@index');
+
+// Dealer will see all the crop advertisements on this page
+Route::get('viewadds', 'DealerController@viewadds');
+
+// Dealer will see the details related to particular add 
+Route::get('details', 'DealerController@details');

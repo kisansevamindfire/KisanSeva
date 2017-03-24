@@ -1,12 +1,12 @@
 <!--
-* File    : farmingtips.blade.php
-* Author  : Satyapriya Baral
-* Date    : 22-Mar-2017
-* Purpose : View Farming Tips for farmers  -->
+* File    : viewadds.blade.php
+* Author  : Saurabh Mehta
+* Date    : 24-Mar-2017
+* Purpose : View Advertisements for Dealers  -->
 
 @extends('layouts.master')
 @section('title')
-  <title>Farmer | Farming Tips</title>
+  <title>Dealer | View Adds</title>
 @stop
 @section('header')
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -36,27 +36,27 @@
   <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview">
-          <a href="{{ URL::to('farmer') }}">
+          <a href="{{ URL::to('dealer') }}">
             <i class="fa fa-home"></i>
             <span>Home</span>
           </a>
         </li>
-        <li class="treeview">
+    <!--  <li class="treeview">
           <a href="{{ URL::to('addpost') }}">
             <i class="fa fa-plus"></i>
             <span>Add Post</span>
           </a>
-        </li>
-        <li class="treeview">
-          <a href="{{ URL::to('viewpost') }}">
+        </li>-->
+        <li class="active treeview">
+          <a href="{{ URL::to('viewadds') }}">
             <i class="fa fa-files-o"></i>
-            <span>View Post</span>
+            <span>View Adds</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
             </span>
           </a>
         </li>
-        <li class="treeview">
+    <!--    <li class="treeview">
           <a href="{{ URL::to('viewbids') }}">
             <i class="fa fa-files-o"></i>
             <span>View Bids</span>
@@ -65,11 +65,11 @@
             </span>
           </a>
         </li>
-        <li class="active treeview">
+        <li class="treeview">
           <a href="{{ URL::to('farmingtips') }}">
             <i class="fa fa-edit"></i> <span>Farming Tips</span>
           </a>
-        </li>
+        </li>-->
       </ul>
 @stop
 @section('content')
@@ -99,31 +99,27 @@
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
-                  <th class="lead">Title</th>
+                  <th>Category</th>
+                  <th>Crop</th>
+                  <th>Date Posted</th>
+                  <th>Quantity</th>
+                  <th>Base Price</th>
+                  <th>Detail</th>
                 </tr>
-
                 <tr>
-                  <td> 
-                    @if(empty($records))
-                      Nothing to show.
-                    @else
-                      @foreach($records as $record)
-                        <div class="lead">
-                          <a href="farmer">{{ $record->getField('TipName_xt') }}</a>
-                        </div>
-                        @endforeach
-                      @endif
-                  </td> 
+                  <td>Vegetables</td>
+                  <td>Beans</td>
+                  <td>11-7-2014</td>
+                  <td>1 kg</td>
+                  <td>290</td>
+                  <td><a href="{{ URL::to('details') }}"><span class="label label-primary">View</span></a></td>
                 </tr>
               </table>
             </div>
-            <!-- /.box-body -->
           </div>
-          <!-- /.box -->
         </div>
       </div>
     </section>
-    <!-- /.content -->
   </div>
 
 @stop
