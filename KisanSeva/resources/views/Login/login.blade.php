@@ -4,12 +4,15 @@
 * Author  : Saurabh Mehta  
 * Date    : 16-Mar-2017
 * Purpose : Login page of our users  -->
-@extends('main')
-
-@section('title', '| Login')
-
-@section('body')
-  
+<html>
+  <head>
+    <title>Kisan Seva | Login</title> <!--Change title according to pages -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+  </head>
+  <body id="myPage">
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -34,13 +37,13 @@
                 <img src="assets/background/1.jpg">
               </div>
               <div class="item">
-                <img src="assets/background/2.jpg">
+                <img src="assets/user/background/2.jpg">
               </div>
               <div class="item">
-                <img src="assets/background/3.jpg" >
+                <img src="asstes/user/background/3.jpg" >
               </div>
               <div class="item">
-                <img src="assets/background/4.jpg" >
+                <img src="assets/user/background/4.jpg" >
               </div>
             </div>
             <!-- Left and right controls -->
@@ -89,7 +92,10 @@
           <center><h3><a href="#">Forgot Password</a></h3></center>
         </div>
       </div>
-    @endsection
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
 
     
   

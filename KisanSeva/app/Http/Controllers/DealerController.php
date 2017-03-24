@@ -23,5 +23,8 @@ class DealerController extends Controller
 		return view("Dealer.details");
     }
 	
+	public function viewprevious() {
+		return view("Dealer.viewprevious");
+    }
 
 }

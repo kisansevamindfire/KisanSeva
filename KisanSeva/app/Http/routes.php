@@ -41,10 +41,10 @@ Route::get('test1', function() {
 });
 
 // Login Page
-Route::get('/', 'PagesController@getlogin');
+Route::get('/', 'LoginController@getlogin');
 
 // Register Page 
-Route::get('register', 'PagesController@getRegister');
+Route::get('register', 'LoginController@getRegister');
 
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
@@ -60,3 +60,5 @@ Route::get('viewadds', 'DealerController@viewadds');
 
 // Dealer will see the details related to particular add 
 Route::get('details', 'DealerController@details');
+ // dealer will see his previous purchases
+Route::get('viewprevious', 'DealerController@viewprevious');
