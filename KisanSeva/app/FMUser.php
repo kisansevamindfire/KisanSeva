@@ -21,7 +21,7 @@ class FMUser
         }
         return ["No", "records", "Found", $result->getMessage()];
     }
-    /*public static function create() 
+    /*public static function create()
     {
         $fmobj = FilemakerWrapper::getConnection();
         $record = $fm->createRecord('User');
@@ -29,9 +29,9 @@ class FMUser
         if(!FileMaker::isError($result)) {
             return $result->getRecords();
         }
-        return ["No", "records", "Found", $result->getMessage()];   
-    } */    
-/*    public static function ViewTips()
+        return ["No", "records", "Found", $result->getMessage()];
+    } */
+    public static function ViewTips()
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindAllCommand('Tips');
@@ -40,5 +40,16 @@ class FMUser
             return $result->getRecords();
         }
         return ["No", "records", "Found", $result->getMessage()];
-    }*/
+    }
+    public static function Details($id)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand('Tips');
+        $cmd->addFindCriterion('___kpn_TipId',$id);
+        $result = $cmd->execute();
+        if(!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return ["No", "records", "Found", $result->getMessage()];
+    }
 }
