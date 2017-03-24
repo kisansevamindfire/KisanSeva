@@ -73,61 +73,36 @@
       </ul>
 @stop
 @section('content')
-<div class="content-wrapper">
-
-    <!-- Main content -->
+ <div class="content-wrapper">
     <section class="content">
 
-
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"></h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tr>
-                  <th class="lead">Title</th>
-                </tr>
-                  @if(empty($records))
+      <!-- Default box -->
+      <div class="box">
+               @if(empty($records))
                       Nothing to show.
                     @else
                       @foreach($records as $record)
-                <tr>
-
-                  <td>
-                        <div class="lead">
-                        <?php $id = $record->getrecordid() ?>
-                          <a href="{{ URL::to('tipsdetails',[$id]) }}">{{ $record->getField('TipName_xt') }}</a>
-
-                        </div>
-                  </td>
-                </tr>
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ $record->getField('TipName_xt') }}</h3>
+        </div>
+        <div class="box-body">
+          {{ $record->getField('TipData_xt') }}
+        </div>
                       @endforeach
                       @endif
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+
+        <!-- /.box-body -->
+        <div class="box-footer">
+          Footer
         </div>
+        <!-- /.box-footer-->
       </div>
+      <!-- /.box -->
+
     </section>
     <!-- /.content -->
   </div>
-
+  <!-- /.content-wrapper -->
 @stop
 @section('footer')
 <!-- jQuery 2.2.3 -->
