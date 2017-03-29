@@ -21,17 +21,27 @@ class FMUser
         }
         return ["No", "records", "Found", $result->getMessage()];
     }
-
-    /*public static function create() 
+    
+    public static function create($layout,,$UserType,$UserName,
+    $UserContact,$UserAddress,$UserEmail,$UserPassword) 
     {
         $fmobj = FilemakerWrapper::getConnection();
-        $record = $fm->createRecord('User');
-        $result = $cmd->execute();
-        if(!FileMaker::isError($result)) {
-            return $result->getRecords();
+        $record = $fm->createRecord('$layout');
+        $record->setField('___kfn_UserType', $UserType);
+        $record->setField('UserName_xt', $UserName);
+        $record->setField('UserContact_xn', $UserContact);
+        $record->setField('UserAddress_xt', $UserAddress);
+        $record->setField('UserEmail_xt', $UserEmail);
+        $record->setField('UserPassword_xt', $UserPassword);
+        
+        $result = $record->commit();
+
+        if (FileMaker::isError($result)) { 
+            return false;
+        } else {
+            return true;
         }
-        return ["No", "records", "Found", $result->getMessage()];   
-    }   */
+
 /*    public static function ViewTips()
     {
         $fmobj = FilemakerWrapper::getConnection();

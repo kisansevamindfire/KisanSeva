@@ -14,9 +14,12 @@ class LoginController extends Controller
 		return view("Login.login");
     }
 
-    
-    public function getRegister() {
-    	return view("Login.register");
+    public function getRegister($User) {
+	
+		$records = FMUser::createRecord('User');
+        return view("Login.register", compact('records'));
     }
+
+    
 
 }

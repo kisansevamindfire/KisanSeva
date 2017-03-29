@@ -39,13 +39,13 @@
               <img src="assets/background/1.jpg">
             </div>
             <div class="item">
-              <img src="assets/user/background/2.jpg">
+              <img src="assets/background/2.jpg">
             </div>
             <div class="item">
-              <img src="assets/user/background/3.jpg">
+              <img src="assets/background/3.jpg">
             </div>
             <div class="item">
-              <img src="assets/user/background/4.jpg">
+              <img src="assets/background/4.jpg">
             </div>
           </div>
           <!-- Left and right controls -->
