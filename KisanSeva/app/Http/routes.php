@@ -30,12 +30,6 @@ Route::get('viewpost', function() {
 Route::get('addpost', function() {
     return view('farmer.addPost');
 });
-//Route::get('tipsdetails/{id?}', function($id = null) {
-//    return view('farmer.tipsdetails');
-//});
-//Route::get('farmingtips', function() {
-  //  return view('farmer.farmingtips');
-//});
 Route::get('viewbids', function() {
     return view('farmer.viewbids');
 });
@@ -43,6 +37,11 @@ Route::get('test1', function() {
     return view('test1');
 });
 
+
+
+
+Route::get('addpost', 'FarmerController@FindAllCategory');
+Route::get('viewCrops', 'FarmerController@FindCrops');
 // Login Page
 Route::get('/', 'PagesController@getlogin');
 
@@ -54,7 +53,7 @@ Route::get('tipsdetails/{id}','FarmerController@TipDetails');
 Route::get('test', 'UsersController@index');
 
 // Display farmingtips
-Route::get('farmingtips', 'FarmerController@index');
+Route::get('farmingtips', 'FarmerController@FindAllTips');
 
 // Home page for Dealer
 Route::get('dealer', 'DealerController@index');

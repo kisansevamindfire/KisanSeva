@@ -1,7 +1,7 @@
 <!--
-* File    : farmingtips.blade.php
+* File    : tipsdetails.blade.php
 * Author  : Satyapriya Baral
-* Date    : 22-Mar-2017
+* Date    : 28-Mar-2017
 * Purpose : View Farming Tips for farmers  -->
 
 @extends('layouts.master')
@@ -20,57 +20,50 @@
   <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/AdminLTE.min.css') }}">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+
   <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 @stop
 @section('sidebar')
   <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview">
-          <a href="{{ URL::to('farmer') }}">
-            <i class="fa fa-home"></i>
-            <span>Home</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="{{ URL::to('addpost') }}">
-            <i class="fa fa-plus"></i>
-            <span>Add Post</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="{{ URL::to('viewpost') }}">
-            <i class="fa fa-files-o"></i>
-            <span>View Post</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="{{ URL::to('viewbids') }}">
-            <i class="fa fa-files-o"></i>
-            <span>View Bids</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-        </li>
-        <li class="active treeview">
-          <a href="{{ URL::to('farmingtips') }}">
-            <i class="fa fa-edit"></i> <span>Farming Tips</span>
-          </a>
-        </li>
-      </ul>
+    <li class="header">MAIN NAVIGATION</li>
+      <li class="treeview">
+        <a href="{{ URL::to('farmer') }}">
+          <i class="fa fa-home"></i>
+          <span>Home</span>
+        </a>
+      </li>
+      <li class="treeview">
+        <a href="{{ URL::to('addpost') }}">
+          <i class="fa fa-plus"></i>
+          <span>Add Post</span>
+        </a>
+      </li>
+      <li class="treeview">
+        <a href="{{ URL::to('viewpost') }}">
+          <i class="fa fa-files-o"></i>
+          <span>View Post</span>
+          <span class="pull-right-container">
+          <span class="label label-primary pull-right">4</span>
+          </span>
+        </a>
+      </li>
+      <li class="treeview">
+        <a href="{{ URL::to('viewbids') }}">
+          <i class="fa fa-files-o"></i>
+          <span>View Bids</span>
+          <span class="pull-right-container">
+            <span class="label label-primary pull-right">4</span>
+          </span>
+        </a>
+      </li>
+      <li class="active treeview">
+        <a href="{{ URL::to('farmingtips') }}">
+          <i class="fa fa-edit"></i> <span>Farming Tips</span>
+        </a>
+      </li>
+    </ul>
 @stop
 @section('content')
  <div class="content-wrapper">
