@@ -5,11 +5,15 @@
 * Date    : 15-Mar-2017
 * Purpose : Registration page for the users  -->
 
-@extends('main')
+<html>
+  <head>
+    <title>Kisan Seva | Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+  </head>
 
-@section('title', '| Register')
-
-@section('body')
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -35,13 +39,13 @@
               <img src="assets/background/1.jpg">
             </div>
             <div class="item">
-              <img src="assets/background/2.jpg">
+              <img src="assets/user/background/2.jpg">
             </div>
             <div class="item">
-              <img src="assets/background/3.jpg">
+              <img src="assets/user/background/3.jpg">
             </div>
             <div class="item">
-              <img src="assets/background/4.jpg">
+              <img src="assets/user/background/4.jpg">
             </div>
           </div>
           <!-- Left and right controls -->
@@ -126,4 +130,10 @@
   </a><br><br>
   <p class="lead">Welcome to Kisan Seva.</p> 
 </footer>
-@endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+    
+  

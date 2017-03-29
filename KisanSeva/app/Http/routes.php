@@ -43,10 +43,13 @@ Route::get('test1', function() {
 Route::get('addpost', 'FarmerController@FindAllCategory');
 Route::get('viewCrops', 'FarmerController@FindCrops');
 // Login Page
-Route::get('/', 'PagesController@getlogin');
+Route::get('/', 'LoginController@getlogin');
 
-// Register Page
-Route::get('register', 'PagesController@getRegister');
+
+// Register Page 
+Route::get('register', 'LoginController@getRegister');
+
+
 
 Route::get('tipsdetails/{id}','FarmerController@TipDetails');
 // Test page which will read data of users and tips from Filemaker
@@ -63,3 +66,5 @@ Route::get('viewadds', 'DealerController@viewadds');
 
 // Dealer will see the details related to particular add
 Route::get('details', 'DealerController@details');
+ // dealer will see his previous purchases
+Route::get('viewprevious', 'DealerController@viewprevious');

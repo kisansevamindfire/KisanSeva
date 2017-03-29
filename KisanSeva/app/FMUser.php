@@ -21,16 +21,6 @@ class FMUser
         }
         return ["No", "records", "Found", $result->getMessage()];
     }
-    /*public static function create()
-    {
-        $fmobj = FilemakerWrapper::getConnection();
-        $record = $fm->createRecord('User');
-        $result = $cmd->execute();
-        if(!FileMaker::isError($result)) {
-            return $result->getRecords();
-        }
-        return ["No", "records", "Found", $result->getMessage()];
-    } */
     public static function FindAll( $layout )
     {
         $fmobj = FilemakerWrapper::getConnection();
