@@ -24,12 +24,7 @@ Route::get('farmer', function() {
 Route::get('profile', function() {
     return view('farmer.profile');
 });
-Route::get('viewpost', function() {
-    return view('farmer.ViewPost');
-});
-Route::get('addpost', function() {
-    return view('farmer.addPost');
-});
+
 Route::get('viewbids', function() {
     return view('farmer.viewbids');
 });
@@ -39,6 +34,9 @@ Route::get('test1', function() {
 
 //Route to go to the Addpost View.
 Route::get('addpost', 'FarmerController@FindAllCategory');
+
+//Route to go to the ViewPost View.
+Route::get('viewpost', 'FarmerController@FindAllPosts');
 
 //Route for adding a post to database.
 Route::post('AddPostData', 'FarmerController@CreatePost');

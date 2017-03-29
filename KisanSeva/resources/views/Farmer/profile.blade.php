@@ -23,6 +23,37 @@
 
 </head>
 @stop
+@section('sidebar')
+  <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="active treeview">
+          <a href="{{ URL::to('farmer') }}">
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="{{ URL::to('addpost') }}">
+            <i class="fa fa-plus"></i>
+            <span>Add Post</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="{{ URL::to('viewpost') }}">
+            <i class="fa fa-files-o"></i>
+            <span>View Post</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="{{ URL::to('farmingtips') }}">
+            <i class="fa fa-edit"></i> <span>Farming Tips</span>
+          </a>
+        </li>
+      </ul>
+@stop
 @section('content')
 
   <div class="content-wrapper">
