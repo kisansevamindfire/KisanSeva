@@ -1,11 +1,16 @@
 <?php
 /**
-* File: PagesController.php
-* Purpose: Calls the FMUser class to fetch the data from filemaker database
+* File: DealerController.php
+* Purpose: Calls the DealerModal class to fetch the data from filemaker database
 * Date: 24-Mar-2017
 * Author: Saurabh Mehta
 */
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\DealerModal;
+use App\Http\Requests;
+use App\Classes;
+use Illuminate\Routing\Controller;
 
 
 class DealerController extends Controller
