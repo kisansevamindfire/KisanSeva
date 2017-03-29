@@ -78,18 +78,17 @@
               <h3 class="box-title">Quick Example</h3>
             </div>
             <!-- /.box-header -->
-            <!-- form start -->
             <form role="form">
               <div class="box-body">
                 <div class="form-group">
                   <label>Select Category</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
-                    <option>option 3</option>
-                    <option>option 4</option>
-                    <option>option 5</option>
+                  <select class="form-control" id="selectCategory" >
+                  @foreach($records as $record)
+                  <?php $id = $record->getrecordid() ?>
+                    <option value="{{ $record ->getField('___kpn_CategoryId')}}">{{ $record->getField('CategoryName_xt') }}</option>
+@endforeach
                   </select>
+
                 </div>
                 <div class="form-group">
                   <label>Select Crop</label>
@@ -140,6 +139,11 @@
 <script src="{{ asset('bower_components/AdminLTE/dist/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('bower_components/AdminLTE/dist/js/demo.js') }}"></script>
+<script type="text/javascript">
+var url = "{{ URL::to('viewCrops') }}";
+</script>
+<script type="text/javascript" src="{{ asset('bower_components/AdminLTE/dist/js/script.js') }}"></script>
+
 </body>
 </html>
 @stop
