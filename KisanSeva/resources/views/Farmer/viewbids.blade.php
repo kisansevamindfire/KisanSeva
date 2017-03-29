@@ -56,15 +56,6 @@
             </span>
           </a>
         </li>
-        <li class="active treeview">
-          <a href="{{ URL::to('viewbids') }}">
-            <i class="fa fa-files-o"></i>
-            <span>View Bids</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-        </li>
         <li class="treeview">
           <a href="{{ URL::to('farmingtips') }}">
             <i class="fa fa-edit"></i> <span>Farming Tips</span>

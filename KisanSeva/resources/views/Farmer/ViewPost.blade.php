@@ -57,15 +57,6 @@
           </a>
         </li>
         <li class="treeview">
-          <a href="{{ URL::to('viewbids') }}">
-            <i class="fa fa-files-o"></i>
-            <span>View Bids</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
           <a href="{{ URL::to('farmingtips') }}">
             <i class="fa fa-edit"></i> <span>Farming Tips</span>
           </a>
@@ -73,6 +64,12 @@
       </ul>
 @stop
 @section('content')
+<?php
+//  date_default_timezone_set('Asia/Kolkata');
+  //$date = date("Y/m/d");
+  //$time = date("h:i:sa");
+  //echo $date;
+?>
 <div class="content-wrapper">
 
     <!-- Main content -->
@@ -95,6 +92,12 @@
                 </div>
               </div>
             </div>
+            <?php
+              date_default_timezone_set('Asia/Kolkata');
+              $date = date("Y/m/d");
+              $time = date("h:i:sa");
+              echo $date;
+            ?>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">

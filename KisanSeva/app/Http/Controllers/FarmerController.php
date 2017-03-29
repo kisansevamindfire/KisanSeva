@@ -77,4 +77,27 @@ class FarmerController extends Controller
         return back();
     }
 
+    /*
+    * Function to get all the Category.
+    *
+    * @param Null.
+    * @return - Filemaker results of Category Found.
+    */
+    public function FindAllPosts()
+    {
+        $records = FarmerModal::FindAll( 'CropPost' );
+        $i=0;
+        foreach ($records as $record) {
+            $cropRecord = FarmerModal::FindCropDetails('Crop',$record->getField('__kfn_CropId'));
+            $cropDetails[$i] = [ $cropRecord[0]->getField('CropName_xt'), $cropRecord[0]->getField('___kpn_CropId')];
+            $categoryRecord = FarmerModal::FindCategoryDetails('Category',$cropRecord[0]->getField('__kfn_CategoryId'));
+            $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
+            $i = $i + 1;
+        }
+       //dd($records);
+        //dd($cropDetails);
+        dd($categoryDetails);
+        //return view('farmer.ViewPost', compact('records'));
+    }
+
 }

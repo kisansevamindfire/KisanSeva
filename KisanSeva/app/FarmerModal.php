@@ -75,6 +75,43 @@ class FarmerModal
     }
 
     /*
+    * Function to search for data in some find criterion.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $id - contains id of specific category.
+    * @return - Array of all crops found found.
+    */
+    public static function FindCropDetails( $layout , $id )
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand( $layout );
+        $cmd->addFindCriterion('___kpn_CropId',$id);
+        $result = $cmd->execute();
+        if(!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return ["No", "records", "Found", $result->getMessage()];
+    }
+
+    /*
+    * Function to search for data in some find criterion.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $id - contains id of specific category.
+    * @return - Array of all crops found found.
+    */
+    public static function FindCategoryDetails( $layout , $id )
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand( $layout );
+        $cmd->addFindCriterion('___kpn_CategoryId',$id);
+        $result = $cmd->execute();
+        if(!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return ["No", "records", "Found", $result->getMessage()];
+    }
+    /*
     * Function to Create a Post.
     *
     * @param 1. $layout - contains name of the layout.
