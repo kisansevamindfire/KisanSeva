@@ -37,11 +37,21 @@ Route::get('test1', function() {
     return view('test1');
 });
 
-
-
-
+//Route to go to the Addpost View.
 Route::get('addpost', 'FarmerController@FindAllCategory');
+
+//Route for adding a post to database.
+Route::post('AddPostData', 'FarmerController@CreatePost');
+
+//Route for go get crops under specific category.
 Route::get('viewCrops', 'FarmerController@FindCrops');
+
+//Route to go to the farming tips view and show farming tips.
+Route::get('farmingtips', 'FarmerController@FindAllTips');
+
+//Route to show Farming Tips in Details.
+Route::get('tipsdetails/{id}','FarmerController@TipDetails');
+
 // Login Page
 Route::get('/', 'LoginController@getlogin');
 
@@ -51,7 +61,6 @@ Route::get('register', 'LoginController@getRegister');
 
 
 
-Route::get('tipsdetails/{id}','FarmerController@TipDetails');
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
 

@@ -1,6 +1,6 @@
 <?php
 /**
-* File: FMUser.php
+* File: FarmerModal.php
 * Author: Satyapriya Baral
 * Path: App/FMUser.php
 * Purpose: fetches data from filemaker database and serves to controller
@@ -9,18 +9,15 @@
 namespace App;
 use App\Classes\FilemakerWrapper;
 use FileMaker;
-class FMUser
+class FarmerModal
 {
-    public static function showAll($layout)
-    {
-        $fmobj = FilemakerWrapper::getConnection();
-        $cmd = $fmobj->newFindAllCommand($layout);
-        $result = $cmd->execute();
-        if(!FileMaker::isError($result)) {
-            return $result->getRecords();
-        }
-        return ["No", "records", "Found", $result->getMessage()];
-    }
+
+    /*
+    * Function to Show all Records in a specific layout.
+    *
+    * @param 1. $layout - contains name of the layout.
+    * @return - Filemaker results of all records found.
+    */
     public static function FindAll( $layout )
     {
         $fmobj = FilemakerWrapper::getConnection();
@@ -31,6 +28,14 @@ class FMUser
         }
         return ["No", "records", "Found", $result->getMessage()];
     }
+
+    /*
+    * Function to search for data in some find criterion.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $id - contains record id of specific farming tip to be displayed.
+    * @return - Filemaker results of Farming Tip found.
+    */
     public static function Find( $layout , $id )
     {
         $fmobj = FilemakerWrapper::getConnection();
@@ -42,6 +47,14 @@ class FMUser
         }
         return ["No", "records", "Found", $result->getMessage()];
     }
+
+    /*
+    * Function to search for data in some find criterion.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $id - contains id of specific category.
+    * @return - Array of all crops found found.
+    */
     public static function FindCrop( $layout , $id )
     {
         $fmobj = FilemakerWrapper::getConnection();
@@ -61,6 +74,13 @@ class FMUser
         return ["No", "records", "Found", $result->getMessage()];
     }
 
+    /*
+    * Function to Create a Post.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $input - Contains all the data to be inserted in the record.
+    * @return - Boolian value if any error occured or not.
+    */
     public static function AddPost( $layout , $input )
     {
         $fmobj = FilemakerWrapper::getConnection();
@@ -74,7 +94,6 @@ class FMUser
         $request->setField('__kfn_CropId', $input['Crop']);
         $request->setField('CropPrice_xn', $input['BasePrice']);
         $request->setField('CropExpiryTime_xi', $input['ExpiryTime']);
-        //$request->setField('Quantity_xn', $input['Quantity']);
         $request->setField('Quantity_xn', $str);
         $result = $request->commit();
         if(!FileMaker::isError($result)) {
