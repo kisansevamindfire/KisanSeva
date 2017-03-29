@@ -101,20 +101,22 @@
                 <tr>
                   <th class="lead">Title</th>
                 </tr>
-
-                <tr>
-                  <td> 
-                    @if(empty($records))
+                  @if(empty($records))
                       Nothing to show.
                     @else
                       @foreach($records as $record)
+                <tr>
+
+                  <td>
                         <div class="lead">
-                          <a href="farmer">{{ $record->getField('TipName_xt') }}</a>
+                        <?php $id = $record->getrecordid() ?>
+                          <a href="{{ URL::to('tipsdetails',[$id]) }}">{{ $record->getField('TipName_xt') }}</a>
+
                         </div>
-                        @endforeach
-                      @endif
-                  </td> 
+                  </td>
                 </tr>
+                      @endforeach
+                      @endif
               </table>
             </div>
             <!-- /.box-body -->
