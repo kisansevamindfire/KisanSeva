@@ -34,7 +34,7 @@ class FarmerController extends Controller
     */
     public function TipDetails($id)
     {
-        $records = FarmerModal::Find( 'Tips' , $id);
+        $records = FarmerModal::Find( 'Tips' , $id , '___kpn_TipId' );
         return view('farmer.tipsdetails', compact('records'));
     }
 
@@ -58,8 +58,14 @@ class FarmerController extends Controller
     */
     public function FindCrops(Request $request)
     {
-        $data = FarmerModal::FindCrop( 'Crop', $request->id );
-        return response()->json($data);
+        $records = FarmerModal::Find( 'Crop', $request->id , '__kfn_CategoryId');
+        $i = 0 ;
+        $array = [];
+        foreach ($records as $record) {
+            $array[$i] = [ $record->getField('CropName_xt') , $record->getField('___kpn_CropId')];
+            $i = $i+1;
+        }
+        return response()->json($array);
     }
 
     /*
@@ -75,6 +81,36 @@ class FarmerController extends Controller
             return back();
         }
         return back();
+    }
+
+    /*
+    * Function to get all the Category.
+    *
+    * @param Null.
+    * @return - Filemaker results of Category Found.
+    */
+    public function FindAllPosts()
+    {
+        $records = FarmerModal::FindAll( 'CropPost' );
+        $i=0;
+        foreach ($records as $record) {
+            $cropRecord = FarmerModal::Find('Crop', $record->getField('__kfn_CropId') , '___kpn_CropId');
+            $cropDetails[$i] = [ $cropRecord[0]->getField('CropName_xt'), $cropRecord[0]->getField('___kpn_CropId')];
+            $categoryRecord = FarmerModal::Find('Category',$cropRecord[0]->getField('__kfn_CategoryId') , '___kpn_CategoryId' );
+            $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
+            $i = $i + 1;
+        }
+        $PostRecords = array(
+            $records,
+            $cropDetails,
+            $categoryDetails
+        );
+        return view('farmer.ViewPost', compact('PostRecords'));
+
+       //dd($PostRecords[1][2][0]);
+        //dd($PostRecords[0][0]->getField('__kfn_CropId'));
+        //dd($categoryDetails);
+        //return view('farmer.ViewPost', compact('records'));
     }
 
 }

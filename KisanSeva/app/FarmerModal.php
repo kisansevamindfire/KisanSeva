@@ -1,4 +1,5 @@
 <?php
+
 /**
 * File: FarmerModal.php
 * Author: Satyapriya Baral
@@ -6,13 +7,14 @@
 * Purpose: fetches data from filemaker database and serves to controller
 * Date: 16-03-2017
 */
+
 namespace App;
 use App\Classes\FilemakerWrapper;
 use FileMaker;
 class FarmerModal
 {
 
-    /*
+    /**
     * Function to Show all Records in a specific layout.
     *
     * @param 1. $layout - contains name of the layout.
@@ -29,18 +31,19 @@ class FarmerModal
         return ["No", "records", "Found", $result->getMessage()];
     }
 
-    /*
+    /**
     * Function to search for data in some find criterion.
     *
     * @param 1. $layout - contains name of the layout.
     *        2. $id - contains record id of specific farming tip to be displayed.
+    *        3. $field - contains the field on whose basis to be searched.
     * @return - Filemaker results of Farming Tip found.
     */
-    public static function Find( $layout , $id )
+    public static function Find( $layout , $id , $field )
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindCommand( $layout );
-        $cmd->addFindCriterion('___kpn_TipId',$id);
+        $cmd->addFindCriterion( $field , $id );
         $result = $cmd->execute();
         if(!FileMaker::isError($result)) {
             return $result->getRecords();
@@ -48,33 +51,7 @@ class FarmerModal
         return ["No", "records", "Found", $result->getMessage()];
     }
 
-    /*
-    * Function to search for data in some find criterion.
-    *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $id - contains id of specific category.
-    * @return - Array of all crops found found.
-    */
-    public static function FindCrop( $layout , $id )
-    {
-        $fmobj = FilemakerWrapper::getConnection();
-        $cmd = $fmobj->newFindCommand( $layout );
-        $cmd->addFindCriterion('__kfn_CategoryId',$id);
-        $result = $cmd->execute();
-        if(!FileMaker::isError($result)) {
-            $records = $result->getRecords();
-            $i = 0 ;
-            $array = [];
-            foreach ($records as $record) {
-                $array[$i] = [ $record->getField('CropName_xt') , $record->getField('___kpn_CropId')];
-                $i = $i+1;
-            }
-            return $array;
-        }
-        return ["No", "records", "Found", $result->getMessage()];
-    }
-
-    /*
+    /**
     * Function to Create a Post.
     *
     * @param 1. $layout - contains name of the layout.
@@ -83,6 +60,7 @@ class FarmerModal
     */
     public static function AddPost( $layout , $input )
     {
+        $newDate = date("m/d/Y", strtotime($input['ExpiryTime']));
         $fmobj = FilemakerWrapper::getConnection();
         if( $input['Weight'] == 0) {
             $str = $input['Quantity'].' Kg';
@@ -93,7 +71,7 @@ class FarmerModal
         $request = $fmobj->createRecord($layout);
         $request->setField('__kfn_CropId', $input['Crop']);
         $request->setField('CropPrice_xn', $input['BasePrice']);
-        $request->setField('CropExpiryTime_xi', $input['ExpiryTime']);
+        $request->setField('CropExpiryTime_xi', $newDate);
         $request->setField('Quantity_xn', $str);
         $result = $request->commit();
         if(!FileMaker::isError($result)) {

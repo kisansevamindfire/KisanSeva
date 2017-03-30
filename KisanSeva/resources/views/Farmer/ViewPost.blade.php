@@ -57,15 +57,6 @@
           </a>
         </li>
         <li class="treeview">
-          <a href="{{ URL::to('viewbids') }}">
-            <i class="fa fa-files-o"></i>
-            <span>View Bids</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
           <a href="{{ URL::to('farmingtips') }}">
             <i class="fa fa-edit"></i> <span>Farming Tips</span>
           </a>
@@ -73,6 +64,12 @@
       </ul>
 @stop
 @section('content')
+<?php
+//  date_default_timezone_set('Asia/Kolkata');
+  //$date = date("Y/m/d");
+  //$time = date("h:i:sa");
+  //echo $date;
+?>
 <div class="content-wrapper">
 
     <!-- Main content -->
@@ -95,25 +92,45 @@
                 </div>
               </div>
             </div>
+            @php
+              date_default_timezone_set('Asia/Kolkata');
+              $date = date("m/d/Y");
+              $time = date("h:i:sa");
+              $i = 0 ;
+            @endphp
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
                   <th>Category</th>
                   <th>Crop</th>
-                  <th>Date Posted</th>
+                  <th>Time Posted</th>
                   <th>Quantity</th>
                   <th>Base Price</th>
                   <th>Status</th>
                 </tr>
-                <tr>
-                  <td>Vegetables</td>
-                  <td>Beans</td>
-                  <td>11-7-2014</td>
-                  <td>1 kg</td>
-                  <td>290</td>
-                  <td><span class="label label-primary">Approved</span></td>
-                </tr>
+                @foreach($PostRecords[0] as $PostRecord[0])
+                  <tr>
+                    <td>{{ $PostRecords[2][$i][0] }}</td>
+                    <td>{{ $PostRecords[1][$i][0] }}</td>
+                    <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
+                    <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
+                    <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
+                    @php
+                      $today_time = strtotime($date);
+                      $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
+                      if($PostRecord[0]->getField('Sold_n') == 1) { @endphp
+                        <td><span class="label label-success">Sold</span></td>
+                      @php }
+                      elseif ($expire_time < $today_time) { @endphp
+                        <td><span class="label label-danger">Expired</span></td>
+                      @php } else { @endphp
+                        <td><span class="label label-primary">Active</span></td>
+                    @php } @endphp
+                    <td><Button class="label label-info">View</Button></td>
+                  </tr>
+                  @php $i = $i+1; @endphp
+                @endforeach
               </table>
             </div>
           </div>
