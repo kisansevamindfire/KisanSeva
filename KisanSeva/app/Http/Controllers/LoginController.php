@@ -8,15 +8,15 @@
 namespace App\Http\Controllers;
 
 
-class LoginController extends Controller
+class PagesController extends Controller
 {
     public function getlogin() {
-		return view("Login.login");
+		return view("pages.login");
     }
 
     
     public function getRegister() {
-    	return view("Login.register");
+    	return view("pages.register");
     }
 
 }
