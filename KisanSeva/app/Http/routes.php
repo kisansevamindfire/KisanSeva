@@ -18,9 +18,7 @@ Route::get('/', function () {
 Route::get('admin', function() {
 	return view('admin.index');
 });
-Route::get('farmer', function() {
-    return view('farmer.index');
-});
+
 Route::get('profile', function() {
     return view('farmer.profile');
 });
@@ -33,25 +31,28 @@ Route::get('test1', function() {
 });
 
 //Route to go to the Addpost View.
-Route::get('farmer', 'FarmerController@Index');
+Route::post('index', 'FarmerController@index');
 
 //Route to go to the Addpost View.
-Route::get('addpost', 'FarmerController@FindAllCategory');
+Route::get('farmer', 'FarmerController@farmer');
+
+//Route to go to the Addpost View.
+Route::get('addpost', 'FarmerController@findAllCategory');
 
 //Route to go to the ViewPost View.
-Route::get('viewpost', 'FarmerController@FindAllPosts');
+Route::get('viewpost', 'FarmerController@findAllPosts');
 
 //Route for adding a post to database.
-Route::post('AddPostData', 'FarmerController@CreatePost');
+Route::post('AddPostData', 'FarmerController@createPost');
 
 //Route for go get crops under specific category.
-Route::get('viewCrops', 'FarmerController@FindCrops');
+Route::get('viewCrops', 'FarmerController@findCrops');
 
 //Route to go to the farming tips view and show farming tips.
-Route::get('farmingtips', 'FarmerController@FindAllTips');
+Route::get('farmingtips', 'FarmerController@findAllTips');
 
 //Route to show Farming Tips in Details.
-Route::get('tipsdetails/{id}','FarmerController@TipDetails');
+Route::get('tipsdetails/{id}','FarmerController@tipDetails');
 
 // Login Page
 //Route::get('/', 'PagesController@getlogin');

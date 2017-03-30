@@ -32,6 +32,9 @@
   <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 </head>
 @stop
+@section('username')
+  {{ $sessiondata['name'] }}
+@stop
 @section('sidebar')
   <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
@@ -70,6 +73,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
+      {{ $sessiondata['name'] }}
         Dashboard
         <small>Farmer</small>
       </h1>

@@ -60,8 +60,8 @@
         </div>
       </div>
       <div class="col-sm-4">
-      <form id="AddPost" action="AddPostData" method="Post" role="form">
-        <form id="myForm">
+        <form id="LoginUser" action="index" method="Post" role="form">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group">
             <div class="row">
               <div class="col-sm-6">
@@ -72,17 +72,17 @@
               </div>
               <div class="form-group col-md-12">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email"
+                <input type="text" class="form-control" id="email" name="userEmail"
                  placeholder="example@gmail.com">
                 </div>
                 <div class="form-group col-md-12">
                   <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="******" maxlength="10">
+                  <input type="password" class="form-control" id="password" name="userPassword" placeholder="******" maxlength="10">
                 </div>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" id="submit">Submit</button>
+                      <button type="submit" class="btn btn-success" id="submit">Submit</button>
                       <button type="reset" class="btn btn-primary">Reset</button>
                     </div>
                   </div>
