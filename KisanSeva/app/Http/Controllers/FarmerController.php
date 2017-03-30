@@ -41,7 +41,7 @@ class FarmerController extends Controller
     /**
     * Function to get All Farming Tips Data.
     *
-    * @param Null.
+    * @param 1. Null.
     * @return - Filemaker results of all Farming Tips found.
     */
     public function farmer(Request $request)
