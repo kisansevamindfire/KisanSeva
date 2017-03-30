@@ -11,7 +11,7 @@ use App\Classes\FilemakerWrapper;
 use FileMaker;
 class UserModal
 {
-      public static function addUser($layout, $input)
+     public static function addUser($layout, $input)
     {
         $fmobject = FilemakerWrapper::getConnection();
         // storing the data into the database.

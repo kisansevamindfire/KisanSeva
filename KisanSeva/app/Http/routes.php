@@ -37,23 +37,30 @@ Route::get('test1', function() {
     return view('test1');
 });
 
-
-
-
+//Route to go to the Addpost View.
 Route::get('addpost', 'FarmerController@FindAllCategory');
-Route::get('viewCrops', 'FarmerController@FindCrops');
-// Login Page
-Route::get('/', 'LoginController@getlogin');
 
+//Route for adding a post to database.
+Route::post('AddPostData', 'FarmerController@CreatePost');
+
+//Route for go get crops under specific category.
+Route::get('viewCrops', 'FarmerController@FindCrops');
+
+//Route to go to the farming tips view and show farming tips.
+Route::get('farmingtips', 'FarmerController@FindAllTips');
+
+//Route to show Farming Tips in Details.
+Route::get('tipsdetails/{id}','FarmerController@TipDetails');
+
+
+// Login Page
+Route::get('/', 'LoginController@loginUser');
+
+
+//Route::resource('posts', 'LoginController');
 
 // Register Page 
-Route::get('register', 'LoginController@getRegister');
-
-
-
-Route::get('tipsdetails/{id}','FarmerController@TipDetails');
-// Test page which will read data of users and tips from Filemaker
-Route::get('test', 'UsersController@index');
+Route::get('register', 'LoginController@registerUser');
 
 // Display farmingtips
 Route::get('farmingtips', 'FarmerController@FindAllTips');
@@ -66,5 +73,6 @@ Route::get('viewadds', 'DealerController@viewadds');
 
 // Dealer will see the details related to particular add
 Route::get('details', 'DealerController@details');
- // dealer will see his previous purchases
+ 
+// dealer will see his previous purchases
 Route::get('viewprevious', 'DealerController@viewprevious');

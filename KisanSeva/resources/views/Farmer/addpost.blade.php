@@ -67,50 +67,52 @@
 
 
    <div class="content-wrapper">
-
     <section class="content">
       <div class="row">
-        <!-- left column -->
         <div class="col-md-6">
-          <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Quick Example</h3>
             </div>
-            <!-- /.box-header -->
-            <form role="form">
+            <form id="AddPost" action="AddPostData" method="Post" role="form">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
                   <label>Select Category</label>
-                  <select class="form-control" id="selectCategory" >
-                  @foreach($records as $record)
-                  <?php $id = $record->getrecordid() ?>
-                    <option value="{{ $record ->getField('___kpn_CategoryId')}}">{{ $record->getField('CategoryName_xt') }}</option>
-@endforeach
+                  <select class="form-control" id="selectCategory" name="Category">
+                    <option value="0" disabled="true" selected="true">--Select--</option>
+                    @foreach($records as $record)
+                      <?php $id = $record->getrecordid() ?>
+                      <option value="{{ $record ->getField('___kpn_CategoryId')}}">{{ $record->getField('CategoryName_xt') }}</option>
+                    @endforeach
                   </select>
-
                 </div>
                 <div class="form-group">
                   <label>Select Crop</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
-                    <option>option 3</option>
-                    <option>option 4</option>
-                    <option>option 5</option>
+                  <select class="form-control cropName" name="Crop">
+                    <option value="0" disabled="true" selected="true">Choose Crop</option>
                   </select>
                 </div>
                 <div class="form-group">
+                <div class="row">
+                <div class="col-md-6">
                   <label for="Quantity">Quantity</label>
-                  <input type="text" class="form-control" id="quantity" placeholder="Quantity">
-                </div>
+                  <input type="text" class="form-control" name="Quantity" id="quantity" placeholder="Quantity">
+                  </div>
+                   <div class="col-md-6">
+                   <label for="Quantity">Weight</label>
+                  <select class="form-control" name="Weight">
+                    <option value="0">Kg</option>
+                    <option value="1">Ton</option>
+                  </select>
+                </div></div></div>
                 <div class="form-group">
                   <label for="BasePrice">Base Price</label>
-                  <input type="text" class="form-control" id="price" placeholder="Base Price">
+                  <input type="text" class="form-control" id="price" name="BasePrice" placeholder="Base Price">
                 </div>
                 <div class="form-group">
-                  <label for="ExpiryTime">Enter Expiry Time</label>
-                  <input type="text" class="form-control" id="ExpiryTime" placeholder="Expiry Time">
+                  <label for="ExpiryTime">Enter Expiry Date</label>
+                  <input type="date" class="form-control" id="ExpiryTime" name="ExpiryTime" placeholder="Expiry Time">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPhoto">Insert Photo</label>
