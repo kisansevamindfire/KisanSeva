@@ -54,11 +54,10 @@ Route::get('farmingtips', 'FarmerController@findAllTips');
 //Route to show Farming Tips in Details.
 Route::get('tipsdetails/{id}','FarmerController@tipDetails');
 
-// Login Page
-//Route::get('/', 'PagesController@getlogin');
+Route::get('register', 'LoginController@getRegister');
 
-// Register Page
-Route::get('register', 'PagesController@getRegister');
+
+
 
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
@@ -74,3 +73,5 @@ Route::get('viewadds', 'DealerController@viewadds');
 
 // Dealer will see the details related to particular add
 Route::get('details', 'DealerController@details');
+ // dealer will see his previous purchases
+Route::get('viewprevious', 'DealerController@viewprevious');

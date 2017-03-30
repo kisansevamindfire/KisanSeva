@@ -37,13 +37,13 @@
                 <img src="assets/background/1.jpg">
               </div>
               <div class="item">
-                <img src="assets/background/2.jpg">
+                <img src="assets/user/background/2.jpg">
               </div>
               <div class="item">
-                <img src="assets/background/3.jpg" >
+                <img src="asstes/user/background/3.jpg" >
               </div>
               <div class="item">
-                <img src="assets/background/4.jpg" >
+                <img src="assets/user/background/4.jpg" >
               </div>
             </div>
             <!-- Left and right controls -->
@@ -93,9 +93,8 @@
           <center><h3><a href="#">Forgot Password</a></h3></center>
         </div>
       </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
-
 
