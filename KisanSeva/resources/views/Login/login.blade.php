@@ -1,7 +1,7 @@
 <!--
 
 * File    : index.blade.php
-* Author  : Saurabh Mehta  
+* Author  : Saurabh Mehta
 * Date    : 16-Mar-2017
 * Purpose : Login page of our users  -->
 <html>
@@ -60,6 +60,7 @@
         </div>
       </div>
       <div class="col-sm-4">
+      <form id="AddPost" action="AddPostData" method="Post" role="form">
         <form id="myForm">
           <div class="form-group">
             <div class="row">
@@ -71,7 +72,7 @@
               </div>
               <div class="form-group col-md-12">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" 
+                <input type="text" class="form-control" id="email"
                  placeholder="example@gmail.com">
                 </div>
                 <div class="form-group col-md-12">
@@ -97,5 +98,3 @@
   </body>
 </html>
 
-    
-  
