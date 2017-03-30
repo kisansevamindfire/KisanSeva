@@ -5,100 +5,77 @@
 * Purpose : Admin home Screen  -->
 
 @extends('layouts.master')
-@section('title')
-  <title>Dealer | Home</title>
-@stop
-@section('header')
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/bootstrap/css/bootstrap.min.css') }}">
-
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/AdminLTE.min.css') }}">
-
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/iCheck/flat/blue.css') }}">
-
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/morris/morris.css') }}">
-
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
-
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/datepicker/datepicker3.css') }}">
-
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/daterangepicker/daterangepicker.css') }}">
-
-  <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
-</head>
-@stop
-@section('sidebar')
-  <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
-          <a href="{{ URL::to('dealer') }}">
-            <i class="fa fa-home"></i>
-            <span>Home</span>
-          </a>
-        </li>
-       <!-- <li class="treeview">
-          <a href="{{ URL::to('addpost') }}">
-            <i class="fa fa-plus"></i>
-            <span>Add Post</span>
-          </a>
-        </li>-->
-        <li class="treeview">
-          <a href="{{ URL::to('viewadds') }}">
-            <i class="fa fa-files-o"></i>
-            <span>View Adds</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-        </li>
-       <!-- <li class="treeview">
-          <a href="{{ URL::to('viewbids') }}">
-            <i class="fa fa-files-o"></i>
-            <span>View Bids</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="{{ URL::to('farmingtips') }}">
-            <i class="fa fa-edit"></i> <span>Farming Tips</span>
-          </a>
-        </li>-->
-      </ul>
-@stop
-@section('content')
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  @section('title')
+    <title>Dealer | Home</title>
+  @stop
+  @section('header')
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/iCheck/flat/blue.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/morris/morris.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/datepicker/datepicker3.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+    </head>
+  @stop
+  @section('sidebar')
+    <ul class="sidebar-menu">
+      <li class="header">MAIN NAVIGATION</li>
+      <li class="active treeview">
+        <a href="{{ URL::to('dealer') }}">
+          <i class="fa fa-home"></i>
+          <span>Home</span>
+        </a>
+      </li>
+      <li class="treeview">
+        <a href="{{ URL::to('viewadds') }}">
+          <i class="fa fa-files-o"></i>
+          <span>View Ads</span>
+          <span class="pull-right-container">
+            <span class="label label-primary pull-right">4</span>
+          </span>
+        </a>
+      </li>
+      <li class="treeview">
+        <a href="{{ URL::to('viewprevious') }}">
+          <i class="fa fa-files-o"></i>
+          <span>Purchasing History</span>
+          <span class="pull-right-container">
+            <span class="label label-primary pull-right">4</span>
+          </span>
+        </a>
+      </li>
+    </ul>
+  @stop
+  @section('content')
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Dealer</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
+      <section class="content-header">
+        <h1>
+          Dashboard <small>Dealer</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active">Dashboard</li>
+        </ol>
+      </section>
+      <!-- Main content -->
+      <section class="content">
       <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
+        <div class="row">
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+              <div class="inner">
               <h3>150</h3>
-
-              <p>New Orders</p>
+                <p>New Orders</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
