@@ -1,15 +1,18 @@
 <!--
 
 * File    : index.blade.php
-* Author  : Saurabh Mehta  
+* Author  : Saurabh Mehta
 * Date    : 16-Mar-2017
 * Purpose : Login page of our users  -->
-@extends('main')
-
-@section('title', '| Login')
-
-@section('body')
-  
+<html>
+  <head>
+    <title>Kisan Seva | Login</title> <!--Change title according to pages -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+  </head>
+  <body id="myPage">
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -57,6 +60,7 @@
         </div>
       </div>
       <div class="col-sm-4">
+      <form id="AddPost" action="AddPostData" method="Post" role="form">
         <form id="myForm">
           <div class="form-group">
             <div class="row">
@@ -68,7 +72,7 @@
               </div>
               <div class="form-group col-md-12">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" 
+                <input type="text" class="form-control" id="email"
                  placeholder="example@gmail.com">
                 </div>
                 <div class="form-group col-md-12">
@@ -89,7 +93,9 @@
           <center><h3><a href="#">Forgot Password</a></h3></center>
         </div>
       </div>
-    @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
 
-    
-  
+

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Login.login');
 });
 
 Route::get('admin', function() {
@@ -33,6 +33,9 @@ Route::get('test1', function() {
 });
 
 //Route to go to the Addpost View.
+Route::get('farmer', 'FarmerController@Index');
+
+//Route to go to the Addpost View.
 Route::get('addpost', 'FarmerController@FindAllCategory');
 
 //Route to go to the ViewPost View.
@@ -51,7 +54,7 @@ Route::get('farmingtips', 'FarmerController@FindAllTips');
 Route::get('tipsdetails/{id}','FarmerController@TipDetails');
 
 // Login Page
-Route::get('/', 'PagesController@getlogin');
+//Route::get('/', 'PagesController@getlogin');
 
 // Register Page
 Route::get('register', 'PagesController@getRegister');
