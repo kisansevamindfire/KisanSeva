@@ -34,6 +34,9 @@ Route::get('test1', function() {
 Route::post('index', 'FarmerController@index');
 
 //Route to go to the Addpost View.
+Route::get('signout', 'FarmerController@signout');
+
+//Route to go to the Addpost View.
 Route::get('farmer', 'FarmerController@farmer');
 
 //Route to go to the Addpost View.
@@ -44,6 +47,9 @@ Route::get('viewpost', 'FarmerController@findAllPosts');
 
 //Route for adding a post to database.
 Route::post('AddPostData', 'FarmerController@createPost');
+
+//Route for go get crops under specific category.
+Route::get('viewCrops', 'FarmerController@findCrops');
 
 //Route for go get crops under specific category.
 Route::get('viewCrops', 'FarmerController@findCrops');

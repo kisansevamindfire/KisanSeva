@@ -15,12 +15,18 @@ use Illuminate\Routing\Controller;
 
 class FarmerController extends Controller
 {
+
+    /**
+    * Function to sign in to the required user home page.
+    *
+    * @param 1. Reguest - Contains all data of user for login.
+    * @return - Returns to the route of desired user.
+    */
     public function index(Request $request)
     {
         $records = FarmerModel::userDetails('User', $request->all());
-       //dd($records);
         if ($records !== false) {
-            $request->session()->put('users', $records[0]->getField('___kpn_UserId'));
+            $request->session()->put('user', $records[0]->getField('___kpn_UserId'));
             $request->session()->put('name', $records[0]->getField('UserName_xt'));
             $request->session()->put('type', $records[0]->getField('__kfn_UserType'));
             if ($records[0]->getField('__kfn_UserType') == 2) {
@@ -32,86 +38,105 @@ class FarmerController extends Controller
             }
         }
         return redirect('/');
-        $sessiondata = $request->session()->all();
-        //dd($sessiondata['type']);
-        //}
-        //return $isUser;
     }
 
     /**
-    * Function to get All Farming Tips Data.
+    * Function to go to Farmer View.
     *
-    * @param 1. Null.
-    * @return - Filemaker results of all Farming Tips found.
+    * @param 1. Reguest - Contains all session data.
+    * @return - Returns to the desired view of desired user.
     */
     public function farmer(Request $request)
     {
-        if (!$request->session()->has('users')) {
+        $sessionArray = $request->session()->all();
+        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $sessiondata = $request->session()->all();
-        return view('farmer.index', compact('sessiondata'));
+        return view('farmer.index', compact('sessionArray'));
     }
     /**
     * Function to get All Farming Tips Data.
     *
-    * @param Null.
+    * @param 1. Reguest - Contains all session data.
     * @return - Filemaker results of all Farming Tips found.
     */
     public function findAllTips(Request $request)
     {
-        if (!$request->session()->has('users')) {
+        $sessionArray = $request->session()->all();
+        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $sessiondata = $request->session()->all();
         $records = FarmerModel::findAll('Tips');
-        return view('farmer.farmingtips', compact('records'));
+        return view('farmer.farmingtips', compact('records', 'sessionArray'));
     }
 
     /**
     * Function to get Specific Farming Tips Data.
     *
     * @param 1. $id - contains record id of specific farming tip to be displayed.
+    *        2. Reguest - Contains all session data.
     * @return - Filemaker results of Farming Tips found.
     */
     public function tipDetails(Request $request, $id)
     {
-        if (!$request->session()->has('users')) {
+        $sessionArray = $request->session()->all();
+        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $sessiondata = $request->session()->all();
         $records = FarmerModel::find('Tips', $id, '___kpn_TipId');
-        return view('farmer.tipsdetails', compact('records'));
+        return view('farmer.tipsdetails', compact('records', 'sessionArray'));
     }
 
     /**
     * Function to get all the Category.
     *
-    * @param Null.
+    * @param 1. Reguest - Contains all session data.
     * @return - Filemaker results of Category Found.
     */
     public function findAllCategory(Request $request)
     {
-        if (!$request->session()->has('users')) {
+        $sessionArray = $request->session()->all();
+        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $sessiondata = $request->session()->all();
         $records = FarmerModel::findAll('Category');
-        return view('farmer.addpost', compact('records'));
+        return view('farmer.addpost', compact('records', 'sessionArray'));
     }
 
     /**
     * Function to Find all Crops Under Category.
     *
-    * @param 1. $request - contains id of the Category.
+    * @param 1. $request - contains id of the Category and all session data.
     * @return - Filemaker results of Crops Found under Category.
     */
     public function findCrops(Request $request)
     {
-        if (!$request->session()->has('users')) {
+        $sessionArray = $request->session()->all();
+        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $sessiondata = $request->session()->all();
+        $records = FarmerModel::find('Crop', $request->id, '__kfn_CategoryId');
+        $i = 0 ;
+        $array = [];
+        foreach ($records as $record) {
+            $array[$i] = [$record->getField('CropName_xt'), $record->getField('___kpn_CropId')];
+            $i = $i+1;
+        }
+        return response()->json($array);
+    }
+
+    /**
+    * Function to Find all Crops Under Category.
+    *
+    * @param 1. $request - contains id of the Category and all session data.
+    * @return - Filemaker results of Crops Found under Category.
+    */
+    public function findCrops(Request $request)
+    {
+        $sessionArray = $request->session()->all();
+        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
+            return redirect('/');
+        }
         $records = FarmerModel::find('Crop', $request->id, '__kfn_CategoryId');
         $i = 0 ;
         $array = [];
@@ -125,35 +150,35 @@ class FarmerController extends Controller
     /**
     * Function to Create a Post of the crop.
     *
-    * @param 1. $request - contains all data of the post to be created.
-    * @return - RReturns to the Crop post page.
+    * @param 1. $request - contains all data of the post to be created and all session data.
+    * @return - Returns to the Crop post page.
     */
     public function createPost(Request $request)
     {
-        if (!$request->session()->has('users')) {
+        $sessionArray = $request->session()->all();
+        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $sessiondata = $request->session()->all();
-        $return = FarmerModel::addPost('CropPost', $request->all());
+        $return = FarmerModel::addPost('CropPost', $request->all(), $sessionArray['user']);
         if ($return == true) {
-            return back();
+            return redirect('viewpost');
         }
         return back();
     }
 
     /**
-    * Function to get all the Category.
+    * Function to get all posts.
     *
-    * @param Null.
-    * @return - Filemaker results of Category Found.
+    * @param 1. Reguest - Contains all session data.
+    * @return - Array of all post data.
     */
-    public function findAllPosts(Request $requests)
+    public function findAllPosts(Request $request)
     {
-        if (!$requests->session()->has('users')) {
+        $sessionArray = $request->session()->all();
+        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $sessiondata = $requests->session()->all();
-        $records = FarmerModel::findAll('CropPost');
+        $records = FarmerModel::find('CropPost', $sessionArray['user'], '__kfn_UserId');
         $i=0;
         foreach ($records as $record) {
             $cropRecord = FarmerModel::find('Crop', $record->getField('__kfn_CropId'), '___kpn_CropId');
@@ -167,11 +192,18 @@ class FarmerController extends Controller
             $cropDetails,
             $categoryDetails
         );
-        return view('farmer.ViewPost', compact('PostRecords'));
+        return view('farmer.ViewPost', compact('PostRecords', 'sessionArray'));
+    }
 
-       //dd($PostRecords[1][2][0]);
-        //dd($PostRecords[0][0]->getField('__kfn_CropId'));
-        //dd($categoryDetails);
-        //return view('farmer.ViewPost', compact('records'));
+    /**
+    * Function to signout.
+    *
+    * @param 1. Reguest - Contains all session data.
+    * @return - Returns to login view.
+    */
+    public function signout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/');
     }
 }
