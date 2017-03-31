@@ -78,7 +78,7 @@ class FarmerModel
     *        2. $input - Contains all the data to be inserted in the record.
     * @return - Boolian value if any error occured or not.
     */
-    public static function addPost($layout, $input)
+    public static function addPost($layout, $input, $UserId)
     {
         $newDate = date("m/d/Y", strtotime($input['ExpiryTime']));
         $fmobj = FilemakerWrapper::getConnection();
@@ -91,6 +91,7 @@ class FarmerModel
         $request->setField('__kfn_CropId', $input['Crop']);
         $request->setField('CropPrice_xn', $input['BasePrice']);
         $request->setField('CropExpiryTime_xi', $newDate);
+        $request->setField('__kfn_UserId', $UserId);
         $request->setField('Quantity_xn', $str);
         $result = $request->commit();
         if (!FileMaker::isError($result)) {

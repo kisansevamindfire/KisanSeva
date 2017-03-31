@@ -33,7 +33,7 @@
 </head>
 @stop
 @section('username')
-  {{ $sessiondata['name'] }}
+  {{ $sessionArray['name'] }}
 @stop
 @section('sidebar')
   <ul class="sidebar-menu">
@@ -67,13 +67,12 @@
       </ul>
 @stop
 @section('content')
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      {{ $sessiondata['name'] }}
+      {{ $sessionArray['name'] }}
         Dashboard
         <small>Farmer</small>
       </h1>

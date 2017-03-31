@@ -63,6 +63,9 @@
         </li>
       </ul>
 @stop
+@section('username')
+  {{ $sessionArray['name'] }}
+@stop
 @section('content')
 <div class="content-wrapper">
 

@@ -32,6 +32,9 @@
   <![endif]-->
 </head>
 @stop
+@section('username')
+  {{ $sessionArray['name'] }}
+@stop
 @section('sidebar')
   <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
