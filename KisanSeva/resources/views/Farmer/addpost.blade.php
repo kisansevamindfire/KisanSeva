@@ -135,7 +135,7 @@
 <script type="text/javascript">
 var url = "{{ URL::to('viewCrops') }}";
 </script>
-<script type="text/javascript" src="{{ asset('bower_components/AdminLTE/dist/js/script.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bower_components/AdminLTE/dist/js/script.js?ver=1.4.11') }}"></script>
 
 </body>
 </html>

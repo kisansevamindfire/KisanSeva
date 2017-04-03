@@ -126,25 +126,44 @@ class FarmerController extends Controller
     }
 
     /**
-    * Function to Find all Crops Under Category.
+    * Function to Find post according to search field.
     *
     * @param 1. $request - contains id of the Category and all session data.
     * @return - Filemaker results of Crops Found under Category.
     */
-    public function findCrops(Request $request)
+    public function findSpecificPosts(Request $request)
     {
+        date_default_timezone_set('Asia/Kolkata');
+        $date = date("m/d/Y");
         $sessionArray = $request->session()->all();
         if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $records = FarmerModel::find('Crop', $request->id, '__kfn_CategoryId');
-        $i = 0 ;
-        $array = [];
-        foreach ($records as $record) {
-            $array[$i] = [$record->getField('CropName_xt'), $record->getField('___kpn_CropId')];
-            $i = $i+1;
+        $records = FarmerModel::findPosts('CropPost', $request->cropName, $sessionArray['user']);
+        if ($records == false) {
+            return response()->json(false);
         }
-        return response()->json($array);
+        $i=0;
+        foreach ($records as $record) {
+            $cropRecord = FarmerModel::find('Crop', $record->getField('__kfn_CropId'), '___kpn_CropId');
+            $today_time = strtotime($date);
+            $expire_time = strtotime($record->getField('CropExpiryTime_xi'));
+            if($record->getField('Sold_n') == 1) {
+                $status = 1; }
+            elseif ($expire_time < $today_time) {
+                $status = 2;
+            } else { $status = 3; }
+           // $urldata = "{{ URL::to('addpost') }}";
+            $postDetails[$i] = [$record->getField('CropName_t'), $record->getField('CropPrice_xn'), $record->getField('CropExpiryTime_xi'), $record->getField('Quantity_xn'), $record->getField('PublishedTime_t'), $status];
+            $categoryRecord = FarmerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
+            $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
+            $i = $i + 1;
+        }
+        $PostRecords = array(
+            $postDetails,
+            $categoryDetails
+        );
+        return response()->json($PostRecords);
     }
 
     /**
@@ -159,7 +178,8 @@ class FarmerController extends Controller
         if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
             return redirect('/');
         }
-        $return = FarmerModel::addPost('CropPost', $request->all(), $sessionArray['user']);
+        $cropName = FarmerModel::find('Crop', $request->Crop , '___kpn_CropId');
+        $return = FarmerModel::addPost('CropPost', $request->all(), $sessionArray['user'], $cropName[0]->getField('CropName_xt'));
         if ($return == true) {
             return redirect('viewpost');
         }
@@ -182,14 +202,12 @@ class FarmerController extends Controller
         $i=0;
         foreach ($records as $record) {
             $cropRecord = FarmerModel::find('Crop', $record->getField('__kfn_CropId'), '___kpn_CropId');
-            $cropDetails[$i] = [ $cropRecord[0]->getField('CropName_xt'), $cropRecord[0]->getField('___kpn_CropId')];
             $categoryRecord = FarmerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
             $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
             $i = $i + 1;
         }
         $PostRecords = array(
             $records,
-            $cropDetails,
             $categoryDetails
         );
         return view('farmer.ViewPost', compact('PostRecords', 'sessionArray'));

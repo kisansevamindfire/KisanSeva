@@ -23,13 +23,6 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 @stop
 @section('username')
@@ -67,12 +60,6 @@
       </ul>
 @stop
 @section('content')
-<?php
-//  date_default_timezone_set('Asia/Kolkata');
-  //$date = date("Y/m/d");
-  //$time = date("h:i:sa");
-  //echo $date;
-?>
 <div class="content-wrapper">
     <section class="content">
       <div class="row">
@@ -97,7 +84,7 @@
               $i = 0 ;
             @endphp
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
+            <div class="box-body table-responsive no-padding postDisplay">
               <table class="table table-hover">
                 <tr>
                   <th>Category</th>
@@ -109,8 +96,8 @@
                 </tr>
                 @foreach($PostRecords[0] as $PostRecord[0])
                   <tr>
-                    <td>{{ $PostRecords[2][$i][0] }}</td>
                     <td>{{ $PostRecords[1][$i][0] }}</td>
+                    <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
                     <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
                     <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
                     <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
@@ -125,7 +112,7 @@
                       @php } else { @endphp
                         <td><span class="label label-primary">Active</span></td>
                     @php } @endphp
-                    <td><Button class="label label-info">View</Button></td>
+                    <td><a href="{{ URL::to('addpost') }}">View</a><Button class="label label-info">View</Button></td>
                   </tr>
                   @php $i = $i+1; @endphp
                 @endforeach
