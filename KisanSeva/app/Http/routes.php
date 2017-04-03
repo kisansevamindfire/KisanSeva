@@ -64,15 +64,13 @@ Route::get('farmingtips', 'FarmerController@findAllTips');
 
 //Route to show Farming Tips in Details.
 Route::get('tipsdetails/{id}','FarmerController@TipDetails');
-Route::get('register', 'LoginController@getRegister');
 Route::get('tipsdetails/{id}','FarmerController@tipDetails');
 
 // Login Page
 //Route::get('/', 'PagesController@getlogin');
 
 // Register Page
-Route::get('register', 'PagesController@getRegister');
-
+Route::get('register', 'LoginController@registerUser');
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
 

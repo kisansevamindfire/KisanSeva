@@ -2,7 +2,6 @@
 /**
 * File: LoginController.php
 * Purpose: Calls the LoginUser class to fetch the data from filemaker 
-
 database
 * Date: 20-Mar-2017
 * Author: Saurabh Mehta
@@ -13,14 +12,11 @@ use App\UserModal;
 use App\Http\Requests;
 use App\Classes;
 use Illuminate\Routing\Controller;
-
-<<<<<<< HEAD
 class LoginController extends Controller
 {   
     public function loginUser() {
         return view("Login.login");
     }
-
     public function registerUser() {
         return view('Login.register');
 /*    $input = $_POST;
@@ -32,7 +28,6 @@ class LoginController extends Controller
     }
 */
 }
-
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +37,6 @@ class LoginController extends Controller
     {
         //
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -51,19 +45,7 @@ class LoginController extends Controller
     public function create()
     {
         //
-=======
-class PagesController extends Controller
-{
-    public function getlogin() {
-		return view("pages.login");
     }
-
-    
-    public function getRegister() {
-    	return view("pages.register");
->>>>>>> 36abd7fa458b72a1f6d3c2e651bc91f8fc352c82
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -74,7 +56,6 @@ class PagesController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *
@@ -85,7 +66,6 @@ class PagesController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -96,7 +76,6 @@ class PagesController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -108,7 +87,6 @@ class PagesController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -120,3 +98,4 @@ class PagesController extends Controller
         //
     }
 }
+                
