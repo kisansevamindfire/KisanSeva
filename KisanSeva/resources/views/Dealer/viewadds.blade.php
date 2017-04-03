@@ -53,50 +53,68 @@
         <a href="{{ URL::to('viewprevious') }}">
           <i class="fa fa-files-o"></i>
           <span>Purchasing History</span>
-          <span class="pull-right-container">
-            <span class="label label-primary pull-right">4</span>
-          </span>
         </a>
       </li>
     </ul>
   @stop
   @section('content')
-    <div class="content-wrapper">
+<div class="content-wrapper">
+
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3><center>Advertisements</center></h3>
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+              <h3><center>Crops available</center></h3>    
+                <div class="box-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                    <div class="input-group-btn">
+                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            @php
+              date_default_timezone_set('Asia/Kolkata');
+              $date = date("m/d/Y");
+              $time = date("h:i:sa");
+              $i = 0 ;
+            @endphp
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
                   <th>Category</th>
                   <th>Crop</th>
-                  <th>Date Posted</th>
+                  <th>Time Posted</th>
                   <th>Quantity</th>
                   <th>Base Price</th>
-                  <th>Detail</th>
+                  <th>Status</th>
                 </tr>
-                <tr>
-                  <td>Vegetables</td>
-                  <td>Beans</td>
-                  <td>11-7-2014</td>
-                  <td>1 kg</td>
-                  <td>290</td>
-                  <td><a href="{{ URL::to('details') }}"><span class="label label-primary">View</span></a></td>
-                </tr>
+                @foreach($PostRecords[0] as $PostRecord[0])
+                  <tr>
+                    <td>{{ $PostRecords[2][$i][0] }}</td>
+                    <td>{{ $PostRecords[1][$i][0] }}</td>
+                    <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
+                    <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
+                    <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
+                    @php
+                      $today_time = strtotime($date);
+                      $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
+                      if($PostRecord[0]->getField('Sold_n') == 1) { @endphp
+                        <td><span class="label label-success">Sold</span></td>
+                      @php }
+                      elseif ($expire_time < $today_time) { @endphp
+                        <td><span class="label label-danger">Expired</span></td>
+                      @php } else { @endphp
+                        <td><span class="label label-primary">Active</span></td>
+                    @php } @endphp
+                    <td><Button class="label label-info">View</Button></td>
+                  </tr>
+                  @php $i = $i+1; @endphp
+                @endforeach
               </table>
             </div>
           </div>

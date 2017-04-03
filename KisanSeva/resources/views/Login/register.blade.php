@@ -1,9 +1,41 @@
-<!--
-
+<?php
+/*
 * File    : register.blade.php
 * Author  : Saurabh Mehta  
 * Date    : 15-Mar-2017
 * Purpose : Registration page for the users  -->
+*/
+
+if (isset($_POST['btn-register'])) {
+    
+    $userType = trim($_POST['UserType']);
+    $userType = strip_tags($userType);
+    $userType = htmlspecialchars($userType);
+
+    $userName = trim($_POST['UserName']);
+    $userName = strip_tags($userName);
+    $userName = htmlspecialchars($userName);
+
+    $UserContact = trim($_POST['UserContact']);
+    $UserContact = strip_tags($UserContact);
+    $UserContact = htmlspecialchars($UserContact);
+
+    $UserAddress = trim($_POST['UserAddress']);
+    $UserAddress = strip_tags($UserAddress);
+    $UserAddress = htmlspecialchars($UserAddress);
+
+    $UserEmail = trim($_POST['UserEmail']);
+    $userEmail = strip_tags($userEmail);
+    $userEmail = htmlspecialchars($userEmail);
+
+    $UserPassword = trim($_POST['UserPassword']);
+    $UserPassword = strip_tags($UserPassword);
+    $UserPassword = htmlspecialchars($UserPassword);
+
+
+}
+
+?>
 
 <html>
   <head>
@@ -39,13 +71,13 @@
               <img src="assets/background/1.jpg">
             </div>
             <div class="item">
-              <img src="assets/user/background/2.jpg">
+              <img src="assets/background/2.jpg">
             </div>
             <div class="item">
-              <img src="assets/user/background/3.jpg">
+              <img src="assets/background/3.jpg">
             </div>
             <div class="item">
-              <img src="assets/user/background/4.jpg">
+              <img src="assets/background/4.jpg">
             </div>
           </div>
           <!-- Left and right controls -->
@@ -74,34 +106,34 @@
             </div>
             <div class="form-group col-md-12">
               <label>Register As</label>
-              <select class="form-group col-md-12">
-                <option>Farmer</option>
-                <option>Dealer</option>
+              <select class="form-group col-md-12" name="UserType">
+                <option value="3">Farmer</option>
+                <option value="2">Dealer</option>
               </select>
             </div>
             <div class="form-group col-md-12">
               <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" 
+              <input type="text" class="form-control" id="name" name="UserName"
               placeholder="Name" maxlength="25">
             </div>
             <div class="form-group col-md-12">
               <label for="contact">Contact</label>
-              <input type="text" class="form-control" id="contact" 
+              <input type="text" class="form-control" id="contact" name="UserContact"
                placeholder="contact" maxlength="10">
             </div>
             <div class="form-group col-md-12">
               <label for="address">Address</label>
-              <input type="text" class="form-control" id="address"
+              <input type="text" class="form-control" id="address" name="UserAddress"
                placeholder="Address" maxlength="40">
             </div>
             <div class="form-group col-md-12">
               <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" 
+              <input type="text" class="form-control" id="email" name="UserEmail"
                placeholder="example@gmail.com" maxlength="25">
             </div>
             <div class="form-group col-md-12">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" 
+              <input type="password" class="form-control" id="password" name="UserPassword"
                placeholder="******" maxlength="20">
             </div>
             <div class="form-group col-md-12">
@@ -112,8 +144,8 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                  <button type="button" class="btn btn-success" data-toggle="modal"
-                  data-target="#myModal" id="submit">Submit</button>
+                  <button type="button" class="btn btn-success"
+                   id="submit" name="btn-register">Submit</button>
                   <button type="reset" class="btn btn-primary">Reset</button>
                 </div>
               </div>

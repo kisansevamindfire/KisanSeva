@@ -1,7 +1,7 @@
 <?php
 /**
 * File: LoginController.php
-* Purpose: Calls the FMUser class to fetch the data from filemaker database
+
 * Date: 20-Mar-2017
 * Author: Saurabh Mehta
 */
@@ -42,3 +42,4 @@ class LoginController extends Controller
         return redirect('/');
     }
 }
+                

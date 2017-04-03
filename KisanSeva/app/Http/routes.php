@@ -52,6 +52,7 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 
+
 Route::get('profile', function() {
     return view('farmer.profile');
 });
@@ -59,6 +60,7 @@ Route::get('profile', function() {
 Route::get('viewbids', function() {
     return view('farmer.viewbids');
 });
+
 
 
 
@@ -72,14 +74,14 @@ Route::get('viewRelatedPost', 'FarmerController@findSpecificPosts');
 //Route::get('farmingtips', 'FarmerController@findAllTips');
 
 //Route to show Farming Tips in Details.
+Route::get('tipsdetails/{id}','FarmerController@TipDetails');
 Route::get('tipsdetails/{id}','FarmerController@tipDetails');
 
 // Login Page
 //Route::get('/', 'PagesController@getlogin');
 
 // Register Page
-Route::get('register', 'PagesController@getRegister');
-
+Route::get('register', 'LoginController@registerUser');
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
 
@@ -91,3 +93,6 @@ Route::get('viewadds', 'DealerController@viewadds');
 
 // Dealer will see the details related to particular add
 Route::get('details', 'DealerController@details');
+
+ // dealer will see his previous purchases
+Route::get('viewprevious', 'DealerController@viewprevious');
