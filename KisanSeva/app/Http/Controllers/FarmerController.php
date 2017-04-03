@@ -17,42 +17,14 @@ class FarmerController extends Controller
 {
 
     /**
-    * Function to sign in to the required user home page.
-    *
-    * @param 1. Reguest - Contains all data of user for login.
-    * @return - Returns to the route of desired user.
-    */
-    public function index(Request $request)
-    {
-        $records = FarmerModel::userDetails('User', $request->all());
-        if ($records !== false) {
-            $request->session()->put('user', $records[0]->getField('___kpn_UserId'));
-            $request->session()->put('name', $records[0]->getField('UserName_xt'));
-            $request->session()->put('type', $records[0]->getField('__kfn_UserType'));
-            if ($records[0]->getField('__kfn_UserType') == 2) {
-                return redirect('dealer');
-            } elseif ($records[0]->getField('__kfn_UserType') == 3) {
-                return redirect('farmer');
-            } else {
-                return redirect('/');
-            }
-        }
-        return redirect('/');
-    }
-
-    /**
     * Function to go to Farmer View.
     *
     * @param 1. Reguest - Contains all session data.
     * @return - Returns to the desired view of desired user.
     */
-    public function farmer(Request $request)
+    public function farmer()
     {
-        $sessionArray = $request->session()->all();
-        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
-            return redirect('/');
-        }
-        return view('farmer.index', compact('sessionArray'));
+        return view('farmer.index');
     }
     /**
     * Function to get All Farming Tips Data.
@@ -62,10 +34,6 @@ class FarmerController extends Controller
     */
     public function findAllTips(Request $request)
     {
-        $sessionArray = $request->session()->all();
-        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
-            return redirect('/');
-        }
         $records = FarmerModel::findAll('Tips');
         return view('farmer.farmingtips', compact('records', 'sessionArray'));
     }
@@ -79,10 +47,6 @@ class FarmerController extends Controller
     */
     public function tipDetails(Request $request, $id)
     {
-        $sessionArray = $request->session()->all();
-        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
-            return redirect('/');
-        }
         $records = FarmerModel::find('Tips', $id, '___kpn_TipId');
         return view('farmer.tipsdetails', compact('records', 'sessionArray'));
     }
@@ -95,10 +59,6 @@ class FarmerController extends Controller
     */
     public function findAllCategory(Request $request)
     {
-        $sessionArray = $request->session()->all();
-        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
-            return redirect('/');
-        }
         $records = FarmerModel::findAll('Category');
         return view('farmer.addpost', compact('records', 'sessionArray'));
     }
@@ -111,10 +71,6 @@ class FarmerController extends Controller
     */
     public function findCrops(Request $request)
     {
-        $sessionArray = $request->session()->all();
-        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
-            return redirect('/');
-        }
         $records = FarmerModel::find('Crop', $request->id, '__kfn_CategoryId');
         $i = 0 ;
         $array = [];
@@ -136,9 +92,6 @@ class FarmerController extends Controller
         date_default_timezone_set('Asia/Kolkata');
         $date = date("m/d/Y");
         $sessionArray = $request->session()->all();
-        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
-            return redirect('/');
-        }
         $records = FarmerModel::findPosts('CropPost', $request->cropName, $sessionArray['user']);
         if ($records == false) {
             return response()->json(false);
@@ -153,7 +106,7 @@ class FarmerController extends Controller
             elseif ($expire_time < $today_time) {
                 $status = 2;
             } else { $status = 3; }
-           // $urldata = "{{ URL::to('addpost') }}";
+
             $postDetails[$i] = [$record->getField('CropName_t'), $record->getField('CropPrice_xn'), $record->getField('CropExpiryTime_xi'), $record->getField('Quantity_xn'), $record->getField('PublishedTime_t'), $status];
             $categoryRecord = FarmerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
             $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
@@ -175,9 +128,6 @@ class FarmerController extends Controller
     public function createPost(Request $request)
     {
         $sessionArray = $request->session()->all();
-        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
-            return redirect('/');
-        }
         $cropName = FarmerModel::find('Crop', $request->Crop , '___kpn_CropId');
         $return = FarmerModel::addPost('CropPost', $request->all(), $sessionArray['user'], $cropName[0]->getField('CropName_xt'));
         if ($return == true) {
@@ -195,9 +145,6 @@ class FarmerController extends Controller
     public function findAllPosts(Request $request)
     {
         $sessionArray = $request->session()->all();
-        if (!$request->session()->has('user') || $sessionArray['type'] == 2) {
-            return redirect('/');
-        }
         $records = FarmerModel::find('CropPost', $sessionArray['user'], '__kfn_UserId');
         $i=0;
         foreach ($records as $record) {
