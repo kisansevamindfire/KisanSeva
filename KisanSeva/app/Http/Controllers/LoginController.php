@@ -1,101 +1,45 @@
 <?php
 /**
 * File: LoginController.php
-* Purpose: Calls the LoginUser class to fetch the data from filemaker 
-database
+
 * Date: 20-Mar-2017
 * Author: Saurabh Mehta
 */
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\UserModal;
+use App\FarmerModel;
 use App\Http\Requests;
 use App\Classes;
+use App\Post;
 use Illuminate\Routing\Controller;
+use Session;
+
 class LoginController extends Controller
-{   
-    public function loginUser() {
-        return view("Login.login");
-    }
-    public function registerUser() {
-        return view('Login.register');
-/*    $input = $_POST;
-    $returnValue = UserModal::addUser('User',$input);
-    if ($returnValue) {
+{
+
+    /**
+    * Function to sign in to the required user home page.
+    *
+    * @param 1. Reguest - Contains all data of user for login.
+    * @return - Returns to the route of desired user.
+    */
+    public function login(Request $request)
+    {
+        $records = FarmerModel::userDetails('User', $request->all());
+        if ($records !== false) {
+            if ($records[0]->getField('__kfn_UserType') != 1) {
+                $request->session()->put('user', $records[0]->getField('___kpn_UserId'));
+                $request->session()->put('name', $records[0]->getField('UserName_xt'));
+                $request->session()->put('type', $records[0]->getField('__kfn_UserType'));
+                if ($records[0]->getField('__kfn_UserType') == 2) {
+                    return redirect('dealer');
+                } elseif ($records[0]->getField('__kfn_UserType') == 3) {
+                    return redirect('farmer');
+                }
+            }
+        }
         return redirect('/');
-    }
-    return back();
-    }
-*/
-}
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
                 

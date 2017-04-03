@@ -4,8 +4,32 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   @yield('title')
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="{{ asset('template/bootstrap/css/bootstrap.min.css') }}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('template/dist/css/AdminLTE.min.css') }}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins -->
+  <link rel="stylesheet" href="{{ asset('template/dist/css/skins/_all-skins.min.css') }}">
 
-  @yield('header')
+  <link rel="stylesheet" href="{{ asset('template/plugins/datatables/dataTables.bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('template/plugins/iCheck/flat/blue.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('template/plugins/morris/morris.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('template/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+  <link rel="stylesheet" href="{{ asset('template/plugins/datepicker/datepicker3.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('template/plugins/daterangepicker/daterangepicker.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+
+</head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -24,14 +48,14 @@
 
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('bower_components/AdminLTE/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">@yield('username')</span>
+              <img src="{{ asset('template/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+              <span class="hidden-xs">{{ Session::get('name') }}</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
-                <img src="{{ asset('bower_components/AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                <img src="{{ asset('template/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
                 <p>
-                  @yield('username') - Web Developer
+                  {{ Session::get('name') }} - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -53,10 +77,10 @@
     <section class="sidebar">
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('bower_components/AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+          <img src="{{ asset('template/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>@yield('username')</p>
+          <p>{{ Session::get('name') }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -74,6 +98,44 @@
     <!-- /.sidebar -->
   </aside>
 @yield('content')
+<script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{{ asset('template/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- FastClick -->
+<script src="{{ asset('template/plugins/fastclick/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('template/dist/js/app.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('template/dist/js/demo.js') }}"></script>
+<script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<!-- SlimScroll -->
+<script src="{{ asset('template/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="{{ asset('template/plugins/morris/morris.min.js') }}"></script>
 
+<script src="{{ asset('template/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 
-@yield('footer')
+<script src="{{ asset('template/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+<script src="{{ asset('template/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+<script src="{{ asset('template/plugins/knob/jquery.knob.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="{{ asset('template/plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+<script src="{{ asset('template/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+
+<script src="{{ asset('template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+<script type="text/javascript">
+var url = "{{ URL::to('viewCrops') }}";
+</script>
+<script type="text/javascript">
+var urlpost = "{{ URL::to('viewRelatedPost') }}";
+</script>
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
+</body>
+</html>

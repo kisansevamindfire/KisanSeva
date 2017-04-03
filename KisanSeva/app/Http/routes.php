@@ -10,18 +10,48 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::group(['middleware' => ['web']], function () {
 
-Route::get('/', function () {
-    return view('Login.login');
+    Route::group(['middleware' => ['CheckUser']], function() {
+
+        //Route to go to the Farmer Home Page View.
+        Route::get('farmer', 'FarmerController@farmer');
+
+        //Route to go to the Addpost View.
+        Route::get('addpost', 'FarmerController@findAllCategory');
+
+        //Route to go to the ViewPost View.
+        Route::get('viewpost', 'FarmerController@findAllPosts');
+
+        Route::get('profile', function() {
+            return view('farmer.profile');
+        });
+
+        //Route for go get crops under specific category.
+        Route::get('viewCrops', 'FarmerController@findCrops');
+
+        // Display farmingtips
+        Route::get('farmingtips', 'FarmerController@FindAllTips');
+
+    });
+
+    Route::group(['middleware' => ['auth']], function() {
+
+        Route::get('/', function () {
+            return view('Login.login');
+        });
+
+    });
+
+    //Route to go to the Login View.
+    Route::post('index', 'LoginController@login');
+
+    //Route to go to signout and go to login View.
+    Route::get('signout', 'FarmerController@signout');
+
 });
 
-Route::get('admin', function() {
-	return view('admin.index');
-});
 
-Route::get('farmer', function() {
-    return view('farmer.index');
-});
 
 Route::get('profile', function() {
     return view('farmer.profile');
@@ -31,36 +61,17 @@ Route::get('viewbids', function() {
     return view('farmer.viewbids');
 });
 
-Route::get('test1', function() {
-    return view('test1');
-});
 
-//Route to go to the Login View.
-Route::post('index', 'FarmerController@index');
 
-//Route to go to signout and go to login View.
-Route::get('signout', 'FarmerController@signout');
-
-//Route to go to the Farmer Home Page View.
-Route::get('farmer', 'FarmerController@farmer');
-
-//Route to go to the Addpost View.
-Route::get('addpost', 'FarmerController@findAllCategory');
-
-//Route to go to the ViewPost View.
-Route::get('viewpost', 'FarmerController@findAllPosts');
 
 //Route for adding a post to database.
 Route::post('AddPostData', 'FarmerController@createPost');
-
-//Route for go get crops under specific category.
-Route::get('viewCrops', 'FarmerController@findCrops');
 
 //Route for getting search results of post.
 Route::get('viewRelatedPost', 'FarmerController@findSpecificPosts');
 
 //Route to go to the farming tips view and show farming tips.
-Route::get('farmingtips', 'FarmerController@findAllTips');
+//Route::get('farmingtips', 'FarmerController@findAllTips');
 
 //Route to show Farming Tips in Details.
 Route::get('tipsdetails/{id}','FarmerController@TipDetails');
@@ -73,9 +84,6 @@ Route::get('tipsdetails/{id}','FarmerController@tipDetails');
 Route::get('register', 'LoginController@registerUser');
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
-
-// Display farmingtips
-Route::get('farmingtips', 'FarmerController@FindAllTips');
 
 // Home page for Dealer
 Route::get('dealer', 'DealerController@index');
