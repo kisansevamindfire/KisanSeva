@@ -68,9 +68,29 @@ class FarmerModel
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
         }
-        return ["No", "records", "Found", $result->getMessage()];
+        return false;
     }
 
+    /**
+    * Function to search for data in some find criterion.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $id - contains record id of specific farming tip to be displayed.
+    *        3. $field - contains the field on whose basis to be searched.
+    * @return - Filemaker results of Farming Tip found.
+    */
+    public static function findPosts($layout, $cropName, $user)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand($layout);
+        $cmd->addFindCriterion('cropName_t', $cropName);
+        $cmd->addFindCriterion('__kfn_UserId', $user);
+        $result = $cmd->execute();
+        if (!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return false;
+    }
     /**
     * Function to Create a Post.
     *
@@ -78,7 +98,7 @@ class FarmerModel
     *        2. $input - Contains all the data to be inserted in the record.
     * @return - Boolian value if any error occured or not.
     */
-    public static function addPost($layout, $input, $UserId)
+    public static function addPost($layout, $input, $UserId, $CropName)
     {
         $newDate = date("m/d/Y", strtotime($input['ExpiryTime']));
         $fmobj = FilemakerWrapper::getConnection();
@@ -90,6 +110,7 @@ class FarmerModel
         $request = $fmobj->createRecord($layout);
         $request->setField('__kfn_CropId', $input['Crop']);
         $request->setField('CropPrice_xn', $input['BasePrice']);
+        $request->setField('CropName_t', $CropName);
         $request->setField('CropExpiryTime_xi', $newDate);
         $request->setField('__kfn_UserId', $UserId);
         $request->setField('Quantity_xn', $str);
