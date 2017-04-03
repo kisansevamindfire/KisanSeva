@@ -14,6 +14,7 @@ use App\Http\Requests;
 use App\Classes;
 use Illuminate\Routing\Controller;
 
+<<<<<<< HEAD
 class LoginController extends Controller
 {   
     public function loginUser() {
@@ -50,6 +51,17 @@ class LoginController extends Controller
     public function create()
     {
         //
+=======
+class PagesController extends Controller
+{
+    public function getlogin() {
+		return view("pages.login");
+    }
+
+    
+    public function getRegister() {
+    	return view("pages.register");
+>>>>>>> 36abd7fa458b72a1f6d3c2e651bc91f8fc352c82
     }
 
     /**

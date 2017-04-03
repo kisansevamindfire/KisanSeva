@@ -32,6 +32,9 @@
   <![endif]-->
 </head>
 @stop
+@section('username')
+  {{ $sessionArray['name'] }}
+@stop
 @section('sidebar')
   <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
@@ -71,11 +74,7 @@
   //echo $date;
 ?>
 <div class="content-wrapper">
-
-    <!-- Main content -->
     <section class="content">
-
-
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -84,8 +83,7 @@
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" id="searchPost">
                   <div class="input-group-btn">
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                   </div>
@@ -156,7 +154,10 @@
 <script src="{{ asset('bower_components/AdminLTE/dist/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('bower_components/AdminLTE/dist/js/demo.js') }}"></script>
-<!-- page script -->
+<script type="text/javascript">
+var url = "{{ URL::to('viewRelatedPost') }}";
+</script>
+<script type="text/javascript" src="{{ asset('bower_components/AdminLTE/dist/js/script.js') }}"></script>
 </body>
 </html>
 @stop

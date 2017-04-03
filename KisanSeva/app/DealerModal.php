@@ -11,5 +11,28 @@ use App\Classes\FilemakerWrapper;
 use FileMaker;
 class DealerModal
 {	
+	public static function FindAll( $layout )
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindAllCommand( $layout );
+        $result = $cmd->execute();
+        if(!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return ["No", "records", "Found", $result->getMessage()];
+    }
+
+    public static function Find( $layout , $id , $field )
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand( $layout );
+        $cmd->addFindCriterion( $field , $id );
+        $result = $cmd->execute();
+        if(!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return ["No", "records", "Found", $result->getMessage()];
+    }
+
 
 }

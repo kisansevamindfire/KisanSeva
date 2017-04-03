@@ -23,6 +23,9 @@
   <link rel="stylesheet" href="{{ asset('bower_components/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
 </head>
 @stop
+@section('username')
+  {{ $sessionArray['name'] }}
+@stop
 @section('sidebar')
   <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
@@ -55,8 +58,6 @@
       </ul>
 @stop
 @section('content')
-
-
    <div class="content-wrapper">
     <section class="content">
       <div class="row">
@@ -117,7 +118,6 @@
           </div>
         </div>
       </div>
-
     </section>
   </div>
 
