@@ -47,62 +47,69 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title"></h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" id="searchPost">
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
+              <div class="form-group pull-right">
+                <input type="text" class="search form-control" placeholder="What you looking for?">
               </div>
-            </div>
-            @php
-              date_default_timezone_set('Asia/Kolkata');
-              $date = date("m/d/Y");
-              $time = date("h:i:sa");
-              $i = 0 ;
-            @endphp
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding postDisplay">
-              <table class="table table-hover">
-                <tr>
-                  <th>Category</th>
-                  <th>Crop</th>
-                  <th>Time Posted</th>
-                  <th>Quantity</th>
-                  <th>Base Price</th>
-                  <th>Status</th>
-                </tr>
-                @foreach($PostRecords[0] as $PostRecord[0])
-                  <tr>
-                    <td>{{ $PostRecords[1][$i][0] }}</td>
-                    <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
-                    <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
-                    <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
-                    <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
-                    @php
-                      $today_time = strtotime($date);
-                      $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
-                      if($PostRecord[0]->getField('Sold_n') == 1) { @endphp
-                        <td><span class="label label-success">Sold</span></td>
-                      @php }
-                      elseif ($expire_time < $today_time) { @endphp
-                        <td><span class="label label-danger">Expired</span></td>
-                      @php } else { @endphp
-                        <td><span class="label label-primary">Active</span></td>
-                    @php } @endphp
-                    <td><a href="{{ URL::to('addpost') }}">View</a><Button class="label label-info">View</Button></td>
-                  </tr>
-                  @php $i = $i+1; @endphp
-                @endforeach
-              </table>
+              @php
+                date_default_timezone_set('Asia/Kolkata');
+                $date = date("m/d/Y");
+                $time = date("h:i:sa");
+                $i = 0 ;
+              @endphp
+              @if(empty($PostRecords[0]))
+                {{ "You Have not made any post." }}
+              @else
+              <span class="counter pull-right"></span>
+                <table class="table table-hover table-bordered results">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Crop</th>
+                      <th>Time Posted</th>
+                      <th>Quantity</th>
+                      <th>Base Price</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                    <tr class="warning no-result">
+                      <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($PostRecords[0] as $PostRecord[0])
+                      <tr>
+                        <td>{{ $PostRecords[1][$i][0] }}</td>
+                        <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
+                        <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
+                        <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
+                        <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
+                        @php
+                          $today_time = strtotime($date);
+                          $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
+                          if($PostRecord[0]->getField('Sold_n') == 1) { @endphp
+                            <td><span class="label label-success">Sold</span></td>
+                        @php } elseif ($expire_time < $today_time) { @endphp
+                          <td><span class="label label-danger">Expired</span></td>
+                        @php } else { @endphp
+                          <td><span class="label label-primary">Active</span></td>
+                        @php } @endphp
+                          <td><a href="{{ URL::to('addpost') }}">View</a><Button class="label label-info">View</Button></td>
+                      </tr>
+                      @php $i = $i+1; @endphp
+                    @endforeach
+                  </tbody>
+                </table>
+                @endif
             </div>
           </div>
         </div>
       </div>
     </section>
   </div>
-
+  <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script type="text/javascript">
+var urlpost = "{{ URL::to('viewRelatedPost') }}";
+</script>
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
 @stop
 

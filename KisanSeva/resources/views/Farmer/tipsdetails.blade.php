@@ -42,27 +42,20 @@
 @section('content')
  <div class="content-wrapper">
     <section class="content">
-
       <!-- Default box -->
       <div class="box">
-               @if(empty($records))
-                      Nothing to show.
-                    @else
-                      @foreach($records as $record)
-        <div class="box-header with-border">
-          <h3 class="box-title">{{ $record->getField('TipName_xt') }}</h3>
-        </div>
-        <div class="box-body">
-          {{ $record->getField('TipData_xt') }}
-        </div>
-                      @endforeach
-                      @endif
-
-        <!-- /.box-body -->
-        <div class="box-footer">
-          Footer
-        </div>
-        <!-- /.box-footer-->
+          @if(empty($tips))
+              Nothing to show.
+          @else
+            @foreach($tips as $tip)
+              <div class="box-header with-border">
+                <h3 class="box-title">{{ $tip->getField('TipName_xt') }}</h3>
+             </div>
+              <div class="box-body">
+                {{ $tip->getField('TipData_xt') }}
+              </div>
+            @endforeach
+          @endif
       </div>
       <!-- /.box -->
 

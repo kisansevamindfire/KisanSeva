@@ -1,100 +1,74 @@
-<!--
-
-* File    : index.blade.php
-* Author  : Saurabh Mehta
-* Date    : 16-Mar-2017
-* Purpose : Login page of our users  -->
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Kisan Seva | Login</title> <!--Change title according to pages -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
-  </head>
-  <body id="myPage">
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <h1>Kisan Seva</h1>
-      </div>
-    </div>
-  </nav>
-  <div class="row">
-   <div class="col-sm-8">
-    <div id="jumb" class="jumbotron text-center">
-      <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
-        <!-- Indicators -->
-          <div class="carousel-indicators">
-            <a data-target="#myCarousel" data-slide-to="0" class="active"></a>
-            <a data-target="#myCarousel" data-slide-to="1"></a>
-            <a data-target="#myCarousel" data-slide-to="2"></a>
-            <a data-target="#myCarousel" data-slide-to="2"></a>
-          </div>
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-              <div class="item active" >
-                <img src="assets/background/1.jpg">
-              </div>
-              <div class="item">
-                <img src="assets/background/2.jpg">
-              </div>
-              <div class="item">
-                <img src="asstes/background/3.jpg" >
-              </div>
-              <div class="item">
-                <img src="assets/background/4.jpg" >
-              </div>
-            </div>
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#myCarousel" role="button"
-             data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <form id="LoginUser" action="index" method="Post" role="form">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>KisanSeva | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="{{ asset('template/bootstrap/css/bootstrap.min.css') }}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('template/dist/css/AdminLTE.min.css') }}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{ asset('template/plugins/iCheck/square/blue.css') }}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>Kisan</b>Seva</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+    <span>@if ($errors->has('message')) {{ $errors->first('message') }} @endif</span>
+    <form id="LoginUser" action="login" method="Post" role="form">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <div class="form-group">
-            <div class="row">
-              <div class="col-sm-6">
-                <h2 class="user"><a href="/KisanSeva/KisanSeva/public/"><strong>Login</strong></a></h2>
-              </div>
-              <div class="col-sm-6">
-                <h2><a href="/KisanSeva/KisanSeva/public/register">Register</a></h2>
-              </div>
-              <div class="form-group col-md-12">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="userEmail"
-                 placeholder="example@gmail.com">
-                </div>
-                <div class="form-group col-md-12">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password" name="userPassword" placeholder="******" maxlength="10">
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3">
-                      <button type="submit" class="btn btn-success" id="submit">Submit</button>
-                      <button type="reset" class="btn btn-primary">Reset</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <center><h3><a href="#">Forgot Password</a></h3></center>
-        </div>
+      <div class="form-group has-feedback">
+        <input type="email" class="form-control" placeholder="Email" name="Email">
+        <span>@if ($errors->has('Email')) {{ $errors->first('Email') }} @endif</span>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </body>
-</html>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password" name="Password" >
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span>@if ($errors->has('Password')) {{ $errors->first('Password') }} @endif</span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8"></div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+    <a href="#">I forgot my password</a><br>
+    <a href="{{ URL::to('register') }}"" class="text-center">Register a new membership</a>
 
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery 2.2.3 -->
+<script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{{ asset('template/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- iCheck -->
+<script src="{{ asset('template/plugins/iCheck/icheck.min.js') }}"></script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>
+</html>

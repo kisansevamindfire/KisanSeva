@@ -6,13 +6,17 @@
   @yield('title')
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="{{ asset('template/bootstrap/css/bootstrap.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('template/dist/css/main.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('template/dist/css/AdminLTE.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('template/dist/css/AdminLTE.min.css?ver=1.4.10') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins -->
   <link rel="stylesheet" href="{{ asset('template/dist/css/skins/_all-skins.min.css') }}">
 
@@ -29,7 +33,6 @@
   <link rel="stylesheet" href="{{ asset('template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 
 </head>
-
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -98,7 +101,9 @@
     <!-- /.sidebar -->
   </aside>
 @yield('content')
+
 <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ asset('template/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -133,9 +138,5 @@
 <script type="text/javascript">
 var url = "{{ URL::to('viewCrops') }}";
 </script>
-<script type="text/javascript">
-var urlpost = "{{ URL::to('viewRelatedPost') }}";
-</script>
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
 </body>
 </html>
