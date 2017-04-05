@@ -1,15 +1,9 @@
 <?php
 /**
 * File: LoginController.php
-<<<<<<< HEAD
 * Purpose: Calls the UserModal class to fetch the user data
 * Date: 3-Apr-2017
 * Author: Satyapriya Baral
-=======
-
-* Date: 20-Mar-2017
-* Author: Saurabh Mehta
->>>>>>> 8f970620b8da5189ab7444e47fbafb20d1af10cd
 */
 namespace App\Http\Controllers;
 
@@ -105,4 +99,3 @@ class LoginController extends Controller
         return redirect('/');
     }
 }
-                
