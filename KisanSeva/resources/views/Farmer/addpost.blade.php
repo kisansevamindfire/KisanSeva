@@ -26,7 +26,7 @@
         <li class="treeview">
           <a href="{{ URL::to('viewpost') }}">
             <i class="fa fa-files-o"></i>
-            <span>View Post</span>
+            <span>View Posts</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
             </span>
