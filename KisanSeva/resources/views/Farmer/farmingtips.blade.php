@@ -39,9 +39,6 @@
         </li>
       </ul>
 @stop
-@section('username')
-  {{ $sessionArray['name'] }}
-@stop
 @section('content')
 <div class="content-wrapper">
 
@@ -71,20 +68,18 @@
                 </tr>
                   @if(empty($records))
                       Nothing to show.
-                    @else
+                  @else
                       @foreach($records as $record)
                 <tr>
-
                   <td>
-                        <div class="lead">
+                      <div class="lead">
                         <?php $id = $record->getrecordid() ?>
-                          <a href="{{ URL::to('tipsdetails',[$id]) }}">{{ $record->getField('TipName_xt') }}</a>
-
-                        </div>
+                        <a href="{{ URL::to('tipsdetails',[$id]) }}">{{ $record->getField('TipName_xt') }}</a>
+                      </div>
                   </td>
                 </tr>
-                      @endforeach
-                      @endif
+                @endforeach
+                @endif
               </table>
             </div>
             <!-- /.box-body -->

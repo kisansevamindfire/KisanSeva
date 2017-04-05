@@ -21,25 +21,6 @@ class FarmerModel
     * @param 1. $layout - contains name of the layout.
     * @return - Filemaker results of all records found.
     */
-    public static function userDetails($layout, $input)
-    {
-        $fmobj = FilemakerWrapper::getConnection();
-        $cmd = $fmobj->newFindCommand($layout);
-        $cmd->addFindCriterion('UserEmail_xt', '=='.$input['userEmail']);
-        $cmd->addFindCriterion('UserPassword_xt', $input['userPassword']);
-        $result = $cmd->execute();
-        if (!FileMaker::isError($result)) {
-            return $result->getRecords();
-        }
-        return false;
-    }
-
-    /**
-    * Function to Show all Records in a specific layout.
-    *
-    * @param 1. $layout - contains name of the layout.
-    * @return - Filemaker results of all records found.
-    */
     public static function findAll($layout)
     {
         $fmobj = FilemakerWrapper::getConnection();
@@ -75,9 +56,9 @@ class FarmerModel
     * Function to search for data in some find criterion.
     *
     * @param 1. $layout - contains name of the layout.
-    *        2. $id - contains record id of specific farming tip to be displayed.
-    *        3. $field - contains the field on whose basis to be searched.
-    * @return - Filemaker results of Farming Tip found.
+    *        2. $cropName - contains crop name of the crop to find.
+    *        3. $user - contains the id of the user.
+    * @return - Filemaker results of posts found.
     */
     public static function findPosts($layout, $cropName, $user)
     {
@@ -96,6 +77,8 @@ class FarmerModel
     *
     * @param 1. $layout - contains name of the layout.
     *        2. $input - Contains all the data to be inserted in the record.
+    *        3. $UserId - Contains the id of the user.
+    *        4. $CropName - Contains the name of the crop.
     * @return - Boolian value if any error occured or not.
     */
     public static function addPost($layout, $input, $UserId, $CropName)

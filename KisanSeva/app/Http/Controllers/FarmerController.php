@@ -12,6 +12,7 @@ use App\FarmerModel;
 use App\Http\Requests;
 use App\Classes;
 use Illuminate\Routing\Controller;
+use App\Services\Farmer\FarmerServices;
 
 class FarmerController extends Controller
 {
@@ -34,8 +35,8 @@ class FarmerController extends Controller
     */
     public function findAllTips(Request $request)
     {
-        $records = FarmerModel::findAll('Tips');
-        return view('farmer.farmingtips', compact('records', 'sessionArray'));
+        $records = FarmerServices::findAllTips('Tips');
+        return view('farmer.farmingtips', compact('records'));
     }
 
     /**
@@ -45,10 +46,10 @@ class FarmerController extends Controller
     *        2. Reguest - Contains all session data.
     * @return - Filemaker results of Farming Tips found.
     */
-    public function tipDetails(Request $request, $id)
+    public function tipDetails($id)
     {
-        $records = FarmerModel::find('Tips', $id, '___kpn_TipId');
-        return view('farmer.tipsdetails', compact('records', 'sessionArray'));
+        $tips = FarmerServices::tipDetails($id);
+        return view('farmer.tipsdetails', compact('tips'));
     }
 
     /**
@@ -59,8 +60,8 @@ class FarmerController extends Controller
     */
     public function findAllCategory(Request $request)
     {
-        $records = FarmerModel::findAll('Category');
-        return view('farmer.addpost', compact('records', 'sessionArray'));
+        $records = FarmerServices::findAllCategory();
+        return view('farmer.addpost', compact('records'));
     }
 
     /**
@@ -71,52 +72,8 @@ class FarmerController extends Controller
     */
     public function findCrops(Request $request)
     {
-        $records = FarmerModel::find('Crop', $request->id, '__kfn_CategoryId');
-        $i = 0 ;
-        $array = [];
-        foreach ($records as $record) {
-            $array[$i] = [$record->getField('CropName_xt'), $record->getField('___kpn_CropId')];
-            $i = $i+1;
-        }
-        return response()->json($array);
-    }
-
-    /**
-    * Function to Find post according to search field.
-    *
-    * @param 1. $request - contains id of the Category and all session data.
-    * @return - Filemaker results of Crops Found under Category.
-    */
-    public function findSpecificPosts(Request $request)
-    {
-        date_default_timezone_set('Asia/Kolkata');
-        $date = date("m/d/Y");
-        $sessionArray = $request->session()->all();
-        $records = FarmerModel::findPosts('CropPost', $request->cropName, $sessionArray['user']);
-        if ($records == false) {
-            return response()->json(false);
-        }
-        $i=0;
-        foreach ($records as $record) {
-            $cropRecord = FarmerModel::find('Crop', $record->getField('__kfn_CropId'), '___kpn_CropId');
-            $today_time = strtotime($date);
-            $expire_time = strtotime($record->getField('CropExpiryTime_xi'));
-            if($record->getField('Sold_n') == 1) {
-                $status = 1; }
-            elseif ($expire_time < $today_time) {
-                $status = 2;
-            } else { $status = 3; }
-
-            $postDetails[$i] = [$record->getField('CropName_t'), $record->getField('CropPrice_xn'), $record->getField('CropExpiryTime_xi'), $record->getField('Quantity_xn'), $record->getField('PublishedTime_t'), $status];
-            $categoryRecord = FarmerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
-            $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
-            $i = $i + 1;
-        }
-        $PostRecords = array(
-            $postDetails,
-            $categoryDetails
-        );
-        return response()->json($PostRecords);
+        $records = FarmerServices::findCrops($request->id);
+        return response()->json($records);
     }
 
     /**
@@ -128,9 +85,8 @@ class FarmerController extends Controller
     public function createPost(Request $request)
     {
         $sessionArray = $request->session()->all();
-        $cropName = FarmerModel::find('Crop', $request->Crop , '___kpn_CropId');
-        $return = FarmerModel::addPost('CropPost', $request->all(), $sessionArray['user'], $cropName[0]->getField('CropName_xt'));
-        if ($return == true) {
+        $addPost = FarmerServices::createPost($request->all(), $sessionArray['user']);
+        if ($addPost == true) {
             return redirect('viewpost');
         }
         return back();
@@ -145,30 +101,10 @@ class FarmerController extends Controller
     public function findAllPosts(Request $request)
     {
         $sessionArray = $request->session()->all();
-        $records = FarmerModel::find('CropPost', $sessionArray['user'], '__kfn_UserId');
-        $i=0;
-        foreach ($records as $record) {
-            $cropRecord = FarmerModel::find('Crop', $record->getField('__kfn_CropId'), '___kpn_CropId');
-            $categoryRecord = FarmerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
-            $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
-            $i = $i + 1;
+        $records = FarmerServices::findAllPosts($request->all(), $sessionArray['user']);
+        if ($records !== false) {
+            return view('farmer.ViewPost', $records);
         }
-        $PostRecords = array(
-            $records,
-            $categoryDetails
-        );
-        return view('farmer.ViewPost', compact('PostRecords', 'sessionArray'));
-    }
-
-    /**
-    * Function to signout.
-    *
-    * @param 1. Reguest - Contains all session data.
-    * @return - Returns to login view.
-    */
-    public function signout(Request $request)
-    {
-        $request->session()->flush();
-        return redirect('/');
+        return view('farmer.ViewPost')->withErrors(['message' => 'No Post Found']);
     }
 }
