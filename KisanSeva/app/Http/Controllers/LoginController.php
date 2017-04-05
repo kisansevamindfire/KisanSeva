@@ -34,7 +34,7 @@ class LoginController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return view('Login.login')->withErrors($validator)->withInput();
+            return view('Login.login')->withErrors($validator);
         }
         $records = LoginServices::login($request->all());
         if ($records !== false) {
