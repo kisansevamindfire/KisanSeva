@@ -10,7 +10,8 @@ namespace App;
 use App\Classes\FilemakerWrapper;
 use FileMaker;
 class DealerModal
-{	
+{
+
 	public static function FindAll( $layout )
     {
         $fmobj = FilemakerWrapper::getConnection();

@@ -27,6 +27,9 @@ Route::group(['middleware' => ['web']], function () {
             return view('farmer.profile');
         });
 
+        // Home page for Dealer
+        Route::get('dealer', 'DealerController@dealer');
+
         //Route for go get crops under specific category.
         Route::get('viewCrops', 'FarmerController@findCrops');
 
@@ -83,9 +86,6 @@ Route::group(['middleware' => ['web']], function () {
 
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
-
-// Home page for Dealer
-Route::get('dealer', 'DealerController@index');
 
 // Dealer will see all the crop advertisements on this page
 Route::get('viewadds', 'DealerController@viewadds');
