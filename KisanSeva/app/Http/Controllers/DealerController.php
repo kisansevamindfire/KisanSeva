@@ -15,11 +15,18 @@ use Illuminate\Routing\Controller;
 
 class DealerController extends Controller
 {
-	
-	public function index() {
-		return view("Dealer.index");
+
+    /**
+    * Function to go to Farmer View.
+    *
+    * @param 1. Reguest - Contains all session data.
+    * @return - Returns to the desired view of desired user.
+    */
+    public function dealer()
+    {
+        return view('Dealer.index');
     }
-	
+
 	/*public function viewadds() {
 		return view("Dealer.viewadds");
     }
@@ -27,11 +34,11 @@ class DealerController extends Controller
     public function details() {
 		return view("Dealer.details");
     }
-	
+
 	public function viewprevious() {
 		return view("Dealer.viewprevious");
     }
-    
+
     public function viewadds()
     {
         $records = DealerModal::FindAll( 'CropPost' );
