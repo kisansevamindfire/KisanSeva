@@ -46,9 +46,6 @@
         <a href="{{ URL::to('viewprevious') }}">
           <i class="fa fa-files-o"></i>
           <span>Purchasing History</span>
-          <span class="pull-right-container">
-            <span class="label label-primary pull-right">4</span>
-          </span>
         </a>
       </li>
     </ul>
