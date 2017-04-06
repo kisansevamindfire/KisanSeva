@@ -20,7 +20,7 @@ class FarmerController extends Controller
     /**
     * Function to go to Farmer View.
     *
-    * @param 1. Reguest - Contains all session data.
+    * @param Null
     * @return - Returns to the desired view of desired user.
     */
     public function farmer()

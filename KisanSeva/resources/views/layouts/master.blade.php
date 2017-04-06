@@ -103,7 +103,7 @@
 @yield('content')
 
 <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.17') }}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ asset('template/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
