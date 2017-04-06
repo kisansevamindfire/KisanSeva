@@ -59,4 +59,5 @@ class LoginServices
         $records = UserModel::find('User', $request['Email'], 'UserEmail_xt');
         return $records;
     }
+
 }

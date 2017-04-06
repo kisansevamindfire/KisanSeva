@@ -112,4 +112,63 @@ class FarmerServices
         }
         return false;
     }
+
+    /**
+    * Function to get all profile data of user.
+    *
+    * @param 1. $userId - contains id of the user.
+    * @return - Returns all profile details of user.
+    */
+    public static function profile($userId)
+    {
+        $profileData = FarmerModel::find('User', $userId, '___kpn_UserId');
+        if ($profileData != false) {
+            return $profileData;
+        }
+        return false;
+    }
+
+     /**
+    * Function to get all profile data of user.
+    *
+    * @param 1. $userId - contains id of the user.
+    * @return - Returns all profile details of user.
+    */
+    public static function postCount($userId)
+    {
+        $posts = FarmerModel::find('CropPost', $userId, '__kfn_UserId');
+        $count = count($posts);
+        $lastPostTime = $posts[$count-1]->getField('PublishedTime_t');
+        $totalPosts = 0;
+        $postSold = 0;
+        if ($posts) {
+            foreach ($posts as $post) {
+                $totalPosts++;
+                if ($post->getField('Sold_n') === 1)
+                    { $postSold++; }
+            }
+        }
+        $countPost = array(
+            $totalPosts,
+            $postSold,
+            $lastPostTime
+        );
+        return compact('countPost');
+    }
+
+    /**
+    * Function to Create a Post of the crop.
+    *
+    * @param 1. $request - contains all data of the post to be created.
+    *        2. $user - contains the id of the user who made the post.
+    * @return - Returns a boolian value if post made or not.
+    */
+    public static function editProfile($request, $userId)
+    {
+        $editProfile = FarmerModel::editRecords('User', $request , $userId);
+        if ($editProfile != true) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -11,8 +11,13 @@ use Illuminate\Http\Request;
 use App\FarmerModel;
 use App\Http\Requests;
 use App\Classes;
-use Illuminate\Routing\Controller;
 use App\Services\Farmer\FarmerServices;
+use Validator;
+use App\Http\Controllers\Controller;
+use Session;
+use App\Post;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class FarmerController extends Controller
 {
@@ -106,5 +111,44 @@ class FarmerController extends Controller
             return view('farmer.ViewPost', $records);
         }
         return view('farmer.ViewPost')->withErrors(['message' => 'No Post Found']);
+    }
+
+    /**
+    * Function to get all profile data of farmer.
+    *
+    * @param 1. $request - contains all session data.
+    * @return - Returns to the Crop post page.
+    */
+    public function profile(Request $request)
+    {
+        $sessionArray = $request->session()->all();
+        $profileData = FarmerServices::profile($sessionArray['user']);
+        $post = FarmerServices::postCount($sessionArray['user']);
+        if ($profileData != false) {
+            return view('farmer.profile', compact('profileData', 'post'));
+        }
+        return false;
+    }
+
+    /**
+    * Function to sign in to the required user home page.
+    *
+    * @param 1. Reguest - Contains all data of user for login.
+    * @return - Returns to the route of desired user.
+    */
+    public function editProfile(Request $request)
+    {
+         $validator = Validator::make($request->all(),[
+            'Name' => 'required|min:5',
+            'Contact' => 'required|min:10|max:10'
+        ]);
+        // dd('ssss');
+        if ($validator->fails()) {
+            return redirect('profile')->withErrors($validator);
+        }
+        $request->session()->put('name', $request->Name);
+        $sessionArray = $request->session()->all();
+        FarmerServices::editProfile($request->all(), $sessionArray['recordId']);
+        return redirect('profile');
     }
 }
