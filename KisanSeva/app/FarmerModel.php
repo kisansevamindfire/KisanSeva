@@ -103,4 +103,18 @@ class FarmerModel
         }
         return $result->getMessage();
     }
+
+    public static function editRecords($layout, $input, $userId)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $request = $fmobj->newEditCommand($layout, $userId);
+        $request->setField('UserName_xt', $input['Name']);
+        $request->setField('UserContact_xn', $input['Contact']);
+        $request->setField('UserAddress_xt', $input['Address']);
+        $result = $request->execute();
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
 }

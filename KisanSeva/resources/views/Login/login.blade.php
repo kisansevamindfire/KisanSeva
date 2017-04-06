@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="{{ asset('template/dist/css/AdminLTE.min.css') }}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('template/plugins/iCheck/square/blue.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.17') }}">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -25,18 +27,18 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
-    <span>@if ($errors->has('message')) {{ $errors->first('message') }} @endif</span>
+    <span class="errorMessage">@if ($errors->has('message')) {{ $errors->first('message') }} @endif</span>
     <form id="LoginUser" action="login" method="Post" role="form">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="Email">
-        <span>@if ($errors->has('Email')) {{ $errors->first('Email') }} @endif</span>
+        <span class="errorMessage">@if ($errors->has('Email')) {{ $errors->first('Email') }} @endif</span>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Password" name="Password" >
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        <span>@if ($errors->has('Password')) {{ $errors->first('Password') }} @endif</span>
+        <span class="errorMessage">@if ($errors->has('Password')) {{ $errors->first('Password') }} @endif</span>
       </div>
       <div class="row">
         <div class="col-xs-8"></div>

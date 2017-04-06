@@ -17,6 +17,8 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('template/plugins/iCheck/square/blue.css') }}">
 
+  <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.17') }}">
+
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -28,34 +30,34 @@
 
     <form action="register" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <span>@if ($errors->has('message')) {{ $errors->first('message') }} @endif</span>
+    <span class="errorMessage">@if ($errors->has('message')) {{ $errors->first('message') }} @endif</span>
       <div class="form-group has-feedback">
         <select class="form-control" id="selectUserType" name="UserType">
           <option value="0" disabled="true" selected="true">--Select User Type--</option>
           <option value="2">Dealer</option>
           <option value="3">Farmer</option>
         </select>
-        <span>@if ($errors->has('UserType')) {{ $errors->first('UserType') }} @endif</span>
+        <span class="errorMessage">@if ($errors->has('UserType')) {{ $errors->first('UserType') }} @endif</span>
       </div>
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Full name" name="Name">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        <span>@if ($errors->has('Name')) {{ $errors->first('Name') }} @endif</span>
+        <span class="errorMessage">@if ($errors->has('Name')) {{ $errors->first('Name') }} @endif</span>
       </div>
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        <span>@if ($errors->has('Email')) {{ $errors->first('Email') }} @endif</span>
+        <span class="errorMessage">@if ($errors->has('Email')) {{ $errors->first('Email') }} @endif</span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Password" name="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        <span>@if ($errors->has('Password')) {{ $errors->first('Password') }} @endif</span>
+        <span class="errorMessage">@if ($errors->has('Password')) {{ $errors->first('Password') }} @endif</span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Retype password" name="RetypePassword">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-        <span>@if ($errors->has('RetypePassword')) {{ $errors->first('RetypePassword') }} @endif</span>
+        <span class="errorMessage">@if ($errors->has('RetypePassword')) {{ $errors->first('RetypePassword') }} @endif</span>
       </div>
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Address" name="Address">
@@ -64,7 +66,7 @@
       <div class="form-group has-feedback">
         <input type="number" class="form-control" placeholder="Number" name="Number">
         <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
-        <span>@if ($errors->has('Number')) {{ $errors->first('Number') }} @endif</span>
+        <span class="errorMessage">@if ($errors->has('Number')) {{ $errors->first('Number') }} @endif</span>
       </div>
       <div class="row">
         <div class="col-xs-8">
