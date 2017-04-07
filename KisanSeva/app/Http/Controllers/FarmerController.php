@@ -91,12 +91,12 @@ class FarmerController extends Controller
     {
         $sessionArray = $request->session()->all();
         $addPost = FarmerServices::createPost($request->all(), $sessionArray['user']);
-        if ($addPost == true) {
+        if ($addPost) {
             return redirect('viewpost');
         }
+
         return back();
     }
-
     /**
     * Function to get all posts.
     *
@@ -107,9 +107,11 @@ class FarmerController extends Controller
     {
         $sessionArray = $request->session()->all();
         $records = FarmerServices::findAllPosts($request->all(), $sessionArray['user']);
+
         if ($records !== false) {
             return view('farmer.ViewPost', $records);
         }
+
         return view('farmer.ViewPost')->withErrors(['message' => 'No Post Found']);
     }
 
@@ -124,9 +126,11 @@ class FarmerController extends Controller
         $sessionArray = $request->session()->all();
         $profileData = FarmerServices::profile($sessionArray['user']);
         $post = FarmerServices::postCount($sessionArray['user']);
+
         if ($profileData != false) {
             return view('farmer.profile', compact('profileData', 'post'));
         }
+
         return false;
     }
 
@@ -146,9 +150,21 @@ class FarmerController extends Controller
         if ($validator->fails()) {
             return redirect('profile')->withErrors($validator);
         }
+
         $request->session()->put('name', $request->Name);
         $sessionArray = $request->session()->all();
         FarmerServices::editProfile($request->all(), $sessionArray['recordId']);
         return redirect('profile');
+    }
+
+    /**
+    * Function to get all profile data of farmer.
+    *
+    * @param 1. $request - contains all session data.
+    * @return - Returns to the Crop post page.
+    */
+    public function postDetails(Request $request)
+    {
+        return view('Farmer.postDetails');
     }
 }

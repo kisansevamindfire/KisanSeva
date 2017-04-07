@@ -85,7 +85,7 @@ $(document).ready(function(){
      */
      function checkName(){
           var name = $("#inputName").val().length;
-          if(name < 6)
+          if(name < 5)
           {
                $("#nameError").html("Name should be of 5 charecters atleast");
                $("#nameError").show();
@@ -105,7 +105,6 @@ $(document).ready(function(){
      */
      function checkContact(){
           var contact = $("#inputContact").val().length;
-          console.log(contact)
           if(contact < 10 || contact >10)
           {
                $("#contactError").html("Contact should be of 10 digits");
@@ -117,14 +116,20 @@ $(document).ready(function(){
                $("#contactError").hide();
           }
      }
-
+     var shouldRun = false;
      /**
      * Function to check after the submit button is clicked on edit profile.
      *
      * @param null
      * @return boolian value for true or false
      */
-     $("#editSubmit").on('submit' , function(e){
+
+     $("#editSubmit").on('click' , function(e){
+
+        if (shouldRun === true) {
+          shouldRun = false;
+          return;
+        }
         e.preventDefault();
 
         errorName = false;
@@ -135,9 +140,8 @@ $(document).ready(function(){
 
         if(errorName === false && errorContact === false)
         {
-               return true;
-        }else{
-               return false;
+               shouldRun = true;
+               $(this).trigger('click');
         }
     });
 })

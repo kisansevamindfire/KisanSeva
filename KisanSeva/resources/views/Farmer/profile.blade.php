@@ -159,7 +159,7 @@
                     <label for="inputName" class="col-sm-1 control-label">Name</label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" id="inputName" placeholder="Name" name="Name" value ="{{ $profileData[0]->getfield('UserName_xt') }}">
-                      <span class="errorMessage" id="nameError">@if ($errors->has('Name')) {{ $errors->first('Name') }} @endif</span>
+                      <span class="errorMessage" id="nameError"></span>
                     </div>
                   </div>
                   <div class="form-group">

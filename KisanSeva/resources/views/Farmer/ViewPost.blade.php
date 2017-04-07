@@ -8,6 +8,9 @@
 @section('title')
   <title>Farmer | Farming Tips</title>
 @stop
+@section('header')
+  <link rel="stylesheet" href="{{ asset('template/dist/css/fresh-bootstrap-table.css') }}">
+@stop
 @section('sidebar')
   <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
@@ -40,17 +43,25 @@
       </ul>
 @stop
 @section('content')
-<div class="content-wrapper">
+  <div class="content-wrapper">
     <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"></h3>
-              <div class="form-group pull-right">
-                <input type="text" class="search form-control" placeholder="What you looking for?">
-              </div>
-              @php
+        <div class="row">
+            <div class="col-xs-12">
+ <div class="col-md-12">
+
+                <div class="fresh-table">
+                    <table id="fresh-table" class="table">
+                        <thead>
+                          <th data-field="Category" data-sortable="true">Category</th>
+                          <th data-field="Crop" data-sortable="true">Crop</th>
+                          <th data-field="Time" data-sortable="true">Time Posted</th>
+                          <th data-field="quantity" data-sortable="true">Quantity</th>
+                          <th data-field="basePrice" data-sortable="true">Base Price</th>
+                          <th data-field="status">Status</th>
+                          <th data-field="action">Action</th>
+                        </thead>
+                        <tbody>
+                                 @php
                 date_default_timezone_set('Asia/Kolkata');
                 $date = date("m/d/Y");
                 $time = date("h:i:sa");
@@ -59,23 +70,6 @@
               @if(empty($PostRecords[0]))
                 {{ "You Have not made any post." }}
               @else
-              <span class="counter pull-right"></span>
-                <table class="table table-hover table-bordered results">
-                  <thead>
-                    <tr>
-                      <th>Category</th>
-                      <th>Crop</th>
-                      <th>Time Posted</th>
-                      <th>Quantity</th>
-                      <th>Base Price</th>
-                      <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                    <tr class="warning no-result">
-                      <td colspan="4"><i class="fa fa-warning"></i> No result</td>
-                    </tr>
-                  </thead>
-                  <tbody>
                     @foreach($PostRecords[0] as $PostRecord[0])
                       <tr>
                         <td>{{ $PostRecords[1][$i][0] }}</td>
@@ -93,23 +87,28 @@
                         @php } else { @endphp
                           <td><span class="label label-primary">Active</span></td>
                         @php } @endphp
-                          <td><a href="{{ URL::to('addpost') }}">View</a><Button class="label label-info">View</Button></td>
+                          <?php $id = $PostRecord[0]->getrecordid() ?>
+                          <td><Button class="label label-info" onclick="window.location='{{ url("postDetails",[$id]) }}'">View</Button></td>
                       </tr>
                       @php $i = $i+1; @endphp
                     @endforeach
-                  </tbody>
-                </table>
-                @endif
+                                    @endif
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
-          </div>
+            </div>
         </div>
-      </div>
-    </section>
+      </section>
   </div>
   <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-<script type="text/javascript">
-var urlpost = "{{ URL::to('viewRelatedPost') }}";
-</script>
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
+  <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
+  <script type="text/javascript" src="{{ asset('template/dist/js/jquery-1.11.2.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('template/dist/js/bootstrap.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('template/dist/js/bootstrap-table.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('template/dist/js/tableScript.js') }}">
+  </script>
 @stop
 
