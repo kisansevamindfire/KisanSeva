@@ -34,6 +34,11 @@ Route::group(['middleware' => ['web']], function () {
         // Display farmingtips
         Route::get('farmingtips', 'FarmerController@FindAllTips');
 
+        //Route to show Farming Tips in Details.
+        Route::get('tipsdetails/{id}','FarmerController@tipDetails');
+
+        Route::get('postDetails/{id}', 'FarmerController@postDetails');
+
     });
 
     Route::group(['middleware' => ['auth']], function() {
@@ -63,9 +68,6 @@ Route::group(['middleware' => ['web']], function () {
 
     //Route for getting search results of post.
     Route::get('viewRelatedPost', 'FarmerController@findSpecificPosts');
-
-    //Route to show Farming Tips in Details.
-    Route::get('tipsdetails/{id}','FarmerController@tipDetails');
 
     Route::get('viewbids', function() {
         return view('farmer.viewbids');

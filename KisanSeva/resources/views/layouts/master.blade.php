@@ -9,6 +9,13 @@
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.17') }}">
+
+  <link rel="icon" type="image/png" href="{{ asset('template/dist/img/favicon.ico') }}">
+  @yield('header')
+
+    <!--     Fonts and icons     -->
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -102,7 +109,7 @@
 @yield('content')
 
 <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.10') }}"></script>
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.12') }}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ asset('template/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>

@@ -85,11 +85,13 @@ class FarmerModel
     {
         $newDate = date("m/d/Y", strtotime($input['ExpiryTime']));
         $fmobj = FilemakerWrapper::getConnection();
+
         if ($input['Weight'] == 0) {
             $str = $input['Quantity'].' Kg';
         } else {
             $str = $input['Quantity'].' Ton';
         }
+
         $request = $fmobj->createRecord($layout);
         $request->setField('__kfn_CropId', $input['Crop']);
         $request->setField('CropPrice_xn', $input['BasePrice']);
@@ -98,6 +100,7 @@ class FarmerModel
         $request->setField('__kfn_UserId', $UserId);
         $request->setField('Quantity_xn', $str);
         $result = $request->commit();
+
         if (!FileMaker::isError($result)) {
             return true;
         }
