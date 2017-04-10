@@ -47,8 +47,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
- <div class="col-md-12">
-
+              <div class="col-md-12">
                 <div class="fresh-table">
                     <table id="fresh-table" class="table">
                         <thead>
@@ -61,43 +60,41 @@
                           <th data-field="action">Action</th>
                         </thead>
                         <tbody>
-                                 @php
-                date_default_timezone_set('Asia/Kolkata');
-                $date = date("m/d/Y");
-                $time = date("h:i:sa");
-                $i = 0 ;
-              @endphp
-              @if(empty($PostRecords[0]))
-                {{ "You Have not made any post." }}
-              @else
-                    @foreach($PostRecords[0] as $PostRecord[0])
-                      <tr>
-                        <td>{{ $PostRecords[1][$i][0] }}</td>
-                        <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
-                        <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
-                        <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
-                        <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
-                        @php
-                          $today_time = strtotime($date);
-                          $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
-                          if($PostRecord[0]->getField('Sold_n') == 1) { @endphp
-                            <td><span class="label label-success">Sold</span></td>
-                        @php } elseif ($expire_time < $today_time) { @endphp
-                          <td><span class="label label-danger">Expired</span></td>
-                        @php } else { @endphp
-                          <td><span class="label label-primary">Active</span></td>
-                        @php } @endphp
-                          <?php $id = $PostRecord[0]->getrecordid() ?>
-                          <td><Button class="label label-info" onclick="window.location='{{ url("postDetails",[$id]) }}'">View</Button></td>
-                      </tr>
-                      @php $i = $i+1; @endphp
-                    @endforeach
-                                    @endif
+                          @php
+                            date_default_timezone_set('Asia/Kolkata');
+                            $date = date("m/d/Y");
+                            $time = date("h:i:sa");
+                            $i = 0 ;
+                          @endphp
+                          @if(empty($PostRecords[0]))
+                            {{ "You Have not made any post." }}
+                          @else
+                          @foreach($PostRecords[0] as $PostRecord[0])
+                            <tr>
+                              <td>{{ $PostRecords[1][$i][0] }}</td>
+                              <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
+                              <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
+                              <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
+                              <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
+                              @php
+                                $today_time = strtotime($date);
+                                $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
+                                if($PostRecord[0]->getField('Sold_n') == 1) { @endphp
+                                  <td><span class="label label-success">Sold</span></td>
+                                @php } elseif ($expire_time < $today_time) { @endphp
+                                  <td><span class="label label-danger">Expired</span></td>
+                                @php } else { @endphp
+                                  <td><span class="label label-primary">Active</span></td>
+                              @php } @endphp
+                              <?php $id = $PostRecord[0]->getrecordid() ?>
+                              <td><Button class="label label-info" onclick="window.location='{{ url("postDetails",[$id]) }}'">View</Button></td>
+                            </tr>
+                            @php $i = $i+1; @endphp
+                            @endforeach
+                          @endif
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
             </div>
         </div>
@@ -106,7 +103,6 @@
   <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
   <script type="text/javascript" src="{{ asset('template/dist/js/jquery-1.11.2.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('template/dist/js/bootstrap.js') }}"></script>
   <script type="text/javascript" src="{{ asset('template/dist/js/bootstrap-table.js') }}"></script>
   <script type="text/javascript" src="{{ asset('template/dist/js/tableScript.js') }}">
   </script>

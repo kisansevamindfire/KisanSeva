@@ -47,15 +47,6 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title"></h3>
-              <div class="form-group pull-right">
-                <input type="text" class="search form-control" placeholder="What you looking for?">
-              </div>
-              @php
-                date_default_timezone_set('Asia/Kolkata');
-                $date = date("m/d/Y");
-                $time = date("h:i:sa");
-                $i = 0 ;
-              @endphp
               <span class="counter pull-right"></span>
                 <table class="table table-hover table-bordered results">
                   <thead>
@@ -66,8 +57,31 @@
                       <th>Quantity</th>
                       <th>Base Price</th>
                       <th>Status</th>
-                      <th>Action</th>
                     </tr>
+                        <tbody>
+                          @php
+                            date_default_timezone_set('Asia/Kolkata');
+                            $date = date("m/d/Y");
+                            $time = date("h:i:sa");
+                          @endphp
+                            <tr>
+                              <td>{{ $postDetails['categoryName'][0]->getField('CategoryName_xt') }}</td>
+                              <td>{{ $postDetails['cropDetails'][0]->getField('CropName_t') }}</td>
+                              <td>{{ $postDetails['cropDetails'][0]->getField('PublishedTime_t') }}</td>
+                              <td>{{ $postDetails['cropDetails'][0]->getField('Quantity_xn') }}</td>
+                              <td>Rs {{ $postDetails['cropDetails'][0]->getField('CropPrice_xn') }}</td>
+                              @php
+                                $today_time = strtotime($date);
+                                $expire_time = strtotime($postDetails['cropDetails'][0]->getField('CropExpiryTime_xi'));
+                                if($postDetails['cropDetails'][0]->getField('Sold_n') == 1) { @endphp
+                                  <td><span class="label label-success">Sold</span></td>
+                                @php } elseif ($expire_time < $today_time) { @endphp
+                                  <td><span class="label label-danger">Expired</span></td>
+                                @php } else { @endphp
+                                  <td><span class="label label-primary">Active</span></td>
+                              @php } @endphp
+                              </tr>
+                        </tbody>
                     <tr class="warning no-result">
                       <td colspan="4"><i class="fa fa-warning"></i> No result</td>
                     </tr>
@@ -77,8 +91,63 @@
           </div>
         </div>
       </div>
+        <div class="row">
+        <div class="col-xs-6">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title"></h3>
+              <span class="counter pull-right"></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title"></h3>
+              <span class="counter pull-right"></span>
+                <table class="table table-hover table-bordered results">
+                  <thead>
+                    <tr>
+                      <th>Dealer Name</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      <th>Contact</th>
+                      <th>Bid Made</th>
+                      <th>Action</th>
+                    </tr>
+                        <tbody>
+                          @php
+                            date_default_timezone_set('Asia/Kolkata');
+                            $date = date("m/d/Y");
+                            $time = date("h:i:sa");
+                            $i = 0;
+                          @endphp
+                          @foreach($postDetails['bidDetails'] as $bidDetail)
+                            <tr>
+                              <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserName_xt') }}</td>
+                              <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserEmail_xt') }}</td>
+                              <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserAddress_xt') }}</td>
+                              <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserContact_xn') }}</td>
+                              <td>{{ $bidDetail->getField('BidPrice_xn') }}</td>
+                              <?php $id = $bidDetail->getrecordid() ?>
+                              <td><Button class="label label-info" onclick="window.location='{{ url("acceptBid",[$id]) }}'">Accept</Button></td>
+                              @php
+                               $i++;
+                              @endphp
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    <tr class="warning no-result">
+                      <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+                    </tr>
+                  </thead>
+                </table>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
     </section>
-  </div>
   <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <script type="text/javascript">
 var urlpost = "{{ URL::to('viewRelatedPost') }}";
