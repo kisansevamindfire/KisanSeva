@@ -23,7 +23,15 @@ Route::group(['middleware' => ['web']], function () {
         //Route to go to the ViewPost View.
         Route::get('viewpost', 'FarmerController@findAllPosts');
 
+        // Dealer will see all the crop advertisements on this page
+        Route::get('viewads', 'DealerController@viewads');
+
+        Route::get('profile', function() {
+            return view('farmer.profile');
+        });
+
         Route::get('profile', 'FarmerController@profile');
+
 
         // Home page for Dealer
         Route::get('dealer', 'DealerController@dealer');
@@ -84,9 +92,6 @@ Route::group(['middleware' => ['web']], function () {
 
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
-
-// Dealer will see all the crop advertisements on this page
-Route::get('viewadds', 'DealerController@viewadds');
 
 // Dealer will see the details related to particular add
 Route::get('details', 'DealerController@details');

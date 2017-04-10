@@ -18,7 +18,7 @@
         </a>
       </li>
       <li class="treeview">
-        <a href="{{ URL::to('viewadds') }}">
+        <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
           <span>View Ads</span>
           <span class="pull-right-container">

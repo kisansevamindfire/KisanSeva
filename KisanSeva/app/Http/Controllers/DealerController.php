@@ -17,6 +17,9 @@ use App\Classes;
 
 use Illuminate\Routing\Controller;
 
+use App\Services\Dealer\DealerServices;
+
+
 class DealerController extends Controller
 {
 
@@ -41,9 +44,27 @@ class DealerController extends Controller
         return view("Dealer.viewprevious");
     }
 
-    public function viewadds()
-    {
-        $crops = DealerModel::FindAll('CropPost');
+    public function viewads(Request $request)
+    {   
+        $sessionArray = $request->session()->all();
+        $records = DealerServices::findAllPosts($request->all(), $sessionArray['user']);
+        if ($records !== false) {
+            return view('Dealer.viewads', $records);
+        }
+        return view('Dealer.viewads')->withErrors(['message' => 'No Post Found']);
+    }
+
+      /*  $PostRecords = DealerServices::findAllPosts();
+        return view('Dealer.viewads', compact('PostRecords'));*/
+
+/*        $sessionArray = $request->session()->all();
+        $records = dealerServices::findAllPosts($request->all(), $sessionArray['user']);
+        if ($records !== false) {
+            return view('Dealer.viewads', $records);
+        }
+        return view('Dealer.viewads')->withErrors(['message' => 'No Post Found']);
+*/
+        /*$crops = DealerModel::FindAll('CropPost');
         $i=0;
         foreach ($crops as $crop) {
             $cropRecord = DealerModel::Find('Crop', $crop->getField('__kfn_CropId'), '___kpn_CropId');
@@ -57,6 +78,6 @@ class DealerController extends Controller
             $cropDetails,
             $categoryDetails
         );
-        return view('Dealer.viewadds', compact('PostRecords'));
+        return view('Dealer.viewads', compact('PostRecords'));*/
     }
-}
+
