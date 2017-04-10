@@ -1,5 +1,5 @@
 <!--
-* File    : viewadds.blade.php
+* File    : viewads.blade.php
 * Author  : Saurabh Mehta
 * Date    : 24-Mar-2017
 * Purpose : View Advertisements for Dealers  -->
@@ -18,7 +18,7 @@
         </a>
       </li>
       <li class="active treeview">
-        <a href="{{ URL::to('viewadds') }}">
+        <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
           <span>View Ads</span>
           <span class="pull-right-container">
@@ -63,6 +63,7 @@
                       <th>Quantity</th>
                       <th>Base Price</th>
                       <th>Status</th>
+                      <th>Value</th>
                       <th>Action</th>
                     </tr>
                     <tr class="warning no-result">
@@ -72,8 +73,8 @@
                   <tbody>
                     @foreach($PostRecords[0] as $PostRecord[0])
                       <tr>
-                        <td>{{ $PostRecords[2][$i][0] }}</td>
                         <td>{{ $PostRecords[1][$i][0] }}</td>
+                        <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
                         <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
                         <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
                         <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
@@ -88,17 +89,18 @@
                         @php } else { @endphp
                         <td><span class="label label-primary">Active</span></td>
                         @php } @endphp
-                        <td><Button class="label label-info">View</Button></td>
+                        <td><input type="number" name="value" id="value"></td>
+                        <td><Button class="Button label-info">Submit</Button></td>
                       </tr>
                       @php $i = $i+1; @endphp
                     @endforeach
                   </table>
-                </div>
+                  </div>
               </div>
             </div>
           </div>
         </section>
       </div>
-  <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
-@stop
+    <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
+  @stop

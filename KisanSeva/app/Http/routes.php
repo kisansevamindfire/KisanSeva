@@ -23,6 +23,9 @@ Route::group(['middleware' => ['web']], function () {
         //Route to go to the ViewPost View.
         Route::get('viewpost', 'FarmerController@findAllPosts');
 
+        // Dealer will see all the crop advertisements on this page
+        Route::get('viewads', 'DealerController@viewads');
+
         Route::get('profile', function() {
             return view('farmer.profile');
         });
@@ -88,7 +91,7 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('test', 'UsersController@index');
 
 // Dealer will see all the crop advertisements on this page
-Route::get('viewadds', 'DealerController@viewadds');
+Route::get('viewads', 'DealerController@viewads');
 
 // Dealer will see the details related to particular add
 Route::get('details', 'DealerController@details');
