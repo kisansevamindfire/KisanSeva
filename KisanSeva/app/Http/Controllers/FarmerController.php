@@ -82,6 +82,18 @@ class FarmerController extends Controller
     }
 
     /**
+    * Function to Find all Crops Under Category.
+    *
+    * @param 1. $request - contains id of the Category and all session data.
+    * @return - Filemaker results of Crops Found under Category.
+    */
+    public function postDetails(Request $request)
+    {
+        $postDetails = FarmerServices::findCropDetails($request->id);
+        return view('farmer.postdetails', compact('postDetails'));
+    }
+
+    /**
     * Function to Create a Post of the crop.
     *
     * @param 1. $request - contains all data of the post to be created and all session data.
@@ -89,6 +101,18 @@ class FarmerController extends Controller
     */
     public function createPost(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'Category' => 'required',
+            'Crop' => 'required',
+            'Quantity' => 'required',
+            'Weight' => 'required',
+            'BasePrice' => 'required',
+            'ExpiryTime' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('addpost')->withErrors($validator);
+        }
         $sessionArray = $request->session()->all();
         $addPost = FarmerServices::createPost($request->all(), $sessionArray['user']);
         if ($addPost) {
@@ -146,7 +170,7 @@ class FarmerController extends Controller
             'Name' => 'required|min:5',
             'Contact' => 'required|min:10|max:10'
         ]);
-        // dd('ssss');
+
         if ($validator->fails()) {
             return redirect('profile')->withErrors($validator);
         }
@@ -155,16 +179,5 @@ class FarmerController extends Controller
         $sessionArray = $request->session()->all();
         FarmerServices::editProfile($request->all(), $sessionArray['recordId']);
         return redirect('profile');
-    }
-
-    /**
-    * Function to get all profile data of farmer.
-    *
-    * @param 1. $request - contains all session data.
-    * @return - Returns to the Crop post page.
-    */
-    public function postDetails(Request $request)
-    {
-        return view('Farmer.postDetails');
     }
 }
