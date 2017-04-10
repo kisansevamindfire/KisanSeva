@@ -30,6 +30,9 @@ Route::group(['middleware' => ['web']], function () {
             return view('farmer.profile');
         });
 
+        Route::get('profile', 'FarmerController@profile');
+
+
         // Home page for Dealer
         Route::get('dealer', 'DealerController@dealer');
 
@@ -38,6 +41,11 @@ Route::group(['middleware' => ['web']], function () {
 
         // Display farmingtips
         Route::get('farmingtips', 'FarmerController@FindAllTips');
+
+        //Route to show Farming Tips in Details.
+        Route::get('tipsdetails/{id}','FarmerController@tipDetails');
+
+        Route::get('postDetails/{id}', 'FarmerController@postDetails');
 
     });
 
@@ -59,10 +67,6 @@ Route::group(['middleware' => ['web']], function () {
     //Route to go to signout and go to login View.
     Route::get('signout', 'LoginController@signout');
 
-    Route::get('profile', function() {
-        return view('farmer.profile');
-    });
-
     Route::get('viewbids', function() {
         return view('farmer.viewbids');
     });
@@ -73,9 +77,6 @@ Route::group(['middleware' => ['web']], function () {
     //Route for getting search results of post.
     Route::get('viewRelatedPost', 'FarmerController@findSpecificPosts');
 
-    //Route to show Farming Tips in Details.
-    Route::get('tipsdetails/{id}','FarmerController@tipDetails');
-
     Route::get('viewbids', function() {
         return view('farmer.viewbids');
     });
@@ -85,13 +86,12 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::post('register','LoginController@register');
+
+    Route::post('editProfile','FarmerController@editProfile');
 });
 
 // Test page which will read data of users and tips from Filemaker
 Route::get('test', 'UsersController@index');
-
-// Dealer will see all the crop advertisements on this page
-Route::get('viewads', 'DealerController@viewads');
 
 // Dealer will see the details related to particular add
 Route::get('details', 'DealerController@details');

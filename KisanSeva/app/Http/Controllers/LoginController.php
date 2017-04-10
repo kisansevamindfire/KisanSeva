@@ -30,7 +30,7 @@ class LoginController extends Controller
     {
          $validator = Validator::make($request->all(),[
             'Email' => 'required|email',
-            'Password' => 'required|min:5',
+            'Password' => 'required|min:5'
         ]);
 
         if ($validator->fails()) {
@@ -42,6 +42,7 @@ class LoginController extends Controller
                 $request->session()->put('user', $records[0]->getField('___kpn_UserId'));
                 $request->session()->put('name', $records[0]->getField('UserName_xt'));
                 $request->session()->put('type', $records[0]->getField('__kfn_UserType'));
+                $request->session()->put('recordId', $records[0]->getRecordId());
                 if ($records[0]->getField('__kfn_UserType') == 2) {
                     return redirect('dealer');
                 } elseif ($records[0]->getField('__kfn_UserType') == 3) {

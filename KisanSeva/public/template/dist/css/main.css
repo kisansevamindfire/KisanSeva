@@ -1,13 +1,21 @@
 .results tr[visible='false'],
-.no-result{
+.no-result {
   display:none;
 }
 
-.results tr[visible='true']{
+.results tr[visible='true'] {
   display:table-row;
 }
 
-.counter{
+.counter {
   padding:8px;
   color:#ccc;
+}
+
+.profileDetails {
+    color:blue;
+}
+
+.errorMessage {
+    color:red;
 }
