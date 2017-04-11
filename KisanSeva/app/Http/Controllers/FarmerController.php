@@ -180,4 +180,39 @@ class FarmerController extends Controller
         FarmerServices::editProfile($request->all(), $sessionArray['recordId']);
         return redirect('profile');
     }
+
+    /**
+    * Function to accept the bid of a farmer.
+    *
+    * @param 1. $request - contains id of the bid.
+    * @return - Filemaker results of result.
+    */
+    public function acceptBid(Request $request)
+    {
+        $acceptBid = FarmerServices::acceptBid($request->id);
+        return back();
+    }
+
+    /**
+    * Function to Create Comments.
+    *
+    * @param 1. $request - contains all data of comment to be created and all session data.
+    * @return - Returns to the postDetails page.
+    */
+    public function comment(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'commentData' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('postDetails')->withErrors($validator);
+        }
+        $sessionArray = $request->session()->all();
+        $addComment = FarmerServices::createComment($request->all(), $sessionArray['user'], $request->id);
+        if ($addComment) {
+            return back();
+        }
+        return back();
+    }
 }

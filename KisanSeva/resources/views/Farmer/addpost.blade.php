@@ -20,16 +20,13 @@
         <li class="active treeview">
           <a href="{{ URL::to('addpost') }}">
             <i class="fa fa-plus"></i>
-            <span>Add Post</span>
+            <span>Post Crop</span>
           </a>
         </li>
         <li class="treeview">
           <a href="{{ URL::to('viewpost') }}">
             <i class="fa fa-files-o"></i>
-            <span>View Post</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
+            <span>View Crops Posted</span>
           </a>
         </li>
         <li class="treeview">
@@ -41,6 +38,15 @@
 @stop
 @section('content')
    <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        Post Crops
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ URL::to('farmer') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Add Post Crop</li>
+      </ol>
+    </section>
     <section class="content">
       <div class="row">
         <div class="col-md-6">
@@ -94,7 +100,7 @@
                 </div>
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Post</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
               </div>
             </form>
           </div>

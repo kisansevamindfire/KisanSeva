@@ -20,16 +20,13 @@
         <li class="treeview">
           <a href="{{ URL::to('addpost') }}">
             <i class="fa fa-plus"></i>
-            <span>Add Post</span>
+            <span>Post Crops</span>
           </a>
         </li>
         <li class="treeview">
           <a href="{{ URL::to('viewpost') }}">
             <i class="fa fa-files-o"></i>
-            <span>View Post</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
+            <span>View Crops Posted</span>
           </a>
         </li>
         <li class="treeview">

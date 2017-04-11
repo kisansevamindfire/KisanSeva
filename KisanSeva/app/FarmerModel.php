@@ -56,6 +56,27 @@ class FarmerModel
     * Function to search for data in some find criterion.
     *
     * @param 1. $layout - contains name of the layout.
+    *        2. $id - contains record id of specific farming tip to be displayed.
+    *        3. $field - contains the field on whose basis to be searched.
+    * @return - Filemaker results of Farming Tip found.
+    */
+    public static function findComment($layout, $id, $field)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand($layout);
+        $cmd->addFindCriterion($field, $id);
+        $cmd->addSortRule('___kpn_CommentId', 1, FILEMAKER_SORT_DESCEND);
+        $result = $cmd->execute();
+        if (!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return false;
+    }
+
+    /**
+    * Function to search for data in some find criterion.
+    *
+    * @param 1. $layout - contains name of the layout.
     *        2. $cropName - contains crop name of the crop to find.
     *        3. $user - contains the id of the user.
     * @return - Filemaker results of posts found.
@@ -115,6 +136,44 @@ class FarmerModel
         $request->setField('UserContact_xn', $input['Contact']);
         $request->setField('UserAddress_xt', $input['Address']);
         $result = $request->execute();
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
+
+    public static function editPost($layout, $postRecordId, $id)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $request = $fmobj->newEditCommand($layout, $postRecordId);
+        $request->setField('Sold_n', 1);
+        $request->setField('__kfn_AcceptedBid', $id);
+        $result = $request->execute();
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
+
+        /**
+    * Function to Create a Post.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $input - Contains all the data to be inserted in the record.
+    *        3. $UserId - Contains the id of the user.
+    *        4. $CropName - Contains the name of the crop.
+    * @return - Boolian value if any error occured or not.
+    */
+    public static function createComment($layout, $input, $userId, $id)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+
+        $request = $fmobj->createRecord($layout);
+        $request->setField('__kfn_CropPostId', $id);
+        $request->setField('__kfn_UserId', $userId);
+        $request->setField('CommentData_xt', $input['commentData']);
+        $result = $request->commit();
+
         if (!FileMaker::isError($result)) {
             return true;
         }
