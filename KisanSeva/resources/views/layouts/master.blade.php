@@ -8,11 +8,10 @@
   <!-- Bootstrap 3.3.6 -->
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.17') }}">
+  <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.1') }}">
 
   <link rel="icon" type="image/png" href="{{ asset('template/dist/img/favicon.ico') }}">
-  @yield('header')
-
+<link rel="stylesheet" href="{{ asset('template/dist/css/fresh-bootstrap-table.css') }}">
     <!--     Fonts and icons     -->
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
@@ -70,7 +69,11 @@
               </li>
               <li class="user-footer">
                 <div class="pull-left">
+                @if (Session::get('type') == 2)
+                  <a href="{{ URL::to('profileDealer') }}" class="btn btn-default btn-flat">Profile</a>
+                @else
                   <a href="{{ URL::to('profile') }}" class="btn btn-default btn-flat">Profile</a>
+                @endif
                 </div>
                 <div class="pull-right">
                   <a href="{{URL::to('signout')}}" class="btn btn-default btn-flat">Sign out</a>
@@ -93,15 +96,6 @@
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
       @yield('sidebar')
     </section>
     <!-- /.sidebar -->

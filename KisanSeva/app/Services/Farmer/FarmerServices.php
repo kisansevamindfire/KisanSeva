@@ -100,7 +100,8 @@ class FarmerServices
             $i=0;
             foreach ($posts as $post) {
                 $cropRecord = FarmerModel::find('Crop', $post->getField('__kfn_CropId'), '___kpn_CropId');
-                $categoryRecord = FarmerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
+                $categoryRecord = FarmerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'),
+                 '___kpn_CategoryId');
                 $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
                 $i = $i + 1;
             }
@@ -182,19 +183,69 @@ class FarmerServices
     {
         $cropDetails= FarmerModel::find('CropPostDetailsPortal', $id , 'RecordId_n');
         $cropRecord = $cropDetails[0]->getRelatedSet('Crop 2');
-        $categoryName = FarmerModel::find('Category', $cropRecord[0]->getField('Crop 2::__kfn_CategoryId') , '___kpn_CategoryId');
-        $cropBids = $cropDetails[0]->getRelatedSet('Crop_CropPost_Bids');
+        $categoryName = FarmerModel::find('Category', $cropRecord[0]->getField('Crop 2::__kfn_CategoryId'),
+         '___kpn_CategoryId');
+        $commentRecords = FarmerModel::findComment('Comment', $cropDetails[0]->getField('___kpn_CropPostId'),
+         '__kfn_CropPostId');
+
+        if(!empty($commentRecords)) {
+            $j = 0;
+            foreach ($commentRecords as $commentRecord) {
+                $commentUser[$j] = FarmerModel::find('User', $commentRecord->getField('__kfn_UserId'),
+                 '___kpn_UserId');
+                $j++;
+            }
+        } else { $commentRecords = 0; $commentUser = 0; }
+
         if ($cropDetails[0]->getField('Sold_n') == 1) {
             $bidDetails = FarmerModel::find('Bids', $cropDetails[0]->getField('__kfn_AcceptedBid'), '___kpn_BidId');
             $dealerDetails[0] = FarmerModel::find('User', $bidDetails[0]->getField('__kfn_UserId'), '___kpn_UserId');
-            return compact('cropDetails', 'categoryName', 'bidDetails', 'dealerDetails');
+            return compact('cropDetails', 'categoryName', 'bidDetails', 'dealerDetails', 'id',
+             'commentRecords', 'commentUser');
         }
-        $bidDetails = FarmerModel::find('Bids', $cropDetails[0]->getField('___kpn_CropPostId'), '__kfn_CropPostId');
+
+        $bidDetails = FarmerModel::find('Bids', $cropDetails[0]->getField('___kpn_CropPostId'),
+         '__kfn_CropPostId');
         $i = 0;
-        foreach ($bidDetails as $bidDetail) {
-            $dealerDetails[$i] = FarmerModel::find('User', $bidDetail->getField('__kfn_UserId'), '___kpn_UserId');
-            $i++;
+
+        if ($bidDetails != false) {
+            foreach ($bidDetails as $bidDetail) {
+                $dealerDetails[$i] = FarmerModel::find('User', $bidDetail->getField('__kfn_UserId'),
+                 '___kpn_UserId');
+                $i++;
+            }
+            return compact('cropDetails', 'categoryName', 'bidDetails', 'dealerDetails', 'id',
+             'commentRecords', 'commentUser');
         }
-        return compact('cropDetails', 'categoryName', 'bidDetails', 'dealerDetails');
+
+        $bidDetails = false;
+        return compact('cropDetails', 'categoryName', 'bidDetails', 'id', 'commentRecords',
+         'commentUser');
+    }
+
+     /**
+    * Function to find a specific crop post.
+    *
+    * @param 1. $request - contains the record id of post.
+    * @return - Returns all data of the post.
+    */
+    public static function acceptBid($id)
+    {
+        $bid = FarmerModel::find('Bids', $id, 'BidRecordId_n');
+        $cropPost = FarmerModel::find('CropPost', $bid[0]->getField('__kfn_CropPostId'), '___kpn_CropPostId');
+        $setAcceptedBid = FarmerModel::editPost('CropPost', $cropPost[0]->getRecordId(), $bid[0]->getField('___kpn_BidId'));
+        return $cropPost[0]->getRecordId();
+    }
+
+     /**
+    * Function to find a specific crop post.
+    *
+    * @param 1. $request - contains the record id of post.
+    * @return - Returns all data of the post.
+    */
+    public static function createComment($request, $userId, $id)
+    {
+        $bid = FarmerModel::createComment('Comment', $request, $userId ,$id);
+        return true;
     }
 }

@@ -37,7 +37,11 @@ Route::group(['middleware' => ['web']], function () {
         //Route to show Farming Tips in Details.
         Route::get('tipsdetails/{id}','FarmerController@tipDetails');
 
+        Route::post('postDetails/{id}/commentData','FarmerController@comment');
+
         Route::get('postDetails/{id}', 'FarmerController@postDetails');
+
+        Route::get('acceptBid/{id}', 'FarmerController@acceptBid');
 
     });
 
@@ -76,6 +80,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('register', function () {
         return view('Login.register');
     });
+
 
     Route::post('register','LoginController@register');
 

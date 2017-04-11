@@ -9,7 +9,7 @@
   <title>Farmer | Farming Tips</title>
 @stop
 @section('header')
-  <link rel="stylesheet" href="{{ asset('template/dist/css/fresh-bootstrap-table.css') }}">
+
 @stop
 @section('sidebar')
   <ul class="sidebar-menu">
@@ -23,16 +23,13 @@
         <li class="treeview">
           <a href="{{ URL::to('addpost') }}">
             <i class="fa fa-plus"></i>
-            <span>Add Post</span>
+            <span>Post Crop</span>
           </a>
         </li>
         <li class="active treeview">
           <a href="{{ URL::to('viewpost') }}">
             <i class="fa fa-files-o"></i>
-            <span>View Post</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
+            <span>View Crops Posted</span>
           </a>
         </li>
         <li class="treeview">
@@ -44,6 +41,15 @@
 @stop
 @section('content')
   <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        Crop Posts
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ URL::to('farmer') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">View Post</li>
+      </ol>
+    </section>
     <section class="content">
         <div class="row">
             <div class="col-xs-12">

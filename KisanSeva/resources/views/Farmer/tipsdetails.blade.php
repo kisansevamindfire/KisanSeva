@@ -20,16 +20,13 @@
       <li class="treeview">
         <a href="{{ URL::to('addpost') }}">
           <i class="fa fa-plus"></i>
-          <span>Add Post</span>
+          <span>Post Crops</span>
         </a>
       </li>
       <li class="treeview">
         <a href="{{ URL::to('viewpost') }}">
           <i class="fa fa-files-o"></i>
-          <span>View Post</span>
-          <span class="pull-right-container">
-          <span class="label label-primary pull-right">4</span>
-          </span>
+          <span>View Crops Posted</span>
         </a>
       </li>
       <li class="active treeview">
@@ -41,6 +38,16 @@
 @stop
 @section('content')
  <div class="content-wrapper">
+     <section class="content-header">
+      <h1>
+        Tips Details
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ URL::to('farmer') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ URL::to('farmingtips') }}"><i class="fa fa-dashboard"></i> Farming Tips</a></li>
+        <li class="active">Tips Details</li>
+      </ol>
+    </section>
     <section class="content">
       <!-- Default box -->
       <div class="box">
@@ -49,16 +56,15 @@
           @else
             @foreach($tips as $tip)
               <div class="box-header with-border">
-                <h3 class="box-title">{{ $tip->getField('TipName_xt') }}</h3>
+                <h3 class="box-title"><b>{{ $tip->getField('TipName_xt') }}</b></h3>
              </div>
-              <div class="box-body">
+              <div class="box-body text-justify">
                 {{ $tip->getField('TipData_xt') }}
               </div>
             @endforeach
           @endif
       </div>
       <!-- /.box -->
-
     </section>
     <!-- /.content -->
   </div>
