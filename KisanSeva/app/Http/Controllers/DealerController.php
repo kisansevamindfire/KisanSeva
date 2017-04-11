@@ -19,7 +19,6 @@ use Illuminate\Routing\Controller;
 
 use App\Services\Dealer\DealerServices;
 
-
 class DealerController extends Controller
 {
 
@@ -45,7 +44,7 @@ class DealerController extends Controller
     }
 
     public function viewads(Request $request)
-    {   
+    {
         $sessionArray = $request->session()->all();
         $records = DealerServices::findAllPosts($request->all(), $sessionArray['user']);
         if ($records !== false) {
@@ -54,30 +53,22 @@ class DealerController extends Controller
         return view('Dealer.viewads')->withErrors(['message' => 'No Post Found']);
     }
 
-      /*  $PostRecords = DealerServices::findAllPosts();
-        return view('Dealer.viewads', compact('PostRecords'));*/
+    /**
+    * Function to get all profile data of farmer.
+    *
+    * @param 1. $request - contains all session data.
+    * @return - Returns to the Crop post page.
+    */
+    public function profileDealer(Request $request)
+    {
+        $sessionArray = $request->session()->all();
+        $profileData = DealerServices::profileDealer($sessionArray['user']);
+       // $post = DealerServices::postCountDealer($sessionArray['user']);
 
-/*        $sessionArray = $request->session()->all();
-        $records = dealerServices::findAllPosts($request->all(), $sessionArray['user']);
-        if ($records !== false) {
-            return view('Dealer.viewads', $records);
+        if ($profileData != false) {
+            return view('Dealer.profileDealer', compact('profileData', 'post'));
         }
-        return view('Dealer.viewads')->withErrors(['message' => 'No Post Found']);
-*/
-        /*$crops = DealerModel::FindAll('CropPost');
-        $i=0;
-        foreach ($crops as $crop) {
-            $cropRecord = DealerModel::Find('Crop', $crop->getField('__kfn_CropId'), '___kpn_CropId');
-            $cropDetails[$i] = [ $cropRecord[0]->getField('CropName_xt'), $cropRecord[0]->getField('___kpn_CropId')];
-            $categoryRecord = DealerModel::Find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
-            $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
-            $i = $i + 1;
-        }
-        $PostRecords = array(
-            $crops,
-            $cropDetails,
-            $categoryDetails
-        );
-        return view('Dealer.viewads', compact('PostRecords'));*/
+
+        return false;
     }
-
+}

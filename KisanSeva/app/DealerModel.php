@@ -34,7 +34,7 @@ class DealerModel
     /**
     * Function to search for data in some find criterion.
     *
-    *@param 1. $layout - contains name of the layout.
+    * @param 1. $layout - contains name of the layout.
     *        2. $id - contains record id of specific farming tip to be displayed.
     *        3. $field - contains the field on whose basis to be searched.
     * @return - Filemaker results of Farming Tip found.
@@ -48,6 +48,6 @@ class DealerModel
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
         }
-        return ["No", "records", "Found", $result->getMessage()];
+        return false;
     }
 }
