@@ -70,7 +70,11 @@
               </li>
               <li class="user-footer">
                 <div class="pull-left">
+                @if (session::get('type') == 2 )
+                  <a href="{{ URL::to('profileDealer') }}" class="btn btn-default btn-flat">Profile</a>
+                @else
                   <a href="{{ URL::to('profile') }}" class="btn btn-default btn-flat">Profile</a>
+                @endif
                 </div>
                 <div class="pull-right">
                   <a href="{{URL::to('signout')}}" class="btn btn-default btn-flat">Sign out</a>
