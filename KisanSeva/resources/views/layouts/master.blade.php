@@ -51,6 +51,9 @@
       </a>
 
       <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+        <div id="google_translate_element"></div>
+        </ul>
         <ul class="nav navbar-nav">
 
           <li class="dropdown user user-menu">
@@ -102,6 +105,13 @@
   </aside>
 @yield('content')
 
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.12') }}"></script>
 <!-- Bootstrap 3.3.6 -->
