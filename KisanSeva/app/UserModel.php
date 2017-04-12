@@ -12,14 +12,18 @@ namespace App;
 use App\Classes\FilemakerWrapper;
 use FileMaker;
 
+/**
+* Class containing all functions to connect to filemaker.
+*/
 class UserModel
 {
 
     /**
     * Function to Show all user Details.
     *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $input - contains all the fields to search the user
+    * @param string $layout - contains name of the layout.
+    * @param array $input - contains all the fields to search the user
+    *
     * @return - Filemaker results of all records found.
     */
     public static function userDetails($layout, $input)
@@ -37,8 +41,9 @@ class UserModel
     /**
     * Function to Create a User.
     *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $input - Contains all the data to be inserted in the record.
+    * @param string $layout - contains name of the layout.
+    * @param array $input - Contains all the data to be inserted in the record.
+    *
     * @return - Boolian value if any error occured or not.
     */
     public static function addUsers($layout, $input)
@@ -63,9 +68,10 @@ class UserModel
     /**
     * Function to search for data in some find criterion.
     *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $id - contains record id of specific farming tip to be displayed.
-    *        3. $field - contains the field on whose basis to be searched.
+    * @param string $layout - contains name of the layout.
+    * @param int $data - contains data to be searched.
+    * @param $field - contains the field on whose basis to be searched.
+    *
     * @return - Boolian value if the result is found or not.
     */
     public static function find($layout, $data, $field)
