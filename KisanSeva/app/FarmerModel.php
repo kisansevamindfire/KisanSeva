@@ -12,20 +12,25 @@ namespace App;
 use App\Classes\FilemakerWrapper;
 use FileMaker;
 
+/**
+* Class containing all functions to connect with the filemaker database.
+*/
 class FarmerModel
 {
 
     /**
     * Function to Show all Records in a specific layout.
     *
-    * @param 1. $layout - contains name of the layout.
+    * @param string $layout - contains name of the layout.
     * @return - Filemaker results of all records found.
     */
     public static function findAll($layout)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindAllCommand($layout);
+
         $result = $cmd->execute();
+        //if any error return result not found else return data.
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
         }
@@ -35,17 +40,20 @@ class FarmerModel
     /**
     * Function to search for data in some find criterion.
     *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $id - contains record id of specific farming tip to be displayed.
-    *        3. $field - contains the field on whose basis to be searched.
+    * @param string $layout - contains name of the layout.
+    * @param int $id - contains record id of specific farming tip to be displayed.
+    * @param string $field - contains the field on whose basis to be searched.
+    *
     * @return - Filemaker results of Farming Tip found.
     */
     public static function find($layout, $id, $field)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindCommand($layout);
+        //command to find according to criterion
         $cmd->addFindCriterion($field, $id);
         $result = $cmd->execute();
+        //if any error return false.
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
         }
@@ -53,20 +61,23 @@ class FarmerModel
     }
 
     /**
-    * Function to search for data in some find criterion.
+    * Function to search comment by find.
     *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $id - contains record id of specific farming tip to be displayed.
-    *        3. $field - contains the field on whose basis to be searched.
+    * @param string $layout - contains name of the layout.
+    * @param int $id - contains record id of specific farming tip to be displayed.
+    * @param string $field - contains the field on whose basis to be searched.
+    *
     * @return - Filemaker results of Farming Tip found.
     */
     public static function findComment($layout, $id, $field)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindCommand($layout);
+        //command to find according to criterion
         $cmd->addFindCriterion($field, $id);
         $cmd->addSortRule('___kpn_CommentId', 1, FILEMAKER_SORT_DESCEND);
         $result = $cmd->execute();
+
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
         }
@@ -76,18 +87,45 @@ class FarmerModel
     /**
     * Function to search for data in some find criterion.
     *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $cropName - contains crop name of the crop to find.
-    *        3. $user - contains the id of the user.
+    * @param string $layout - contains name of the layout.
+    * @param int $id - contains record id of specific farming tip to be displayed.
+    * @param string $field - contains the field on whose basis to be searched.
+    *
+    * @return - Filemaker results of Farming Tip found.
+    */
+    public static function findPostSorted($layout, $id, $field)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand($layout);
+        //command to find according to criterion
+        $cmd->addFindCriterion($field, $id);
+        $cmd->addSortRule('___kpn_CropPostId', 1, FILEMAKER_SORT_DESCEND);
+        $result = $cmd->execute();
+        //if any error return false.
+        if (!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return false;
+    }
+
+    /**
+    * Function to search for data in some find criterion.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param string $cropName - contains crop name of the crop to find.
+    * @param int $user - contains the id of the user.
+    *
     * @return - Filemaker results of posts found.
     */
     public static function findPosts($layout, $cropName, $user)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindCommand($layout);
+        //command to find according to criterion
         $cmd->addFindCriterion('cropName_t', $cropName);
         $cmd->addFindCriterion('__kfn_UserId', $user);
         $result = $cmd->execute();
+
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
         }
@@ -96,10 +134,11 @@ class FarmerModel
     /**
     * Function to Create a Post.
     *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $input - Contains all the data to be inserted in the record.
-    *        3. $UserId - Contains the id of the user.
-    *        4. $CropName - Contains the name of the crop.
+    * @param string $layout - contains name of the layout.
+    * @param array $input - Contains all the data to be inserted in the record.
+    * @param int $UserId - Contains the id of the user.
+    * @param string $CropName - Contains the name of the crop.
+    *
     * @return - Boolian value if any error occured or not.
     */
     public static function addPost($layout, $input, $UserId, $CropName)
@@ -128,40 +167,63 @@ class FarmerModel
         return $result->getMessage();
     }
 
+    /**
+    * Function to edit the details of user.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param array @input - Contains all data for edit.
+    * @param int $UserId - Contains the id of the user.
+    *
+    * @return - Boolian value if any error occured or not.
+    */
     public static function editRecords($layout, $input, $userId)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $request = $fmobj->newEditCommand($layout, $userId);
+
         $request->setField('UserName_xt', $input['Name']);
         $request->setField('UserContact_xn', $input['Contact']);
         $request->setField('UserAddress_xt', $input['Address']);
         $result = $request->execute();
+
         if (!FileMaker::isError($result)) {
             return true;
         }
         return $result->getMessage();
     }
 
+    /**
+    * Function to edit a post.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param int $postRecordId - Contains the id of the post.
+    * @param int $id - Contains the bid id.
+    *
+    * @return - Boolian value if any error occured or not.
+    */
     public static function editPost($layout, $postRecordId, $id)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $request = $fmobj->newEditCommand($layout, $postRecordId);
+
         $request->setField('Sold_n', 1);
         $request->setField('__kfn_AcceptedBid', $id);
         $result = $request->execute();
+
         if (!FileMaker::isError($result)) {
             return true;
         }
         return $result->getMessage();
     }
 
-        /**
-    * Function to Create a Post.
+    /**
+    * Function to Create a comment.
     *
-    * @param 1. $layout - contains name of the layout.
-    *        2. $input - Contains all the data to be inserted in the record.
-    *        3. $UserId - Contains the id of the user.
-    *        4. $CropName - Contains the name of the crop.
+    * @param string $layout - contains name of the layout.
+    * @param array $input - Contains all the data to be inserted in the record.
+    * @param int $UserId - Contains the id of the user.
+    * @param int $id - Contains the id of the post.
+    *
     * @return - Boolian value if any error occured or not.
     */
     public static function createComment($layout, $input, $userId, $id)

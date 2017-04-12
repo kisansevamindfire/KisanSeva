@@ -17,13 +17,17 @@ use App\Post;
 use Session;
 use App\Services\LoginServices;
 
+/**
+* Class containing all functions for the login services.
+*/
 class LoginController extends Controller
 {
 
     /**
     * Function to sign in to the required user home page.
     *
-    * @param 1. Reguest - Contains all data of user for login.
+    * @param array Reguest - Contains all data of user for login.
+    *
     * @return - Returns to the route of desired user.
     */
    public function login(Request $request)
@@ -36,6 +40,7 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return view('Login.login')->withErrors($validator);
         }
+
         $records = LoginServices::login($request->all());
         if ($records !== false) {
             if ($records[0]->getField('__kfn_UserType') != 1) {
@@ -56,7 +61,8 @@ class LoginController extends Controller
     /**
     * Function to register a user.
     *
-    * @param 1. Reguest - Contains all data of user to register.
+    * @param array Reguest - Contains all data of user to register.
+    *
     * @return - Returns to the route of desired user.
     */
     public function register(Request $request)
@@ -69,6 +75,7 @@ class LoginController extends Controller
             'RetypePassword' => 'required|same:Password',
             'Number' => 'required|min:10|max:10'
         ]);
+
         if ($validator->fails()) {
             return view('Login.register')->withErrors($validator);
         }
@@ -85,13 +92,15 @@ class LoginController extends Controller
                 return view('Login.register')->withErrors(['message' => 'Email Already Exists'],'login');
             }
         }
+
         return view('Login.login');
     }
 
     /**
     * Function to signout.
     *
-    * @param 1. Reguest - Contains all session data.
+    * @param array Reguest - Contains all session data.
+    *
     * @return - Returns to login view.
     */
     public function signout(Request $request)

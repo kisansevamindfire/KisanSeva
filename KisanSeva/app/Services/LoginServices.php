@@ -15,13 +15,17 @@ use App\Post;
 use Illuminate\Routing\Controller;
 use Session;
 
+/**
+* Class containing all functions for the login services.
+*/
 class LoginServices
 {
 
     /**
     * Function to get all user data.
     *
-    * @param 1. Reguest - Contains all data of user for login.
+    * @param array Reguest - Contains all data of user for login.
+    *
     * @return - Returns to the route of desired user.
     */
     public static function login($request)
@@ -36,7 +40,8 @@ class LoginServices
      /**
     * Function to register a user.
     *
-    * @param 1. Reguest - Contains all data of user for login.
+    * @param array Reguest - Contains all data of user for login.
+    *
     * @return - Returns to the route of desired user.
     */
     public static function register($request)
@@ -51,7 +56,8 @@ class LoginServices
     /**
     * Function to scheck if email is present or not.
     *
-    * @param 1. Reguest - Contains all data of user for login.
+    * @param array Reguest - Contains all data of user for login.
+    *
     * @return - Returns to the route of desired user.
     */
     public static function checkEmail($request)

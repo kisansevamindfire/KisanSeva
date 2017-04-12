@@ -19,6 +19,9 @@ use App\Post;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 
+/**
+* Class containing all functions for the farmer services.
+*/
 class FarmerController extends Controller
 {
 
@@ -28,14 +31,14 @@ class FarmerController extends Controller
     * @param Null
     * @return - Returns to the desired view of desired user.
     */
-    public function farmer()
+    public function farmer(Request $request)
     {
         return view('farmer.index');
     }
     /**
     * Function to get All Farming Tips Data.
     *
-    * @param 1. Reguest - Contains all session data.
+    * @param array Reguest - Contains all session data.
     * @return - Filemaker results of all Farming Tips found.
     */
     public function findAllTips(Request $request)
@@ -47,8 +50,7 @@ class FarmerController extends Controller
     /**
     * Function to get Specific Farming Tips Data.
     *
-    * @param 1. $id - contains record id of specific farming tip to be displayed.
-    *        2. Reguest - Contains all session data.
+    * @param int $id - contains record id of specific farming tip to be displayed.
     * @return - Filemaker results of Farming Tips found.
     */
     public function tipDetails($id)
@@ -60,10 +62,9 @@ class FarmerController extends Controller
     /**
     * Function to get all the Category.
     *
-    * @param 1. Reguest - Contains all session data.
     * @return - Filemaker results of Category Found.
     */
-    public function findAllCategory(Request $request)
+    public function findAllCategory()
     {
         $records = FarmerServices::findAllCategory();
         return view('farmer.addpost', compact('records'));
@@ -72,7 +73,7 @@ class FarmerController extends Controller
     /**
     * Function to Find all Crops Under Category.
     *
-    * @param 1. $request - contains id of the Category and all session data.
+    * @param int $request - contains id of the Category and all session data.
     * @return - Filemaker results of Crops Found under Category.
     */
     public function findCrops(Request $request)
@@ -84,7 +85,7 @@ class FarmerController extends Controller
     /**
     * Function to Find all Crops Under Category.
     *
-    * @param 1. $request - contains id of the Category and all session data.
+    * @param int $request - contains id of the Category and all session data.
     * @return - Filemaker results of Crops Found under Category.
     */
     public function postDetails(Request $request)
@@ -96,11 +97,12 @@ class FarmerController extends Controller
     /**
     * Function to Create a Post of the crop.
     *
-    * @param 1. $request - contains all data of the post to be created and all session data.
+    * @param array $request - contains all data of the post to be created and all session data.
     * @return - Returns to the Crop post page.
     */
     public function createPost(Request $request)
     {
+        //validation of crop data to be posted
         $validator = Validator::make($request->all(),[
             'Category' => 'required',
             'Crop' => 'required',
@@ -113,6 +115,7 @@ class FarmerController extends Controller
         if ($validator->fails()) {
             return redirect('addpost')->withErrors($validator);
         }
+        //creating the post if validatinn is succesful
         $sessionArray = $request->session()->all();
         $addPost = FarmerServices::createPost($request->all(), $sessionArray['user']);
         if ($addPost) {
@@ -124,7 +127,7 @@ class FarmerController extends Controller
     /**
     * Function to get all posts.
     *
-    * @param 1. Reguest - Contains all session data.
+    * @param array Reguest - Contains all session data.
     * @return - Array of all post data.
     */
     public function findAllPosts(Request $request)
@@ -142,7 +145,7 @@ class FarmerController extends Controller
     /**
     * Function to get all profile data of farmer.
     *
-    * @param 1. $request - contains all session data.
+    * @param array $request - contains all session data.
     * @return - Returns to the Crop post page.
     */
     public function profile(Request $request)
@@ -161,12 +164,13 @@ class FarmerController extends Controller
     /**
     * Function to sign in to the required user home page.
     *
-    * @param 1. Reguest - Contains all data of user for login.
+    * @param array Reguest - Contains all data of user for login.
     * @return - Returns to the route of desired user.
     */
     public function editProfile(Request $request)
     {
-         $validator = Validator::make($request->all(),[
+        //validation of field for edit.
+        $validator = Validator::make($request->all(),[
             'Name' => 'required|min:5',
             'Contact' => 'required|min:10|max:10'
         ]);
@@ -174,7 +178,7 @@ class FarmerController extends Controller
         if ($validator->fails()) {
             return redirect('profile')->withErrors($validator);
         }
-
+        //if validation succesful edit the profile
         $request->session()->put('name', $request->Name);
         $sessionArray = $request->session()->all();
         FarmerServices::editProfile($request->all(), $sessionArray['recordId']);
@@ -184,7 +188,7 @@ class FarmerController extends Controller
     /**
     * Function to accept the bid of a farmer.
     *
-    * @param 1. $request - contains id of the bid.
+    * @param array $request - contains id of the bid.
     * @return - Filemaker results of result.
     */
     public function acceptBid(Request $request)
@@ -196,11 +200,12 @@ class FarmerController extends Controller
     /**
     * Function to Create Comments.
     *
-    * @param 1. $request - contains all data of comment to be created and all session data.
+    * @param array $request - contains all data of comment to be created and all session data.
     * @return - Returns to the postDetails page.
     */
     public function comment(Request $request)
     {
+        //validation of comment data
         $validator = Validator::make($request->all(),[
             'commentData' => 'required',
         ]);
@@ -208,6 +213,7 @@ class FarmerController extends Controller
         if ($validator->fails()) {
             return redirect('postDetails')->withErrors($validator);
         }
+        //create a comment if validation succesful.
         $sessionArray = $request->session()->all();
         $addComment = FarmerServices::createComment($request->all(), $sessionArray['user'], $request->id);
         if ($addComment) {

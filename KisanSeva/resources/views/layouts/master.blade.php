@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.1') }}">
 
   <link rel="icon" type="image/png" href="{{ asset('template/dist/img/favicon.ico') }}">
-<link rel="stylesheet" href="{{ asset('template/dist/css/fresh-bootstrap-table.css') }}">
+  <link rel="stylesheet" href="{{ asset('template/dist/css/fresh-bootstrap-table.css') }}">
     <!--     Fonts and icons     -->
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
