@@ -94,6 +94,57 @@ class FarmerServices
     }
 
     /**
+    * Function to get all data for dashboard.
+    *
+    * @param int $userId - contains the id of user.
+    * @return - Returns a boolian value if post made or not.
+    */
+    public static function findDashboardData($userId)
+    {
+        $posts = FarmerModel::find('CropPost', $userId, '__kfn_UserId');
+        //get current date.
+        date_default_timezone_set('Asia/Kolkata');
+        $date = date("m/d/Y");
+        $time = date("h:i:sa");
+        $today_time = strtotime($date);
+
+        //count the no of posts, the posts sold, expired and earnings.
+        $count = count($posts);
+        $lastPostTime = "No Posts Made Yet";
+        $totalPosts = 0;
+        $postSold = 0;
+        $postActive = 0;
+        $postExpired = 0;
+        $totalEarning = 0;
+        if ($posts) {
+            foreach ($posts as $post) {
+                $expire_time = strtotime($post->getField('CropExpiryTime_xi'));
+                $totalPosts++;
+                if ($post->getField('Sold_n') == 1) {
+                    $postSold++;
+                    $bidAccepted = FarmerModel::find('Bids', $post->getField('__kfn_AcceptedBid'), '___kpn_BidId');
+                    $totalEarning = $totalEarning + $bidAccepted[0]->getField('BidPrice_xn');
+                }
+                elseif ($expire_time < $today_time) {
+                    $postExpired++;
+                } else { $postActive++; }
+            }
+            $lastPostTime = $posts[$count-1]->getField('PublishedTime_t');
+        }
+
+        $countPost = array(
+            $totalPosts,
+            $postSold,
+            $lastPostTime,
+            $postActive,
+            $postExpired,
+            $totalEarning
+        );
+
+        return compact('countPost');
+    }
+
+    /**
     * Function to get all posts of the user.
     *
     * @param array Reguest - Contains all session data to find the post.
@@ -154,7 +205,7 @@ class FarmerServices
 
         //count the no of posts and the posts sold
         $count = count($posts);
-        $lastPostTime = $posts[$count-1]->getField('PublishedTime_t');
+        $lastPostTime = "No Posts Made Yet";
         $totalPosts = 0;
         $postSold = 0;
         if ($posts) {
@@ -163,6 +214,7 @@ class FarmerServices
                 if ($post->getField('Sold_n') === 1)
                     { $postSold++; }
             }
+            $lastPostTime = $posts[$count-1]->getField('PublishedTime_t');
         }
 
         $countPost = array(

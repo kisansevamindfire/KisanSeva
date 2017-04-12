@@ -28,12 +28,14 @@ class FarmerController extends Controller
     /**
     * Function to go to Farmer View.
     *
-    * @param Null
+    * @param array $request - Contains all session data.
     * @return - Returns to the desired view of desired user.
     */
     public function farmer(Request $request)
     {
-        return view('farmer.index');
+        $sessionArray = $request->session()->all();
+        $dashboardData = FarmerServices::findDashboardData($sessionArray['user']);
+        return view('farmer.index', compact('dashboardData'));
     }
     /**
     * Function to get All Farming Tips Data.
