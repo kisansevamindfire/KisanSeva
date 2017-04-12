@@ -22,21 +22,13 @@ Route::group(['middleware' => ['web']], function () {
     
         //Route to go to the ViewPost View.
         Route::get('viewpost', 'FarmerController@findAllPosts');
-    
-        // Dealer will see all the crop advertisements on this page
-        Route::get('viewads', 'DealerController@viewads');
-    
+        
         Route::get('profile', function() {
             return view('farmer.profile');
         });
     
         Route::get('profile', 'FarmerController@profile');
-    
-        // Home page for Dealer
-        Route::get('dealer', 'DealerController@dealer');
         
-        Route::get('profileDealer','DealerController@profileDealer');
-
         //Route for go get crops under specific category.
         Route::get('viewCrops', 'FarmerController@findCrops');
     
@@ -51,6 +43,21 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('postDetails/{id}', 'FarmerController@postDetails');
 
         Route::get('acceptBid/{id}', 'FarmerController@acceptBid');
+
+        //Profile page for dealer
+        Route::get('profileDealer','DealerController@profileDealer');
+        
+        // Home page for Dealer
+        Route::get('dealer', 'DealerController@dealer');
+
+        // Dealer will see all the crop advertisements on this page
+        Route::get('viewads', 'DealerController@viewads');
+
+        //Details page for dealer
+        Route::get('details/{id}', 'DealerController@details');
+
+        //Comments Page for Dealer
+        Route::post('postDetails/{id}/commentData','DealerController@comment');
 
     });
    
