@@ -6,12 +6,18 @@
 * Author: Saurabh Mehta
 */
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\DealerModal;
+
+use App\DealerModel;
+
 use App\Http\Requests;
+
 use App\Classes;
+
 use Illuminate\Routing\Controller;
 
+use App\Services\Dealer\DealerServices;
 
 class DealerController extends Controller
 {
@@ -27,40 +33,42 @@ class DealerController extends Controller
         return view('Dealer.index');
     }
 
-	/*public function viewadds() {
-		return view("Dealer.viewadds");
-    }
-*/
-    public function details() {
-		return view("Dealer.details");
-    }
-
-	public function viewprevious() {
-		return view("Dealer.viewprevious");
-    }
-
-    public function viewadds()
+    public function details()
     {
-        $records = DealerModal::FindAll( 'CropPost' );
-        $i=0;
-        foreach ($records as $record) {
-            $cropRecord = DealerModal::Find('Crop', $record->getField('__kfn_CropId') , '___kpn_CropId');
-            $cropDetails[$i] = [ $cropRecord[0]->getField('CropName_xt'), $cropRecord[0]->getField('___kpn_CropId')];
-            $categoryRecord = DealerModal::Find('Category',$cropRecord[0]->getField('__kfn_CategoryId') , '___kpn_CategoryId' );
-            $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
-            $i = $i + 1;
-        }
-        $PostRecords = array(
-            $records,
-            $cropDetails,
-            $categoryDetails
-        );
-        return view('Dealer.viewadds', compact('PostRecords'));
-
-       //dd($PostRecords[1][2][0]);
-        //dd($PostRecords[0][0]->getField('__kfn_CropId'));
-        //dd($categoryDetails);
-        //return view('farmer.ViewPost', compact('records'));
+        return view("Dealer.details");
     }
 
+    public function viewprevious()
+    {
+        return view("Dealer.viewprevious");
+    }
+
+    public function viewads(Request $request)
+    {
+        $sessionArray = $request->session()->all();
+        $records = DealerServices::findAllPosts($request->all(), $sessionArray['user']);
+        if ($records !== false) {
+            return view('Dealer.viewads', $records);
+        }
+        return view('Dealer.viewads')->withErrors(['message' => 'No Post Found']);
+    }
+
+    /**
+    * Function to get all profile data of farmer.
+    *
+    * @param 1. $request - contains all session data.
+    * @return - Returns to the Crop post page.
+    */
+    public function profileDealer(Request $request)
+    {
+        $sessionArray = $request->session()->all();
+        $profileData = DealerServices::profileDealer($sessionArray['user']);
+       // $post = DealerServices::postCountDealer($sessionArray['user']);
+
+        if ($profileData != false) {
+            return view('Dealer.profileDealer', compact('profileData', 'post'));
+        }
+
+        return false;
+    }
 }
