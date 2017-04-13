@@ -24,9 +24,6 @@
         <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
           <span>View Ads</span>
-          <span class="pull-right-container">
-            <span class="label label-primary pull-right">4</span>
-          </span>
         </a>
       </li>
       <li class="treeview">

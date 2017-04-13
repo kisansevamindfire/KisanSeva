@@ -72,14 +72,14 @@ class DealerModel
         return false;
     }
     
-    public static function createCommentDealer($layout, $input, $userId, $id)
+    public static function CommentDealer($layout, $input, $userId, $id)
     {
         $fmobj = FilemakerWrapper::getConnection();
 
         $request = $fmobj->createRecord($layout);
         $request->setField('__kfn_CropPostId', $id);
         $request->setField('__kfn_UserId', $userId);
-        $request->setField('CommentData_xt', $input['commentDataDealer']);
+        $request->setField('CommentData_xt', $input['commentData']);
         $result = $request->commit();
 
         if (!FileMaker::isError($result)) {

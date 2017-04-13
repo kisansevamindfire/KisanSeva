@@ -97,14 +97,14 @@ class DealerController extends Controller
     public function commentDealer(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'commentDataDealer' => 'required',
+            'commentData' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect('details')->withErrors($validator);
         }
         $sessionArray = $request->session()->all();
-        $addComment = DealerServices::createCommentDealer($request->all(), $sessionArray['user'], $request->id);
+        $addComment = DealerServices::CommentDealer($request->all(), $sessionArray['user'], $request->id);
         if ($addComment) {
             return back();
         }
