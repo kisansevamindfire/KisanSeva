@@ -56,8 +56,8 @@ Route::group(['middleware' => ['web']], function () {
         //Details page for dealer
         Route::get('details/{id}', 'DealerController@details');
 
-        //Comments Page for Dealer
-        Route::post('details/{id}/commentDataDealer','DealerController@commentDealer');
+        //Comments section for Dealer
+        Route::post('details/{id}/commentData','DealerController@commentDealer');
 
     });
    
@@ -101,10 +101,7 @@ Route::group(['middleware' => ['web']], function () {
     });
     
     // Test page which will read data of users and tips from Filemaker
-    Route::get('test', 'UsersController@index');
-    
-    // Dealer will see the details related to particular add
-    Route::get('details', 'DealerController@details');
+    Route::get('test', 'UsersController@index');    
     
     // dealer will see his previous purchases
     Route::get('viewprevious', 'DealerController@viewprevious');

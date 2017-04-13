@@ -20,10 +20,7 @@
       <li class="treeview">
         <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
-          <span>View Ads</span>
-          <span class="pull-right-container">
-            <span class="label label-primary pull-right">4</span>
-          </span>
+          <span>View Ads</span> 
         </a>
       </li>
       <li class="treeview">
@@ -94,7 +91,7 @@
       </div>
         <div class="row">
           <div class="col-xs-6">
-            <form action="{{ $details['id'] }}/commentDataDealer" method="post">
+            <form action="{{ $details['id'] }}/commentData" method="post">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <textarea class="form-control " rows="5"
                   name="commentData" id="commentData"
@@ -130,66 +127,8 @@
               @endforeach
             @endif
         </div>
-        <div class="col-xs-6">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"></h3>
-              <span class="counter pull-right"></span>
-                <table class="table table-hover table-bordered results">
-                  <thead>
-                     @php
-                        date_default_timezone_set('Asia/Kolkata');
-                        $date = date("m/d/Y");
-                        $time = date("h:i:sa");
-                        $i = 0;
-                      @endphp
-                      @if($details['bidDetails'] != false)
-                    <tr>
-                      <th>Dealer Name</th>
-                      <th>Email</th>
-                      <th>Address</th>
-                      <th>Contact</th>
-                      <th>Bid Made</th>
-                      <th>Action</th>
-                    </tr>
-                        <tbody>
-                          @foreach($details['bidDetails'] as $bidDetail)
-                            <tr>
-                              <td>{{ $details['dealerDetails'][$i][0]->getField('UserName_xt') }}</td>
-                              <td>{{ $details['dealerDetails'][$i][0]->getField('UserEmail_xt') }}</td>
-                              <td>{{ $details['dealerDetails'][$i][0]->getField('UserAddress_xt') }}</td>
-                              <td>{{ $details['dealerDetails'][$i][0]->getField('UserContact_xn') }}</td>
-                              <td>{{ $bidDetail->getField('BidPrice_xn') }}</td>
-                              @if($details['cropDetails'][0]->getField('Sold_n') == 1 )
-                                <td><button type="button" class="btn-sm-info" disabled="disabled">Accepted</button></td>
-                              @else
-                                <?php $id = $bidDetail->getrecordid() ?>
-                                <td><Button class="btn-sm label-info" onclick="window.location='{{ url::to("acceptBid",[$id]) }}'">Accept</Button></td>
-                              @endif
-                              @php
-                               $i++;
-                              @endphp
-                            </tr>
-                          @endforeach
-                        </tbody>
-                    <tr class="warning no-result">
-                      <td colspan="4"><i class="fa fa-warning"></i> No result</td>
-                    </tr>
-                        @else
-                          {{'No bids Made till now'}}
-                        @endif
-                  </thead>
-                </table>
-            </div>
-          </div>
-        </div>
-        </div>
-      </div>
     </section>
   <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-<script type="text/javascript">
-var urlpost = "{{ URL::to('viewRelatedPost') }}";
-</script>
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
+  <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
 @stop
 
