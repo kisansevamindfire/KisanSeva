@@ -19,6 +19,16 @@ use Illuminate\Routing\Controller;
 
 use App\Services\Dealer\DealerServices;
 
+use Validator;
+
+use Session;
+
+use App\Post;
+
+use Illuminate\Support\Facades\Redirect;
+
+use Illuminate\Support\Facades\URL;
+
 class DealerController extends Controller
 {
 
@@ -80,21 +90,21 @@ class DealerController extends Controller
     */
     public function details(Request $request)
     {
-        $postDetails = DealerServices::getadDetails($request->id);
-        return view('Dealer.details', compact('postDetails'));
+        $details = DealerServices::getadDetails($request->id);
+        return view('Dealer.details', compact('details'));
     }
 
-    public function comment(Request $request)
+    public function commentDealer(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'commentData' => 'required',
+            'commentDataDealer' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return redirect('postDetails')->withErrors($validator);
+            return redirect('details')->withErrors($validator);
         }
         $sessionArray = $request->session()->all();
-        $addComment = DealerServices::createComment($request->all(), $sessionArray['user'], $request->id);
+        $addComment = DealerServices::createCommentDealer($request->all(), $sessionArray['user'], $request->id);
         if ($addComment) {
             return back();
         }
