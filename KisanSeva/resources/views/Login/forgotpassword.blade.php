@@ -26,32 +26,25 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">Enter your Email</p>
     <span class="errorMessage">@if ($errors->has('message')) {{ $errors->first('message') }} @endif</span>
-    <form id="LoginUser" action="login" method="Post" role="form">
+    <form id="forgotPassword" action="forgotPassword" method="Post" role="form">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="Email">
         <span class="errorMessage">@if ($errors->has('Email')) {{ $errors->first('Email') }} @endif</span>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="Password" >
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        <span class="errorMessage">@if ($errors->has('Password')) {{ $errors->first('Password') }} @endif</span>
-      </div>
       <div class="row">
         <div class="col-xs-8"></div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
-    <a href="{{ URL::to('forgot') }}">I forgot my password</a><br>
-    <a href="{{ URL::to('register') }}" class="text-center">Register a new membership</a>
-
+    <a href="{{ URL::to('register') }}"" class="text-center">Register a new membership</a>
   </div>
   <!-- /.login-box-body -->
 </div>

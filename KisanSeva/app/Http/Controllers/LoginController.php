@@ -8,6 +8,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\FarmerModel;
 use Validator;
 use App\Http\Requests;
@@ -82,7 +83,7 @@ class LoginController extends Controller
         else
         {
             $emailCheck = LoginServices::checkEmail($request->all());
-            if ($emailCheck !== true) {
+            if ($emailCheck == false) {
                 $registerUsers = LoginServices::register($request->all());
                 if ($registerUsers !== false) {
                     return view('Login.register')->withErrors(['message' => 'You are Succesfully Registered'],'login');;
@@ -107,5 +108,103 @@ class LoginController extends Controller
     {
         $request->session()->flush();
         return redirect('/');
+    }
+
+    /**
+    * Function to send email.
+    *
+    * @param array Reguest - Contains all email data.
+    * @return - Returns to login view.
+    */
+    public function sendEmail(Request $request)
+    {
+        $dataEmail = array(
+            'name' => $request->session()->get('name'),
+            'email' => $request->emailto,
+            'subject' => $request->subject,
+            'content' => $request->content
+            );
+        Mail::send('email.test', $dataEmail, function($message) use ($dataEmail)
+        {
+            $message->to($dataEmail['email']);
+            $message->subject($dataEmail['subject']);
+        });
+        return redirect('farmer');
+    }
+
+    /**
+    * Function to go to forgot password page.
+    *
+    * @param array Null.
+    * @return - Returns forgot password page.
+    */
+    public function forgot()
+    {
+        return view('Login.forgotpassword');
+    }
+
+    /**
+    * Function to get details and make a random value for password reset.
+    *
+    * @param array Reguest - Contains all user data for verification.
+    * @return - Returns to login view.
+    */
+    public function getDetails(Request $request)
+    {
+        $emailCheck = LoginServices::verifyEmail($request->all());
+        $random = $emailCheck['str'];
+        $rid = $emailCheck['rId'];
+
+        if($emailCheck)
+        {
+            $editUser = LoginServices::addToken($rid, $random);
+            $dataEmail = array(
+                'name' => "kisansevaodisha@gmail.com",
+                'email' => $request->Email,
+                'subject' => "Reset Password",
+                'content' => "To reset your password please visit this link: http://localhost/Project/KisanSeva/KisanSeva/public/reset/$rid/$random/$request->Email"
+                );
+            Mail::send('email.test', $dataEmail, function($message) use ($dataEmail)
+            {
+                $message->to($dataEmail['email']);
+                $message->subject($dataEmail['subject']);
+            });
+        }
+        return view('Login.forgotpassword')->withErrors(['message' => 'Reset Link Send to mail'],'login');;
+    }
+
+    /**
+    * Function to check the data of reset correct or not.
+    *
+    * @param array Reguest - Contains all data for password reset.
+    *
+    * @return - Returns to the route of reset page.
+    */
+    public function resetpassword(Request $request)
+    {
+        $checkuser = LoginServices::checkEmailUser($request->email, $request->token);
+        $request->session()->put('rId', $request->rId);
+        if($checkuser)
+        {
+            return view('Login.enterpassword');
+        }
+        return redirect('login');
+    }
+
+    /**
+    * Function to reset the password.
+    *
+    * @param array Reguest - Contains new password details.
+    *
+    * @return - Returns to the login page.
+    */
+    public function resetNewPassword(Request $request)
+    {
+        $newPasswordSet = LoginServices::editPassword($request->Password, $request->session()->get('rId'));
+        if($newPasswordSet)
+        {
+            return redirect('login');
+        }
+        return redirect('login');
     }
 }

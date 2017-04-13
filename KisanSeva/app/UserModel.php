@@ -31,7 +31,7 @@ class UserModel
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindCommand($layout);
         $cmd->addFindCriterion('UserEmail_xt', '=='.$input['Email']);
-        $cmd->addFindCriterion('UserPassword_xt', $input['Password']);
+        $cmd->addFindCriterion('UserPassword_xt', '=='.$input['Password']);
         $result = $cmd->execute();
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
@@ -69,8 +69,8 @@ class UserModel
     * Function to search for data in some find criterion.
     *
     * @param string $layout - contains name of the layout.
-    * @param int $data - contains data to be searched.
-    * @param $field - contains the field on whose basis to be searched.
+    * @param string $data - contains email data.
+    * @param string $field - contains the field on whose basis to be searched.
     *
     * @return - Boolian value if the result is found or not.
     */
@@ -81,8 +81,77 @@ class UserModel
         $cmd->addFindCriterion($field, "==".$data);
         $result = $cmd->execute();
         if (!FileMaker::isError($result)) {
-            return true;
+            return $result->getRecords();
         }
         return false;
     }
+
+    /**
+    * Function to edit the user layot to add token.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param string token - contains the random token value.
+    * @param int $UserId - Contains the id of the user.
+    *
+    * @return - Boolian value if any error occured or not.
+    */
+    public static function edit($layout, $token, $Id)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $request = $fmobj->newEditCommand($layout, $Id);
+
+        $request->setField('token_t', $token);
+        $result = $request->execute();
+
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
+
+    /**
+    * Function to search for user.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param string $token - contains the random token value.
+    * @param string $email - contains th email address of user.
+    *
+    * @return - Boolian value if the result is found or not.
+    */
+    public static function findUser($layout, $token, $email)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand($layout);
+        $cmd->addFindCriterion('UserEmail_xt', "==".$email);
+        $cmd->addFindCriterion('token_t', "==".$token);
+        $result = $cmd->execute();
+        if (!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return false;
+    }
+
+    /**
+    * Function to edit the password field.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param string $password - contains the new password.
+    * @param int $rId - Contains the id of the user.
+    *
+    * @return - Boolian value if any error occured or not.
+    */
+    public static function editPassword($layout, $password, $rId)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $request = $fmobj->newEditCommand($layout, $rId);
+
+        $request->setField('UserPassword_xt', $password);
+        $result = $request->execute();
+
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
+
 }

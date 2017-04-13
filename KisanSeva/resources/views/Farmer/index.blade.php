@@ -119,16 +119,6 @@
       </div>
       <div class="row">
         <section class="col-lg-7 connectedSortable">
-          <!-- quick email widget --><?php
-// the message
-$msg = "First line of text\nSecond line of text";
-
-// use wordwrap() if lines are longer than 70 characters
-$msg = wordwrap($msg,70);
-
-// send email
-mail("satyapriya.baral@gmail.com","My subject",$msg);
-?>
           <div class="box box-info">
             <div class="box-header">
               <i class="fa fa-envelope"></i>
@@ -142,7 +132,8 @@ mail("satyapriya.baral@gmail.com","My subject",$msg);
               <!-- /. tools -->
             </div>
             <div class="box-body">
-              <form action="#" method="post">
+              <form action="email" method="post">
+               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                   <input type="email" class="form-control" name="emailto" placeholder="Email to:">
                 </div>
@@ -150,13 +141,13 @@ mail("satyapriya.baral@gmail.com","My subject",$msg);
                   <input type="text" class="form-control" name="subject" placeholder="Subject">
                 </div>
                 <div>
-                  <textarea class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" placeholder="Message" name="content" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                 </div>
-              </form>
-            </div>
-            <div class="box-footer clearfix">
-              <button type="button" class="pull-right btn btn-default" id="sendEmail">Send
+                            <div class="box-footer clearfix">
+              <button type="submit" class="pull-right btn btn-default" id="sendEmail">Send
                 <i class="fa fa-arrow-circle-right"></i></button>
+            </div>
+              </form>
             </div>
           </div>
         </section>
