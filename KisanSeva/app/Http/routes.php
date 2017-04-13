@@ -36,7 +36,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('dealer', 'DealerController@dealer');
 
         Route::get('profileDealer','DealerController@profileDealer');
-
         //Route for go get crops under specific category.
         Route::get('viewCrops', 'FarmerController@findCrops');
 
@@ -53,6 +52,21 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('postDetails/{id}', 'FarmerController@postDetails');
 
         Route::get('acceptBid/{id}', 'FarmerController@acceptBid');
+
+        //Profile page for dealer
+        Route::get('profileDealer','DealerController@profileDealer');
+        
+        // Home page for Dealer
+        Route::get('dealer', 'DealerController@dealer');
+
+        // Dealer will see all the crop advertisements on this page
+        Route::get('viewads', 'DealerController@viewads');
+
+        //Details page for dealer
+        Route::get('details/{id}', 'DealerController@details');
+
+        //Comments section for Dealer
+        Route::post('details/{id}/commentData','DealerController@commentDealer');
 
     });
 
@@ -109,12 +123,8 @@ Route::group(['middleware' => ['web']], function () {
     // Dealer will see the details related to particular add
     Route::get('details', 'DealerController@details');
 
+
     // dealer will see his previous purchases
     Route::get('viewprevious', 'DealerController@viewprevious');
 
-  //  Route::get('/email', function() {
- //       Mail::send('email.test', ['name' => 'satya'], function($message)
- //           {
- //               $message->to('satyapriya.baral@gmail.com','satya')->subject("welcome");
- //           });
- //   });
+

@@ -62,4 +62,61 @@ class DealerServices
         }
         return false;
     }
+
+        /**
+    * Function to find a specific crop post.
+    *
+    * @param 1. $request - contains the record id of post.
+    * @return - Returns all data of the post.
+    */
+    public static function getadDetails($id)
+    {
+        $cropDetails= DealerModel::find('CropPostDetailsPortal', $id , 'RecordId_n');
+        $cropRecord = $cropDetails[0]->getRelatedSet('Crop 2');
+        $categoryName = DealerModel::find('Category', $cropRecord[0]->getField('Crop 2::__kfn_CategoryId'),
+         '___kpn_CategoryId');
+        $commentRecords = DealerModel::findComment('Comment', $cropDetails[0]->getField('___kpn_CropPostId'),
+         '__kfn_CropPostId');
+
+        if(!empty($commentRecords)) {
+            $j = 0;
+            foreach ($commentRecords as $commentRecord) {
+                $commentUser[$j] = DealerModel::find('User', $commentRecord->getField('__kfn_UserId'),
+                 '___kpn_UserId');
+                $j++;
+            }
+        } else { $commentRecords = 0; $commentUser = 0; }
+
+        if ($cropDetails[0]->getField('Sold_n') == 1) {
+            $bidDetails = DealerModel::find('Bids', $cropDetails[0]->getField('__kfn_AcceptedBid'), '___kpn_BidId');
+            $dealerDetails[0] = DealerModel::find('User', $bidDetails[0]->getField('__kfn_UserId'), '___kpn_UserId');
+            return compact('cropDetails', 'categoryName', 'bidDetails', 'dealerDetails', 'id',
+             'commentRecords', 'commentUser');
+        }
+
+        $bidDetails = dealerModel::find('Bids', $cropDetails[0]->getField('___kpn_CropPostId'),
+         '__kfn_CropPostId');
+        $i = 0;
+
+        if ($bidDetails != false) {
+            foreach ($bidDetails as $bidDetail) {
+                $dealerDetails[$i] = DealerModel::find('User', $bidDetail->getField('__kfn_UserId'),
+                 '___kpn_UserId');
+                $i++;
+            }
+            return compact('cropDetails', 'categoryName', 'bidDetails', 'dealerDetails', 'id',
+             'commentRecords', 'commentUser');
+        }
+
+        $bidDetails = false;
+        return compact('cropDetails', 'categoryName', 'bidDetails', 'id', 'commentRecords',
+         'commentUser');
+    }
+
+    public static function CommentDealer($request, $userId, $id)
+    {
+        $bid = DealerModel::CommentDealer('Comment', $request, $userId ,$id);
+        return true;
+    }
 }
+
