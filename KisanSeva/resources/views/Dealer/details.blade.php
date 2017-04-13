@@ -66,15 +66,15 @@
                             $j = 0;
                           @endphp
                             <tr>
-                              <td>{{ $postDetails['categoryName'][0]->getField('CategoryName_xt') }}</td>
-                              <td>{{ $postDetails['cropDetails'][0]->getField('CropName_t') }}</td>
-                              <td>{{ $postDetails['cropDetails'][0]->getField('PublishedTime_t') }}</td>
-                              <td>{{ $postDetails['cropDetails'][0]->getField('Quantity_xn') }}</td>
-                              <td>Rs {{ $postDetails['cropDetails'][0]->getField('CropPrice_xn') }}</td>
+                              <td>{{ $details['categoryName'][0]->getField('CategoryName_xt') }}</td>
+                              <td>{{ $details['cropDetails'][0]->getField('CropName_t') }}</td>
+                              <td>{{ $details['cropDetails'][0]->getField('PublishedTime_t') }}</td>
+                              <td>{{ $details['cropDetails'][0]->getField('Quantity_xn') }}</td>
+                              <td>Rs {{ $details['cropDetails'][0]->getField('CropPrice_xn') }}</td>
                               @php
                                 $today_time = strtotime($date);
-                                $expire_time = strtotime($postDetails['cropDetails'][0]->getField('CropExpiryTime_xi'));
-                                if($postDetails['cropDetails'][0]->getField('Sold_n') == 1) { @endphp
+                                $expire_time = strtotime($details['cropDetails'][0]->getField('CropExpiryTime_xi'));
+                                if($details['cropDetails'][0]->getField('Sold_n') == 1) { @endphp
                                   <td><span class="label label-success">Sold</span></td>
                                 @php } elseif ($expire_time < $today_time) { @endphp
                                   <td><span class="label label-danger">Expired</span></td>
@@ -94,21 +94,21 @@
       </div>
         <div class="row">
           <div class="col-xs-6">
-            <form action="{{ $postDetails['id'] }}/commentData" method="post">
+            <form action="{{ $details['id'] }}/commentDataDealer" method="post">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <textarea class="form-control " rows="5"
                   name="commentData" id="commentData"
                   placeholder="Comment"></textarea>
                 <button type="submit">Comment</button>
             </form>
-            @if($postDetails['commentRecords'] != 0)
-              @foreach($postDetails['commentRecords'] as $commentRecord)
-                @if($postDetails['commentUser'][$j][0]->getField('__kfn_UserType') == 2)
+            @if($details['commentRecords'] != 0)
+              @foreach($details['commentRecords'] as $commentRecord)
+                @if($details['commentUser'][$j][0]->getField('__kfn_UserType') == 2)
                   <div class="dialogboxUser">
                     <div class="bodyUser">
                       <span class="tip tip-left"></span>
                       <div class="message">
-                        <span><b>{{ $postDetails['commentUser'][$j][0]->getField('UserName_xt') }}</b></span>
+                        <span><b>{{ $details['commentUser'][$j][0]->getField('UserName_xt') }}</b></span>
                         <span class="pull-right">{{ $commentRecord->getField('CommentTime_t') }}</span></br>
                         <span>{{ $commentRecord->getField('CommentData_xt') }}</span>
                       </div>
@@ -119,7 +119,7 @@
                     <div class="body">
                       <span class="tip tip-right"></span>
                       <div class="message">
-                        <span><b>{{ $postDetails['commentUser'][$j][0]->getField('UserName_xt') }}</b></span>
+                        <span><b>{{ $details['commentUser'][$j][0]->getField('UserName_xt') }}</b></span>
                         <span class="pull-right">{{ $commentRecord->getField('CommentTime_t') }}</span></br>
                         <span>{{ $commentRecord->getField('CommentData_xt') }}</span>
                       </div>
@@ -143,7 +143,7 @@
                         $time = date("h:i:sa");
                         $i = 0;
                       @endphp
-                      @if($postDetails['bidDetails'] != false)
+                      @if($details['bidDetails'] != false)
                     <tr>
                       <th>Dealer Name</th>
                       <th>Email</th>
@@ -153,14 +153,14 @@
                       <th>Action</th>
                     </tr>
                         <tbody>
-                          @foreach($postDetails['bidDetails'] as $bidDetail)
+                          @foreach($details['bidDetails'] as $bidDetail)
                             <tr>
-                              <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserName_xt') }}</td>
-                              <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserEmail_xt') }}</td>
-                              <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserAddress_xt') }}</td>
-                              <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserContact_xn') }}</td>
+                              <td>{{ $details['dealerDetails'][$i][0]->getField('UserName_xt') }}</td>
+                              <td>{{ $details['dealerDetails'][$i][0]->getField('UserEmail_xt') }}</td>
+                              <td>{{ $details['dealerDetails'][$i][0]->getField('UserAddress_xt') }}</td>
+                              <td>{{ $details['dealerDetails'][$i][0]->getField('UserContact_xn') }}</td>
                               <td>{{ $bidDetail->getField('BidPrice_xn') }}</td>
-                              @if($postDetails['cropDetails'][0]->getField('Sold_n') == 1 )
+                              @if($details['cropDetails'][0]->getField('Sold_n') == 1 )
                                 <td><button type="button" class="btn-sm-info" disabled="disabled">Accepted</button></td>
                               @else
                                 <?php $id = $bidDetail->getrecordid() ?>

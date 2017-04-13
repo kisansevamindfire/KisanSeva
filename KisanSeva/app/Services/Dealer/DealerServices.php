@@ -113,9 +113,9 @@ class DealerServices
          'commentUser');
     }
 
-    public static function createComment($request, $userId, $id)
+    public static function createCommentDealer($request, $userId, $id)
     {
-        $bid = DealerModel::createComment('Comment', $request, $userId ,$id);
+        $bid = DealerModel::createCommentDealer('Comment', $request, $userId ,$id);
         return true;
     }
 }

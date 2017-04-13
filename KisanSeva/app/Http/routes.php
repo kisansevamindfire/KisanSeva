@@ -57,7 +57,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('details/{id}', 'DealerController@details');
 
         //Comments Page for Dealer
-        Route::post('postDetails/{id}/commentData','DealerController@comment');
+        Route::post('details/{id}/commentDataDealer','DealerController@commentDealer');
 
     });
    
