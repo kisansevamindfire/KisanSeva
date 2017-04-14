@@ -8,7 +8,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\FarmerModel;
+use App\Model\FarmerModel;
 use App\Http\Requests;
 use App\Classes;
 use App\Services\Farmer\FarmerServices;
