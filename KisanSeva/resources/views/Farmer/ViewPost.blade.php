@@ -82,7 +82,7 @@
                               <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
                               <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
                               <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
-                              <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
+                              <td>Rs {{ number_format($PostRecord[0]->getField('CropPrice_xn')) }}</td>
                               @php
                                 $today_time = strtotime($date);
                                 $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));

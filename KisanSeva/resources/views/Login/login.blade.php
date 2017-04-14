@@ -69,6 +69,8 @@
 <script src="{{ asset('template/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ asset('template/plugins/iCheck/icheck.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.32') }}"></script>
 <script>
   $(function () {
     $('input').iCheck({

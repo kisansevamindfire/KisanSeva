@@ -113,7 +113,8 @@ function googleTranslateElementInit() {
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.12') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ asset('template/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -122,11 +123,15 @@ function googleTranslateElementInit() {
 <!-- AdminLTE App -->
 <script src="{{ asset('template/dist/js/app.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="{{ asset('bower_components/jquery-validation/dist/jquery.validate.js') }}"></script>
+
+<script src="{{ asset('bower_components/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('template/dist/js/demo.js') }}"></script>
 <script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.222') }}"></script>
 <script src="{{ asset('template/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);

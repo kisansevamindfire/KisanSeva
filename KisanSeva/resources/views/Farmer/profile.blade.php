@@ -151,7 +151,7 @@
                 <hr>
                 <h5>Edit Profile</h5>
                 <hr>
-                <form class="form-horizontal" action="editProfile" method="Post">
+                <form id="editProfileForm" class="form-horizontal" action="editProfile" method="Post">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="form-group">
                     <label for="inputName" class="col-sm-1 control-label">Name</label>
