@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+* File    : login.blade.php
+* Author  : Satyapriya Baral
+* Date    : 23-Mar-2017
+* Purpose : Login page for user to login  -->
+
 <html>
 <head>
   <meta charset="utf-8">

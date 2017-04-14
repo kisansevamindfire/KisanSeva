@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
 * File    : addpost.blade.php
 * Author  : Satyapriya Baral

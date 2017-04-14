@@ -7,7 +7,7 @@
 * Date: 16-03-2017
 */
 
-namespace App;
+namespace App\Model;
 
 use App\Classes\FilemakerWrapper;
 use FileMaker;

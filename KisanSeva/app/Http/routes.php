@@ -23,18 +23,16 @@ Route::group(['middleware' => ['web']], function () {
         //Route to go to the ViewPost View.
         Route::get('viewpost', 'FarmerController@findAllPosts');
 
-        // Dealer will see all the crop advertisements on this page
+        //Dealer will see all the crop advertisements on this page
         Route::get('viewads', 'DealerController@viewads');
 
-        Route::get('profile', function() {
-            return view('farmer.profile');
-        });
-
+        //Route for getting details for the profile page
         Route::get('profile', 'FarmerController@profile');
 
         // Home page for Dealer
         Route::get('dealer', 'DealerController@dealer');
 
+        //Route to go to dealer profile page.
         Route::get('profileDealer','DealerController@profileDealer');
         //Route for go get crops under specific category.
         Route::get('viewCrops', 'FarmerController@findCrops');
@@ -45,17 +43,21 @@ Route::group(['middleware' => ['web']], function () {
         //Route to show Farming Tips in Details.
         Route::get('tipsdetails/{id}','FarmerController@tipDetails');
 
+        //Reute to get all the post details of a specific post and its comments.
         Route::post('postDetails/{id}/commentData','FarmerController@comment');
 
+        //Route to get the specific email detail.
         Route::post('email', 'LoginController@sendEmail');
 
+        //Route to get post detail of a specific post.
         Route::get('postDetails/{id}', 'FarmerController@postDetails');
 
+        //Route to get to the function to accept bids.
         Route::get('acceptBid/{id}', 'FarmerController@acceptBid');
 
         //Profile page for dealer
         Route::get('profileDealer','DealerController@profileDealer');
-        
+
         // Home page for Dealer
         Route::get('dealer', 'DealerController@dealer');
 
@@ -72,31 +74,34 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['middleware' => ['auth']], function() {
 
+        //Route to go to login page.
         Route::get('login', function () {
             return view('Login.login');
         });
 
+        //Route to go to login page.
         Route::get('/', function () {
             return view('Login.login');
         });
+
         //Route to go to the Login View.
         Route::post('login', 'LoginController@login');
 
+        //Route to get all forgot password details.
         Route::get('forgot', 'LoginController@forgot');
 
+        //Route to get all details on forgot password.
         Route::post('forgotPassword', 'LoginController@getDetails');
 
+        //Route to go to function for checking email and password for reset.
         Route::get('reset/{rId}/{token}/{email}', 'LoginController@resetpassword');
 
+        //Route to reset the password by a new password.
         Route::post('reset/{rId}/{token}/resetPassword', 'LoginController@resetNewPassword');
     });
 
     //Route to go to signout and go to login View.
     Route::get('signout', 'LoginController@signout');
-
-    Route::get('viewbids', function() {
-        return view('farmer.viewbids');
-    });
 
     //Route for adding a post to database.
     Route::post('AddPostData', 'FarmerController@createPost');
@@ -104,21 +109,18 @@ Route::group(['middleware' => ['web']], function () {
     //Route for getting search results of post.
     Route::get('viewRelatedPost', 'FarmerController@findSpecificPosts');
 
-    Route::get('viewbids', function() {
-        return view('farmer.viewbids');
-    });
-
+    //Route to go to the register page.
     Route::get('register', function () {
         return view('Login.register');
     });
 
+    //Route to get all user details and register.
     Route::post('register','LoginController@register');
 
+    //Route to edit profile of user.
     Route::post('editProfile','FarmerController@editProfile');
-    });
 
-    // Test page which will read data of users and tips from Filemaker
-    Route::get('test', 'UsersController@index');
+});
 
     // Dealer will see the details related to particular add
     Route::get('details', 'DealerController@details');
@@ -126,5 +128,4 @@ Route::group(['middleware' => ['web']], function () {
 
     // dealer will see his previous purchases
     Route::get('viewprevious', 'DealerController@viewprevious');
-
 
