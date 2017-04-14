@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+* File    : register.blade.php
+* Author  : Satyapriya Baral
+* Date    : 23-Mar-2017
+* Purpose : page to register new user  -->
+
 <html>
 <head>
   <meta charset="utf-8">

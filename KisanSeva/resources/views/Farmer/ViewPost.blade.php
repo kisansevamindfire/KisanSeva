@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
 * File    : viewPost.blade.php
 * Author  : Satyapriya Baral

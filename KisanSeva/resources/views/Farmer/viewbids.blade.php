@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
 * File    : viewbids.blade.php
 * Author  : Satyapriya Baral

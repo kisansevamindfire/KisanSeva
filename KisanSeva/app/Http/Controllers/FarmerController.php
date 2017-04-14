@@ -33,8 +33,8 @@ class FarmerController extends Controller
     */
     public function farmer(Request $request)
     {
-        $sessionArray = $request->session()->all();
-        $dashboardData = FarmerServices::findDashboardData($sessionArray['user']);
+        //get all dashboard data of user
+        $dashboardData = FarmerServices::findDashboardData($request->session()->get('user'));
         return view('farmer.index', compact('dashboardData'));
     }
     /**
@@ -45,6 +45,7 @@ class FarmerController extends Controller
     */
     public function findAllTips(Request $request)
     {
+        //get all tips data.
         $records = FarmerServices::findAllTips('Tips');
         return view('farmer.farmingtips', compact('records'));
     }
@@ -57,6 +58,7 @@ class FarmerController extends Controller
     */
     public function tipDetails($id)
     {
+        //get details of a specific tip.
         $tips = FarmerServices::tipDetails($id);
         return view('farmer.tipsdetails', compact('tips'));
     }
@@ -68,6 +70,7 @@ class FarmerController extends Controller
     */
     public function findAllCategory()
     {
+        //find all category details.
         $records = FarmerServices::findAllCategory();
         return view('farmer.addpost', compact('records'));
     }
@@ -80,6 +83,7 @@ class FarmerController extends Controller
     */
     public function findCrops(Request $request)
     {
+         //find all crops under category
         $records = FarmerServices::findCrops($request->id);
         return response()->json($records);
     }
@@ -92,6 +96,7 @@ class FarmerController extends Controller
     */
     public function postDetails(Request $request)
     {
+        //find details of all crops.
         $postDetails = FarmerServices::findCropDetails($request->id);
         return view('farmer.postdetails', compact('postDetails'));
     }

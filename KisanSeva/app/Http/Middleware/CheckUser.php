@@ -1,9 +1,18 @@
 <?php
+/**
+* File: CheckUser.php
+* Purpose: Middleware to handle all the session data
+* Date: 03-Apr-2017
+* Author: Satyapriya Baral
+*/
 
 namespace App\Http\Middleware;
 
 use Closure;
 
+/**
+* Class to check user session is there or not.
+*/
 class CheckUser
 {
     /**

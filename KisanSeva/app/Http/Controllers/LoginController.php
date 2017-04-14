@@ -33,15 +33,18 @@ class LoginController extends Controller
     */
    public function login(Request $request)
     {
+        //check for if all login criteria are correct or not.
          $validator = Validator::make($request->all(),[
             'Email' => 'required|email',
             'Password' => 'required|min:5'
         ]);
 
+         //if validation fails redirect to login page with errors.
         if ($validator->fails()) {
             return view('Login.login')->withErrors($validator);
         }
 
+        //checks for user and set up session for it.
         $records = LoginServices::login($request->all());
         if ($records !== false) {
             if ($records[0]->getField('__kfn_UserType') != 1) {
@@ -68,6 +71,7 @@ class LoginController extends Controller
     */
     public function register(Request $request)
     {
+        //checks for all the fields entered are correct or not.
         $validator = Validator::make($request->all(),[
             'UserType' => 'required',
             'Email' => 'required|email',
@@ -77,6 +81,7 @@ class LoginController extends Controller
             'Number' => 'required|min:10|max:10'
         ]);
 
+        //if validation fails redirect to register page else create a new user record.
         if ($validator->fails()) {
             return view('Login.register')->withErrors($validator);
         }
@@ -118,12 +123,26 @@ class LoginController extends Controller
     */
     public function sendEmail(Request $request)
     {
+        //checks if all the email fields are not empty.
+        $validator = Validator::make($request->all(),[
+            'emailto' => 'required|email',
+            'subject' => 'required|min:5',
+            'content'=> 'required|min:5'
+        ]);
+
+        //if validation fails redirect back.
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+        //takes all email data to an array.
         $dataEmail = array(
             'name' => $request->session()->get('name'),
             'email' => $request->emailto,
             'subject' => $request->subject,
             'content' => $request->content
             );
+
+        //syntax to send email.
         Mail::send('email.test', $dataEmail, function($message) use ($dataEmail)
         {
             $message->to($dataEmail['email']);
@@ -151,10 +170,12 @@ class LoginController extends Controller
     */
     public function getDetails(Request $request)
     {
+        //checks if email exist or not
         $emailCheck = LoginServices::verifyEmail($request->all());
         $random = $emailCheck['str'];
         $rid = $emailCheck['rId'];
 
+        //if email exist send a random number with url
         if($emailCheck)
         {
             $editUser = LoginServices::addToken($rid, $random);
@@ -164,6 +185,7 @@ class LoginController extends Controller
                 'subject' => "Reset Password",
                 'content' => "To reset your password please visit this link: http://localhost/Project/KisanSeva/KisanSeva/public/reset/$rid/$random/$request->Email"
                 );
+            //send mail to the user mail address.
             Mail::send('email.test', $dataEmail, function($message) use ($dataEmail)
             {
                 $message->to($dataEmail['email']);
@@ -182,8 +204,10 @@ class LoginController extends Controller
     */
     public function resetpassword(Request $request)
     {
+        //check user by email
         $checkuser = LoginServices::checkEmailUser($request->email, $request->token);
         $request->session()->put('rId', $request->rId);
+        //if user exist go to reset password page else go to login page.
         if($checkuser)
         {
             return view('Login.enterpassword');
@@ -200,7 +224,9 @@ class LoginController extends Controller
     */
     public function resetNewPassword(Request $request)
     {
+        //set new password for the specific user
         $newPasswordSet = LoginServices::editPassword($request->Password, $request->session()->get('rId'));
+        //if succesful go to login page.
         if($newPasswordSet)
         {
             return redirect('login');

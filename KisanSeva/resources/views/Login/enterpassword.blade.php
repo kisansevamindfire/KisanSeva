@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+* File    : enterpassword.blade.php
+* Author  : Satyapriya Baral
+* Date    : 23-Mar-2017
+* Purpose : html page to enter a new password  -->
+
 <html>
 <head>
   <meta charset="utf-8">

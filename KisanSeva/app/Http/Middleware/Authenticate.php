@@ -1,10 +1,19 @@
 <?php
+/**
+* File: Authenticate.php
+* Purpose: Middleware to handle all the session data of user
+* Date: 03-Apr-2017
+* Author: Satyapriya Baral
+*/
 
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
+/**
+* Class to check user session is there or not.
+*/
 class Authenticate
 {
     /**
@@ -17,13 +26,6 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        //if (Auth::guard($guard)->guest()) {
-       //     if ($request->ajax() || $request->wantsJson()) {
-       //     } else {
-       //         return redirect()->guest('login');
-       //     }
-      //  }
-
          if($request->session()->get('user') != Null) {
             if($request->session()->get('type') == 2) {
                 return redirect('dealer');
