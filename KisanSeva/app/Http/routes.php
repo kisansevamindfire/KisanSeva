@@ -34,7 +34,6 @@ Route::group(['middleware' => ['web']], function () {
 
         //Route to go to dealer profile page.
         Route::get('profileDealer','DealerController@profileDealer');
-
         //Route for go get crops under specific category.
         Route::get('viewCrops', 'FarmerController@findCrops');
 
@@ -55,6 +54,21 @@ Route::group(['middleware' => ['web']], function () {
 
         //Route to get to the function to accept bids.
         Route::get('acceptBid/{id}', 'FarmerController@acceptBid');
+
+        //Profile page for dealer
+        Route::get('profileDealer','DealerController@profileDealer');
+
+        // Home page for Dealer
+        Route::get('dealer', 'DealerController@dealer');
+
+        // Dealer will see all the crop advertisements on this page
+        Route::get('viewads', 'DealerController@viewads');
+
+        //Details page for dealer
+        Route::get('details/{id}', 'DealerController@details');
+
+        //Comments section for Dealer
+        Route::post('details/{id}/commentData','DealerController@commentDealer');
 
     });
 
@@ -111,5 +125,7 @@ Route::group(['middleware' => ['web']], function () {
     // Dealer will see the details related to particular add
     Route::get('details', 'DealerController@details');
 
+
     // dealer will see his previous purchases
     Route::get('viewprevious', 'DealerController@viewprevious');
+

@@ -50,4 +50,41 @@ class DealerModel
         }
         return false;
     }
+
+    /**
+    * Function to search for data in some find criterion.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $id - contains record id of specific farming tip to be displayed.
+    *        3. $field - contains the field on whose basis to be searched.
+    * @return - Filemaker results of Farming Tip found.
+    */
+    public static function findComment($layout, $id, $field)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand($layout);
+        $cmd->addFindCriterion($field, $id);
+        $cmd->addSortRule('___kpn_CommentId', 1, FILEMAKER_SORT_DESCEND);
+        $result = $cmd->execute();
+        if (!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return false;
+    }
+    
+    public static function CommentDealer($layout, $input, $userId, $id)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+
+        $request = $fmobj->createRecord($layout);
+        $request->setField('__kfn_CropPostId', $id);
+        $request->setField('__kfn_UserId', $userId);
+        $request->setField('CommentData_xt', $input['commentData']);
+        $result = $request->commit();
+
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
 }

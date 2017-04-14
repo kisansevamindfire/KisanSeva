@@ -20,10 +20,7 @@
       <li class="treeview">
         <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
-          <span>View Ads</span>
-          <span class="pull-right-container">
-            <span class="label label-primary pull-right">4</span>
-          </span>
+          <span>View Ads</span> 
         </a>
       </li>
       <li class="treeview">
@@ -35,43 +32,103 @@
     </ul>
   @stop
   @section('content')
-    <div class="content-wrapper">
-      <!-- Main content -->
-      <section class="content">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="box">
-              <div class="box-header">
-                <h3><center>Details</center></h3>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                  <tr>
-                    <th>Category</th>
-                    <th>Crop</th>
-                    <th>Date Posted</th>
-                    <th>Quantity</th>
-                    <th>Base Price</th>
-                    <th>Your Price</th>
-                    <th>Rating</th>
-                    <th>Post</th>
-                  </tr>
-                  <tr>
-                    <td>Vegetables</td>
-                    <td>Beans</td>
-                    <td>11-7-2014</td>
-                    <td>1 kg</td>
-                    <td>290</td>
-                    <td><input type="text" id="yourbid" placeholder="Your Price"></td>
-                    <td><input type="text" id="rate" placeholder="Rate between 1 to 5"></td>
-                    <td><button type="submit" class="btn btn-success">Post</button></td>
-                  </tr>
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        Crop Details
+      </h1>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title"></h3>
+              <span class="counter pull-right"></span>
+                <table class="table table-hover table-bordered results">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Crop</th>
+                      <th>Time Posted</th>
+                      <th>Quantity</th>
+                      <th>Base Price</th>
+                      <th>Status</th>
+                    </tr>
+                        <tbody>
+                          @php
+                            date_default_timezone_set('Asia/Kolkata');
+                            $date = date("m/d/Y");
+                            $time = date("h:i:sa");
+                            $j = 0;
+                          @endphp
+                            <tr>
+                              <td>{{ $details['categoryName'][0]->getField('CategoryName_xt') }}</td>
+                              <td>{{ $details['cropDetails'][0]->getField('CropName_t') }}</td>
+                              <td>{{ $details['cropDetails'][0]->getField('PublishedTime_t') }}</td>
+                              <td>{{ $details['cropDetails'][0]->getField('Quantity_xn') }}</td>
+                              <td>Rs {{ $details['cropDetails'][0]->getField('CropPrice_xn') }}</td>
+                              @php
+                                $today_time = strtotime($date);
+                                $expire_time = strtotime($details['cropDetails'][0]->getField('CropExpiryTime_xi'));
+                                if($details['cropDetails'][0]->getField('Sold_n') == 1) { @endphp
+                                  <td><span class="label label-success">Sold</span></td>
+                                @php } elseif ($expire_time < $today_time) { @endphp
+                                  <td><span class="label label-danger">Expired</span></td>
+                                @php } else { @endphp
+                                  <td><span class="label label-primary">Active</span></td>
+                              @php } @endphp
+                              </tr>
+                        </tbody>
+                    <tr class="warning no-result">
+                      <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+                    </tr>
+                  </thead>
                 </table>
-              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
-  @stop
+      </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <form action="{{ $details['id'] }}/commentData" method="post">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <textarea class="form-control " rows="5"
+                  name="commentData" id="commentData"
+                  placeholder="Comment"></textarea>
+                <button type="submit">Comment</button>
+            </form>
+            @if($details['commentRecords'] != 0)
+              @foreach($details['commentRecords'] as $commentRecord)
+                @if($details['commentUser'][$j][0]->getField('__kfn_UserType') == 2)
+                  <div class="dialogboxUser">
+                    <div class="bodyUser">
+                      <span class="tip tip-left"></span>
+                      <div class="message">
+                        <span><b>{{ $details['commentUser'][$j][0]->getField('UserName_xt') }}</b></span>
+                        <span class="pull-right">{{ $commentRecord->getField('CommentTime_t') }}</span></br>
+                        <span>{{ $commentRecord->getField('CommentData_xt') }}</span>
+                      </div>
+                    </div>
+                  </div>
+                @else
+                  <div class="dialogbox col-md-offset-5">
+                    <div class="body">
+                      <span class="tip tip-right"></span>
+                      <div class="message">
+                        <span><b>{{ $details['commentUser'][$j][0]->getField('UserName_xt') }}</b></span>
+                        <span class="pull-right">{{ $commentRecord->getField('CommentTime_t') }}</span></br>
+                        <span>{{ $commentRecord->getField('CommentData_xt') }}</span>
+                      </div>
+                    </div>
+                  </div>
+                @endif
+              @php $j++; @endphp
+              @endforeach
+            @endif
+        </div>
+    </section>
+  <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
+@stop
+

@@ -19,6 +19,16 @@ use Illuminate\Routing\Controller;
 
 use App\Services\Dealer\DealerServices;
 
+use Validator;
+
+use Session;
+
+use App\Post;
+
+use Illuminate\Support\Facades\Redirect;
+
+use Illuminate\Support\Facades\URL;
+
 class DealerController extends Controller
 {
 
@@ -33,11 +43,11 @@ class DealerController extends Controller
         return view('Dealer.index');
     }
 
-    public function details()
+/*    public function details()
     {
         return view("Dealer.details");
     }
-
+*/
     public function viewprevious()
     {
         return view("Dealer.viewprevious");
@@ -70,5 +80,34 @@ class DealerController extends Controller
         }
 
         return false;
+    }
+
+    /**
+    * Function to Find all Crops Under Category.
+    *
+    * @param 1. $request - contains id of the Category and all session data.
+    * @return - Filemaker results of Crops Found under Category.
+    */
+    public function details(Request $request)
+    {
+        $details = DealerServices::getadDetails($request->id);
+        return view('Dealer.details', compact('details'));
+    }
+
+    public function commentDealer(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'commentData' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('details')->withErrors($validator);
+        }
+        $sessionArray = $request->session()->all();
+        $addComment = DealerServices::CommentDealer($request->all(), $sessionArray['user'], $request->id);
+        if ($addComment) {
+            return back();
+        }
+        return back();
     }
 }
