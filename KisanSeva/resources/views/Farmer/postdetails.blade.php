@@ -78,7 +78,7 @@
                               <td>{{ $postDetails['cropDetails'][0]->getField('CropName_t') }}</td>
                               <td>{{ $postDetails['cropDetails'][0]->getField('PublishedTime_t') }}</td>
                               <td>{{ $postDetails['cropDetails'][0]->getField('Quantity_xn') }}</td>
-                              <td>Rs {{ $postDetails['cropDetails'][0]->getField('CropPrice_xn') }}</td>
+                              <td>Rs {{ number_format($postDetails['cropDetails'][0]->getField('CropPrice_xn')) }}</td>
                               @php
                                 $today_time = strtotime($date);
                                 $expire_time = strtotime($postDetails['cropDetails'][0]->getField('CropExpiryTime_xi'));
@@ -167,7 +167,7 @@
                               <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserEmail_xt') }}</td>
                               <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserAddress_xt') }}</td>
                               <td>{{ $postDetails['dealerDetails'][$i][0]->getField('UserContact_xn') }}</td>
-                              <td>{{ $bidDetail->getField('BidPrice_xn') }}</td>
+                              <td>{{ number_format($bidDetail->getField('BidPrice_xn')) }}</td>
                               @if($postDetails['cropDetails'][0]->getField('Sold_n') == 1 )
                                 <td><button type="button" class="btn-sm-info" disabled="disabled">Accepted</button></td>
                               @else

@@ -60,26 +60,30 @@
               <div class="box-body">
                 <div class="form-group">
                   <label>Select Category</label>
-                  <select class="form-control" id="selectCategory" name="Category">
+                  <select class="form-control" id="category" name="Category">
                     <option value="0" disabled="true" selected="true">--Select--</option>
                     @foreach($records as $record)
                       <?php $id = $record->getrecordid() ?>
                       <option value="{{ $record ->getField('___kpn_CategoryId')}}">{{ $record->getField('CategoryName_xt') }}</option>
                     @endforeach
                   </select>
+                  <span class="errorMessage" id="categoryError"></span>
                 </div>
                 <div class="form-group">
                   <label>Select Crop</label>
-                  <select class="form-control cropName" name="Crop">
+                  <select class="form-control cropName" name="Crop" id="crop">
                     <option value="0" disabled="true" selected="true">Choose Crop</option>
                   </select>
+                  <span class="errorMessage" id="cropError"></span>
                 </div>
                 <div class="form-group">
                 <div class="row">
                 <div class="col-md-6">
                   <label for="Quantity">Quantity</label>
                   <input type="text" class="form-control" name="Quantity" id="quantity" placeholder="Quantity">
+                  <span class="errorMessage" id="quantityError"></span>
                   </div>
+
                    <div class="col-md-6">
                    <label for="Quantity">Weight</label>
                   <select class="form-control" name="Weight">
@@ -90,10 +94,12 @@
                 <div class="form-group">
                   <label for="BasePrice">Base Price</label>
                   <input type="text" class="form-control" id="price" name="BasePrice" placeholder="Base Price">
+                  <span class="errorMessage" id="basepriceError"></span>
                 </div>
                 <div class="form-group">
                   <label for="ExpiryTime">Enter Expiry Date</label>
                   <input type="date" class="form-control" id="ExpiryTime" name="ExpiryTime" placeholder="Expiry Time">
+                  <span class="errorMessage" id="expirytimeError"></span>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPhoto">Insert Photo</label>
@@ -101,7 +107,7 @@
                 </div>
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="submitPost" class="btn btn-primary">Submit</button>
               </div>
             </form>
           </div>

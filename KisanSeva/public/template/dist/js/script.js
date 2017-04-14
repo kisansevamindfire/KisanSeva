@@ -147,7 +147,7 @@ $(document).ready(function(){
      }
 
      /**
-     * Function to validate name Field
+     * Function to validate category
      *
      * @param null
      * @return boolian value for true or false
@@ -166,7 +166,7 @@ $(document).ready(function(){
      }
 
      /**
-     * Function to validate name Field
+     * Function to validate crop field
      *
      * @param null
      * @return boolian value for true or false
@@ -185,7 +185,7 @@ $(document).ready(function(){
      }
 
      /**
-     * Function to validate name Field
+     * Function to validate quantity field
      *
      * @param null
      * @return boolian value for true or false
@@ -205,7 +205,7 @@ $(document).ready(function(){
      }
 
      /**
-     * Function to validate name Field
+     * Function to validate price field
      *
      * @param null
      * @return boolian value for true or false
@@ -225,7 +225,7 @@ $(document).ready(function(){
      }
 
      /**
-     * Function to validate name Field
+     * Function to validate expiry time field
      *
      * @param null
      * @return boolian value for true or false
@@ -272,7 +272,7 @@ $(document).ready(function(){
     });
 
      /**
-     * Function to check after the submit button is clicked on edit profile.
+     * Function to check all fields after he submit post button is clicked.
      *
      * @param null
      * @return boolian value for true or false

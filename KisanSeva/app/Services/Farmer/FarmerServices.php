@@ -130,6 +130,7 @@ class FarmerServices
                 } else { $postActive++; }
             }
             $lastPostTime = $posts[$count-1]->getField('PublishedTime_t');
+            $totalEarning = number_format($totalEarning);
         }
 
         $countPost = array(
