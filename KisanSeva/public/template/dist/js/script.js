@@ -13,7 +13,7 @@ $(document).ready(function(){
   * @param Null
   * @return Null
   */
-  $("#selectCategory").on("change",function(){
+  $("#category").on("change",function(){
     var cat_id = $(this).val();
     var div=$(this).parent().parent();
     var op=" ";
@@ -65,9 +65,19 @@ $(document).ready(function(){
       //errors are hidden and will show when error occurs.
      $("#nameError").hide();
      $("#contactError").hide();
+     $("#quantityError").hide();
+     $("#cropError").hide();
+     $("#basepriceError").hide();
+     $("#expirytimeError").hide();
+     $("#categoryError").hide();
 
      errorName = false;
      errorContact = false;
+     errorQuantity = false;
+     errorCrop = false;
+     errorBasePrice = false;
+     errorExpiryTime = false;
+     errorCategory = false;
 
      $("#inputName").focusout(function(){
           checkName();
@@ -77,6 +87,25 @@ $(document).ready(function(){
           checkContact();
      });
 
+     $("#category").focusout(function(){
+          checkCategory();
+     });
+
+     $("#crop").focusout(function(){
+          checkCrop();
+     });
+
+     $("#quantity").focusout(function(){
+          checkQuantity();
+     });
+
+     $("#price").focusout(function(){
+          checkPrice();
+     });
+
+     $("#ExpiryTime").focusout(function(){
+          checkExpiryTime();
+     });
      /**
      * Function to validate name Field
      *
@@ -116,6 +145,104 @@ $(document).ready(function(){
                $("#contactError").hide();
           }
      }
+
+     /**
+     * Function to validate name Field
+     *
+     * @param null
+     * @return boolian value for true or false
+     */
+     function checkCategory(){
+          if($("#category").val() === null)
+          {
+               $("#categoryError").html("Insert Category");
+               $("#categoryError").show();
+               errorCategory = true;
+          }
+          else
+          {
+               $("#categoryError").hide();
+          }
+     }
+
+     /**
+     * Function to validate name Field
+     *
+     * @param null
+     * @return boolian value for true or false
+     */
+     function checkCrop(){
+          if($("#crop").val() === null)
+          {
+               $("#cropError").html("Insert Crop");
+               $("#cropError").show();
+               errorCrop = true;
+          }
+          else
+          {
+               $("#cropError").hide();
+          }
+     }
+
+     /**
+     * Function to validate name Field
+     *
+     * @param null
+     * @return boolian value for true or false
+     */
+     function checkQuantity(){
+          var quantity = $("#quantity").val().length;
+          if(quantity < 1)
+          {
+               $("#quantityError").html("Insert Quantity");
+               $("#quantityError").show();
+               errorQuantity = true;
+          }
+          else
+          {
+               $("#quantityError").hide();
+          }
+     }
+
+     /**
+     * Function to validate name Field
+     *
+     * @param null
+     * @return boolian value for true or false
+     */
+     function checkPrice(){
+          var price = $("#price").val().length;
+          if(price < 1)
+          {
+               $("#basepriceError").html("Insert Base Price");
+               $("#basepriceError").show();
+               errorBasePrice = true;
+          }
+          else
+          {
+               $("#basepriceError").hide();
+          }
+     }
+
+     /**
+     * Function to validate name Field
+     *
+     * @param null
+     * @return boolian value for true or false
+     */
+     function checkExpiryTime(){;
+          if($("#ExpiryTime").val() === "")
+          {
+               $("#expirytimeError").html("Insert Expiry Time");
+               $("#expirytimeError").show();
+               errorExpiryTime = true;
+          }
+          else
+          {
+               $("#expirytimeError").hide();
+          }
+     }
+
      var shouldRun = false;
      /**
      * Function to check after the submit button is clicked on edit profile.
@@ -123,7 +250,6 @@ $(document).ready(function(){
      * @param null
      * @return boolian value for true or false
      */
-
      $("#editSubmit").on('click' , function(e){
 
         if (shouldRun === true) {
@@ -144,4 +270,38 @@ $(document).ready(function(){
                $(this).trigger('click');
         }
     });
+
+     /**
+     * Function to check after the submit button is clicked on edit profile.
+     *
+     * @param null
+     * @return boolian value for true or false
+     */
+     $("#submitPost").on('click' , function(e){
+
+        if (shouldRun === true) {
+          shouldRun = false;
+          return;
+        }
+        e.preventDefault();
+
+        errorQuantity = false;
+        errorCrop = false;
+        errorBasePrice = false;
+        errorExpiryTime = false;
+        errorCategory = false;
+
+        checkCategory();
+        checkCrop();
+        checkQuantity();
+        checkPrice();
+        checkExpiryTime();
+
+        if(errorQuantity === false && errorCrop === false && errorBasePrice === false && errorExpiryTime === false && errorCategory === false)
+        {
+               shouldRun = true;
+               $(this).trigger('click');
+        }
+    });
+
 })
