@@ -9,7 +9,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\DealerModel;
+use App\Model\DealerModel;
 
 use App\Http\Requests;
 

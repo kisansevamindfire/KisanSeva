@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+* File    : forgotpassword.blade.php
+* Author  : Satyapriya Baral
+* Date    : 23-Mar-2017
+* Purpose : html page to give email for sending link for password  -->
+
 <html>
 <head>
   <meta charset="utf-8">

@@ -6,10 +6,9 @@
 * Purpose: fetches data from filemaker database and serves to controller
 * Date: 16-03-2017
 */
-namespace App;
+namespace App\Model;
 
 use App\Classes\FilemakerWrapper;
-
 use FileMaker;
 
 class DealerModel
@@ -71,7 +70,7 @@ class DealerModel
         }
         return false;
     }
-    
+
     public static function CommentDealer($layout, $input, $userId, $id)
     {
         $fmobj = FilemakerWrapper::getConnection();

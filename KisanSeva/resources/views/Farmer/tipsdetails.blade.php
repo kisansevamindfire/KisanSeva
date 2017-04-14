@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
 * File    : tipsdetails.blade.php
 * Author  : Satyapriya Baral

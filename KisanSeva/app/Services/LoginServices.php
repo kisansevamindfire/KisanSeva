@@ -7,8 +7,8 @@
 */
 namespace App\Services;
 
-use App\UserModel;
-use App\FarmerModel;
+use App\Model\UserModel;
+use App\Model\FarmerModel;
 use App\Http\Requests;
 use App\Classes;
 use App\Post;

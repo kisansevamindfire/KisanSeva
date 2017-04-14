@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--
 * File    : index.blade.php
 * Author  : Satyapriya Baral
