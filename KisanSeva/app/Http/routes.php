@@ -32,9 +32,6 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('profile', 'FarmerController@profile');
 
-        // Home page for Dealer
-        Route::get('dealer', 'DealerController@dealer');
-
         Route::get('profileDealer','DealerController@profileDealer');
         //Route for go get crops under specific category.
         Route::get('viewCrops', 'FarmerController@findCrops');
@@ -116,13 +113,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('editProfile','FarmerController@editProfile');
     });
-
-    // Test page which will read data of users and tips from Filemaker
-    Route::get('test', 'UsersController@index');
-
-    // Dealer will see the details related to particular add
-    Route::get('details', 'DealerController@details');
-
 
     // dealer will see his previous purchases
     Route::get('viewprevious', 'DealerController@viewprevious');

@@ -17,6 +17,57 @@ use App\Classes;
 
 class DealerServices
 {
+    /**
+    * Function to get all data for dashboard.
+    *
+    * @param int $userId - contains the id of user.
+    * @return - Returns a boolian value if post made or not.
+    */
+    public static function DashboardDataDealer($userId)
+    {
+        $posts = DealerModel::find('CropPost', $userId, '__kfn_UserId');
+        //get current date.
+        date_default_timezone_set('Asia/Kolkata');
+        $date = date("m/d/Y");
+        $time = date("h:i:sa");
+        $today_time = strtotime($date);
+
+        //count the no of posts, the posts sold, expired and earnings.
+        $count = count($posts);
+        $lastPostTime = "No Posts Made Yet";
+        $totalPosts = 0;
+        $postSold = 0;
+        $postActive = 0;
+        $postExpired = 0;
+        $totalEarning = 0;
+        if ($posts) {
+            foreach ($posts as $post) {
+                $expire_time = strtotime($post->getField('CropExpiryTime_xi'));
+                $totalPosts++;
+                if ($post->getField('Sold_n') == 1) {
+                    $postSold++;
+                    $bidAccepted = DealerModel::find('Bids', $post->getField('__kfn_AcceptedBid'), '___kpn_BidId');
+                    $totalEarning = $totalEarning + $bidAccepted[0]->getField('BidPrice_xn');
+                }
+                elseif ($expire_time < $today_time) {
+                    $postExpired++;
+                } else { $postActive++; }
+            }
+            $lastPostTime = $posts[$count-1]->getField('PublishedTime_t');
+        }
+
+        $countPost = array(
+            $totalPosts,
+            $postSold,
+            $lastPostTime,
+            $postActive,
+            $postExpired,
+            $totalEarning
+        );
+
+        return compact('countPost');
+    }
+
     public static function findAllPosts($request, $user)
     {
         $crops = DealerModel::findAll('CropPost', $user, '__kfn_UserId');
@@ -119,4 +170,3 @@ class DealerServices
         return true;
     }
 }
-

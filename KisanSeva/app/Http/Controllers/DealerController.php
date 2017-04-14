@@ -32,22 +32,19 @@ use Illuminate\Support\Facades\URL;
 class DealerController extends Controller
 {
 
-    /**
+        /**
     * Function to go to Farmer View.
     *
-    * @param 1. Reguest - Contains all session data.
+    * @param array $request - Contains all session data.
     * @return - Returns to the desired view of desired user.
     */
-    public function dealer()
+    public function dealer(Request $request)
     {
-        return view('Dealer.index');
+        $sessionArray = $request->session()->all();
+        $dashboardData = DealerServices::DashboardDataDealer($sessionArray['user']);
+        return view('dealer.index', compact('dashboardData'));
     }
-
-/*    public function details()
-    {
-        return view("Dealer.details");
-    }
-*/
+  
     public function viewprevious()
     {
         return view("Dealer.viewprevious");
