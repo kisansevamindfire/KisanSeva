@@ -62,27 +62,22 @@
                       {{ "No post present." }}
                     @else
                       @foreach($PostRecords[0] as $PostRecord[0])
+                        @php
+                          $today_time = strtotime($date);
+                          $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
+                        @endphp
+                        @if($expire_time > $today_time)
                         <tr>
                           <td>{{ $PostRecords[1][$i][0] }}</td>
                           <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
                           <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
-                          @php
-                            $today_time = strtotime($date);
-                            $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
-                            if($PostRecord[0]->getField('Sold_n') == 1) { 
-                          @endphp
-                          <td><span class="label label-success">Sold</span></td>
-                          @php } elseif ($expire_time < $today_time) { @endphp
-                          <td><span class="label label-danger">Expired</span></td>
-                          @php } else { @endphp
                           <td><span class="label label-primary">Active</span></td>
-                          @php } @endphp
-                          <?php
-                            $id = $PostRecord[0]->getrecordid() ?>
+                          <?php $id = $PostRecord[0]->getrecordid() ?>
                             <td><Button class="label label-info" onclick="window.location='{{ url("details",[$id]) }}'">View</Button></td>
                         </tr>
+                        @endif
                         @php $i = $i+1; @endphp
                       @endforeach
                     @endif

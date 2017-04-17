@@ -153,12 +153,12 @@ class FarmerModel
         }
 
         $request = $fmobj->createRecord($layout);
-        $request->setField('__kfn_CropId', $input['Crop']);
-        $request->setField('CropPrice_xn', $input['BasePrice']);
-        $request->setField('CropName_t', $CropName);
-        $request->setField('CropExpiryTime_xi', $newDate);
-        $request->setField('__kfn_UserId', $UserId);
-        $request->setField('Quantity_xn', $str);
+        $request->setField('__kfn_CropId', FarmerModel::Sanitize($input['Crop']));
+        $request->setField('CropPrice_xn', FarmerModel::Sanitize($input['BasePrice']));
+        $request->setField('CropName_t', FarmerModel::Sanitize($CropName));
+        $request->setField('CropExpiryTime_xi', FarmerModel::Sanitize($newDate));
+        $request->setField('__kfn_UserId', FarmerModel::Sanitize($UserId));
+        $request->setField('Quantity_xn', FarmerModel::Sanitize($str));
         $result = $request->commit();
 
         if (!FileMaker::isError($result)) {
@@ -181,9 +181,9 @@ class FarmerModel
         $fmobj = FilemakerWrapper::getConnection();
         $request = $fmobj->newEditCommand($layout, $userId);
 
-        $request->setField('UserName_xt', $input['Name']);
-        $request->setField('UserContact_xn', $input['Contact']);
-        $request->setField('UserAddress_xt', $input['Address']);
+        $request->setField('UserName_xt', FarmerModel::Sanitize($input['Name']));
+        $request->setField('UserContact_xn', FarmerModel::Sanitize($input['Contact']));
+        $request->setField('UserAddress_xt', FarmerModel::Sanitize($input['Address']));
         $result = $request->execute();
 
         if (!FileMaker::isError($result)) {
@@ -233,12 +233,26 @@ class FarmerModel
         $request = $fmobj->createRecord($layout);
         $request->setField('__kfn_CropPostId', $id);
         $request->setField('__kfn_UserId', $userId);
-        $request->setField('CommentData_xt', $input['commentData']);
+        $request->setField('CommentData_xt', FarmerModel::Sanitize($input['commentData']));
         $result = $request->commit();
 
         if (!FileMaker::isError($result)) {
             return true;
         }
         return $result->getMessage();
+    }
+
+    /**
+    * Function to sanitize the value that will be stored in the database.
+    *
+    * @param mixed $value - contains the value to be sanitized.
+    * @return - Returns the value after sanitizing.
+    */
+    public static function Sanitize($value)
+    {
+        $retvar = trim($value);
+        $retvar = strip_tags($retvar);
+        $retvar = htmlspecialchars($retvar);
+        return $retvar;
     }
 }

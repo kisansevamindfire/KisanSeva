@@ -10,6 +10,7 @@ $(document).ready(function(){
         pagination: true,
         striped: true,
         pageSize: 5,
+        pageList: [5,10,25,50,100],
 
         formatShowingRows: function(pageFrom, pageTo, totalRows){
         },

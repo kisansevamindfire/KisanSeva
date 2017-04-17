@@ -83,7 +83,6 @@
                   <input type="text" class="form-control" name="Quantity" id="quantity" placeholder="Quantity">
                   <span class="errorMessage" id="quantityError"></span>
                   </div>
-
                    <div class="col-md-6">
                    <label for="Quantity">Weight</label>
                   <select class="form-control" name="Weight">
@@ -103,7 +102,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPhoto">Insert Photo</label>
-                  <input type="file" id="exampleInputPhoto">
+                  <input type="file" id="inputPhoto" name="Photo">
                 </div>
               </div>
               <div class="box-footer">
