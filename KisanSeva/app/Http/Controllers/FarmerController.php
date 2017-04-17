@@ -123,6 +123,8 @@ class FarmerController extends Controller
             return redirect('addpost')->withErrors($validator);
         }
         //creating the post if validatinn is succesful
+        // dd($request->get('Category'));
+        dd($request->get('Photo'));
         $sessionArray = $request->session()->all();
         $addPost = FarmerServices::createPost($request->all(), $sessionArray['user']);
         if ($addPost) {

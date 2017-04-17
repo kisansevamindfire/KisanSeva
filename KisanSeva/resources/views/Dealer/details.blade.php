@@ -20,7 +20,7 @@
       <li class="treeview">
         <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
-          <span>View Ads</span> 
+          <span>View Ads</span>
         </a>
       </li>
       <li class="treeview">
@@ -126,6 +126,31 @@
               @php $j++; @endphp
               @endforeach
             @endif
+        </div>
+        <div class="col-xs-6">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title"></h3>
+              <span class="counter pull-right"></span>
+                <form class="form-horizontal" action="addBid" method="Post">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <div class="form-group">
+                    <label for="bid" class="col-sm-2 control-label">Enter Bid</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="bid" placeholder="Bid" name="bid">
+                      <span class="errorMessage" id="nameError"></span>
+                      <input type="hidden" class="form-control" id="basePrice" name="basePrice" value="{{ $details['cropDetails'][0]->getField('CropPrice_xn') }}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                      <button type="submit" id="submitBid" class="btn btn-danger">Submit</button>
+                    </div>
+                  </div>
+              </form>
+            </div>
+          </div>
         </div>
     </section>
   <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>

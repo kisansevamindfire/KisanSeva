@@ -111,7 +111,7 @@
   <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
   <script type="text/javascript" src="{{ asset('template/dist/js/jquery-1.11.2.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('template/dist/js/bootstrap-table.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('template/dist/js/tableScript.js') }}">
+  <script type="text/javascript" src="{{ asset('template/dist/js/tableScript.js?ver=1.7') }}">
   </script>
 @stop
 
