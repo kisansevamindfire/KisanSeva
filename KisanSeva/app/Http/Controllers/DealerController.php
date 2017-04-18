@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Redirect;
 
 use Illuminate\Support\Facades\URL;
 
+use Image;
+
 class DealerController extends Controller
 {
 
@@ -69,11 +71,11 @@ class DealerController extends Controller
     public function profileDealer(Request $request)
     {
         $sessionArray = $request->session()->all();
-        $profileData = DealerServices::profileDealer($sessionArray['user']);
+        $profileDataDealer = DealerServices::profileDealer($sessionArray['user']);
        // $post = DealerServices::postCountDealer($sessionArray['user']);
 
-        if ($profileData != false) {
-            return view('Dealer.profileDealer', compact('profileData', 'post'));
+        if ($profileDataDealer != false) {
+            return view('Dealer.profileDealer', compact('profileDataDealer', 'post'));
         }
 
         return false;
@@ -106,5 +108,39 @@ class DealerController extends Controller
             return back();
         }
         return back();
+    }
+
+    /**
+    * Function to sign in to the required user home page.
+    *
+    * @param array Reguest - Contains all data of user for login.
+    * @return - Returns to the route of desired user.
+    */
+    public function editProfileDealer(Request $request)
+    {
+        //validation of field for edit.
+        $validator = Validator::make($request->all(),[
+            'Name' => 'required|min:5',
+            'Contact' => 'required|min:10|max:10'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('profileDealer')->withErrors($validator);
+        }
+
+        $sessionArray = $request->session()->all();
+        if($request->hasfile('imageData')) {
+            $image = $request->file('imageData');
+            $filename = time().'.'.$image->getClientOriginalExtension();
+            $location = public_path('images/'.$filename);
+            Image::make($image)->resize(200,200)->save($location);
+            $request->session()->put('userImage', $filename);
+            DealerServices::editProfileDealer($request->all(), $sessionArray['recordId'], $filename);
+        } else {
+            DealerServices::editProfileDealer($request->all(), $sessionArray['recordId'], 0);
+        }
+        //if validation succesful edit the profile
+        $request->session()->put('name', $request->Name);
+        return redirect('profileDealer');
     }
 }

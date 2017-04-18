@@ -107,9 +107,9 @@ class DealerServices
     */
     public static function profileDealer($userId)
     {
-        $profileData = DealerModel::find('User', $userId, '___kpn_UserId');
-        if ($profileData != false) {
-            return $profileData;
+        $profileDataDealer = DealerModel::find('User', $userId, '___kpn_UserId');
+        if ($profileDataDealer != false) {
+            return $profileDataDealer;
         }
         return false;
     }
@@ -167,6 +167,17 @@ class DealerServices
     public static function CommentDealer($request, $userId, $id)
     {
         $bid = DealerModel::CommentDealer('Comment', $request, $userId ,$id);
+        return true;
+    }
+
+    public static function editProfileDealer($request, $userId, $filename)
+    {
+        $editProfileDealer = DealerModel::editRecords('User', $request , $userId, $filename);
+
+        if ($editProfileDealer != true) {
+            return false;
+        }
+
         return true;
     }
 }

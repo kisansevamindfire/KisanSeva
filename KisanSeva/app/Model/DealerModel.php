@@ -86,4 +86,40 @@ class DealerModel
         }
         return $result->getMessage();
     }
+
+    /**
+    * Function to edit the details of user.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param array @input - Contains all data for edit.
+    * @param int $UserId - Contains the id of the user.
+    *
+    * @return - Boolian value if any error occured or not.
+    */
+    public static function editRecords($layout, $input, $userId, $filename)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $request = $fmobj->newEditCommand($layout, $userId);
+
+        $request->setField('UserName_xt', DealerModel::Sanitize($input['Name']));
+        $request->setField('UserContact_xn', DealerModel::Sanitize($input['Contact']));
+        $request->setField('UserAddress_xt', DealerModel::Sanitize($input['Address']));
+        if($filename != 0) {
+            $request->setField('UserImage_t', $filename);
+        }
+        $result = $request->execute();
+
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
+
+    public static function Sanitize($value)
+    {
+        $retvar = trim($value);
+        $retvar = strip_tags($retvar);
+        $retvar = htmlspecialchars($retvar);
+        return $retvar;
+    }
 }
