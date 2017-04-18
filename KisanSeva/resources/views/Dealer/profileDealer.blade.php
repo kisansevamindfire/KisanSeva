@@ -111,11 +111,6 @@
                     <div class="post">
                       <div class="user-block">
                           <span class="username">
-                            <a href="#">Last Posted</a>
-                          </span>
-                      </div>
-                      <div class="user-block">
-                          <span class="username">
                             <a href="#">Profile Status</a>
                           </span>
                           <div class="row">
