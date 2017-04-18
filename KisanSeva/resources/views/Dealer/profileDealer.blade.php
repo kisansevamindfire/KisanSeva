@@ -77,20 +77,20 @@
                 <div class="box-body">
                   <strong><i class="fa fa-book margin-r-5"></i> Email</strong>
                   <p class="text-muted">
-                    {{ $profileData[0]->getfield('UserEmail_xt') }}
+                    {{ $profileDataDealer[0]->getfield('UserEmail_xt') }}
                   </p>
 
                   <hr>
 
                   <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
 
-                  <p class="text-muted">{{ $profileData[0]->getfield('UserAddress_xt') }}</p>
+                  <p class="text-muted">{{ $profileDataDealer[0]->getfield('UserAddress_xt') }}</p>
 
                   <hr>
 
                   <strong><i class="fa fa-pencil margin-r-5"></i> Contact</strong>
 
-                  <p class="text-muted">{{ $profileData[0]->getfield('UserContact_xn') }}</p>
+                  <p class="text-muted">{{ $profileDataDealer[0]->getfield('UserContact_xn') }}</p>
 
                   <p>
                   </p>
@@ -120,7 +120,7 @@
                           </span>
                           <div class="row">
                             <div class="col-xs-3">
-                              @if( $profileData[0]->getfield('EnableDisable_xn') === 0 )
+                              @if( $profileDataDealer[0]->getfield('EnableDisable_xn') === 0 )
                                 <span class="label description label-success">Enabled</span>
                               @else
                                 <span class="label description label-danger">Disabled</span>
@@ -137,27 +137,34 @@
                     </div>
                     <hr>
                     <h5>Edit Profile</h5>
-                    <hr>
-                    <form class="form-horizontal" action="editProfile" method="Post">
+                    <hr>                                    
+                    <form id="editProfileForm" class="form-horizontal" action="editProfileDealer" method="Post" enctype="multipart/form-data">
+                    <!--<form class="form-horizontal" action="editProfile" method="Post">-->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                       <div class="form-group">
                         <label for="inputName" class="col-sm-1 control-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" placeholder="Name" name="Name" value ="{{ $profileData[0]->getfield('UserName_xt') }}">
+                          <input type="text" class="form-control" id="inputName" placeholder="Name" name="Name" value ="{{ $profileDataDealer[0]->getfield('UserName_xt') }}">
                           <span class="errorMessage" id="nameError"></span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="inputAddress" class="col-sm-1 control-label">Address</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputAddress" placeholder="Address" name="Address" value ="{{ $profileData[0]->getfield('UserAddress_xt') }}">
+                          <input type="text" class="form-control" id="inputAddress" placeholder="Address" name="Address" value ="{{ $profileDataDealer[0]->getfield('UserAddress_xt') }}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="inputContact" class="col-sm-1 control-label">Contact</label>
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="inputContact" placeholder="Contact" name="Contact" value ="{{ $profileData[0]->getfield('UserContact_xn') }}">
+                          <input type="number" class="form-control" id="inputContact" placeholder="Contact" name="Contact" value ="{{ $profileDataDealer[0]->getfield('UserContact_xn') }}">
                           <span class="errorMessage" id="contactError"></span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPhoto" class="col-sm-1" >Insert Photo</label>
+                        <div class="col-sm-10">
+                          <input type="file" id="image" name="imageData">
                         </div>
                       </div>
                       <div class="form-group">

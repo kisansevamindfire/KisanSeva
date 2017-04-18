@@ -115,6 +115,8 @@ Route::group(['middleware' => ['web']], function () {
     //Route to edit profile of user.
     Route::post('editProfile','FarmerController@editProfile');
 
+    Route::post('editProfileDealer','DealerController@editProfileDealer');
+
 });
 
     //Dealer will see his previous purchases
