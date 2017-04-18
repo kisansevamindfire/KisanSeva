@@ -59,7 +59,7 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/'.Session::get('userImage')) }}" alt="User profile picture">
 
               <h3 class="profile-username text-center">{{ Session::get('name') }}</h3>
 
@@ -151,7 +151,7 @@
                 <hr>
                 <h5>Edit Profile</h5>
                 <hr>
-                <form id="editProfileForm" class="form-horizontal" action="editProfile" method="Post">
+                <form id="editProfileForm" class="form-horizontal" action="editProfile" method="Post" enctype="multipart/form-data">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="form-group">
                     <label for="inputName" class="col-sm-1 control-label">Name</label>
@@ -173,6 +173,12 @@
                       <span class="errorMessage" id="contactError"></span>
                     </div>
                   </div>
+                  <div class="form-group">
+                  <label for="exampleInputPhoto" class="col-sm-1" >Insert Photo</label>
+                  <div class="col-sm-10">
+                  <input type="file" id="image" name="imageData">
+                </div>
+                </div>
                   <div class="form-group">
                   <label class="col-sm-1 control-label"></label>
                     <div class="col-sm-10">

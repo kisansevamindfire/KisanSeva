@@ -55,7 +55,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Quick Example</h3>
             </div>
-            <form id="AddPost" action="AddPostData" method="Post" role="form">
+            <form id="AddPost" action="AddPostData" method="Post" role="form" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
@@ -102,7 +102,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPhoto">Insert Photo</label>
-                  <input type="file" id="inputPhoto" name="Photo">
+                  <input type="file" id="image" name="imageData">
                 </div>
               </div>
               <div class="box-footer">

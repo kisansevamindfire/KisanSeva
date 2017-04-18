@@ -18,6 +18,7 @@ use Session;
 use App\Post;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Image;
 
 /**
 * Class containing all functions for the farmer services.
@@ -122,11 +123,16 @@ class FarmerController extends Controller
         if ($validator->fails()) {
             return redirect('addpost')->withErrors($validator);
         }
-        //creating the post if validatinn is succesful
-        // dd($request->get('Category'));
-        dd($request->get('Photo'));
-        $sessionArray = $request->session()->all();
-        $addPost = FarmerServices::createPost($request->all(), $sessionArray['user']);
+        //creating the post if validatinn is succesful);
+        if($request->hasfile('imageData')) {
+            $image = $request->file('imageData');
+            $filename = time().'.'.$image->getClientOriginalExtension();
+            $location = public_path('images/'.$filename);
+            Image::make($image)->resize(150,150)->save($location);
+            $addPost = FarmerServices::createPost($request->all(), $request->session()->get('user'), $filename);
+        } else {
+            $addPost = FarmerServices::createPost($request->all(), $request->session()->get('user'), 0);
+        }
         if ($addPost) {
             return redirect('viewpost');
         }
@@ -187,10 +193,20 @@ class FarmerController extends Controller
         if ($validator->fails()) {
             return redirect('profile')->withErrors($validator);
         }
+
+        $sessionArray = $request->session()->all();
+        if($request->hasfile('imageData')) {
+            $image = $request->file('imageData');
+            $filename = time().'.'.$image->getClientOriginalExtension();
+            $location = public_path('images/'.$filename);
+            Image::make($image)->resize(200,200)->save($location);
+            $request->session()->put('userImage', $filename);
+            FarmerServices::editProfile($request->all(), $sessionArray['recordId'], $filename);
+        } else {
+            FarmerServices::editProfile($request->all(), $sessionArray['recordId'], 0);
+        }
         //if validation succesful edit the profile
         $request->session()->put('name', $request->Name);
-        $sessionArray = $request->session()->all();
-        FarmerServices::editProfile($request->all(), $sessionArray['recordId']);
         return redirect('profile');
     }
 

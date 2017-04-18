@@ -48,6 +48,11 @@ class LoginController extends Controller
         $records = LoginServices::login($request->all());
         if ($records !== false) {
             if ($records[0]->getField('__kfn_UserType') != 1) {
+                if($records[0]->getField('UserImage_t') == "") {
+                    $request->session()->put('userImage', 'userImage.png');
+                } else {
+                    $request->session()->put('userImage', $records[0]->getField('UserImage_t'));
+                }
                 $request->session()->put('user', $records[0]->getField('___kpn_UserId'));
                 $request->session()->put('name', $records[0]->getField('UserName_xt'));
                 $request->session()->put('type', $records[0]->getField('__kfn_UserType'));

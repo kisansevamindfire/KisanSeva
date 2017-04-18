@@ -69,6 +69,19 @@ class LoginServices
     }
 
     /**
+    * Function to check if email is present or not.
+    *
+    * @param array Reguest - Contains all data of user for login.
+    *
+    * @return - Returns to the route of desired user.
+    */
+    public static function findImage($id)
+    {
+        $records = UserModel::find('MediaUser', $id, '___kpn_MediaUserId');
+        return $records;
+    }
+
+    /**
     * Function to verify the email and generate a random token value.
     *
     * @param array Reguest - Contains email data.
