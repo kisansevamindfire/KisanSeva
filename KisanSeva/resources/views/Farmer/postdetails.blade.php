@@ -139,6 +139,17 @@
             @endif
         </div>
         <div class="col-xs-6">
+        @if($postDetails['imagePosts'] != 0)
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title"></h3>
+              <span class="counter pull-right"></span>
+                @foreach($postDetails['imagePosts'] as $imagePost)
+                  <img src="{{ asset('images/'.$imagePost->getField('Crop_CropPost_MediaPost::MediaPostUrl_t')) }}">
+                @endforeach
+            </div>
+          </div>
+          @endif
           <div class="box">
             <div class="box-header">
               <h3 class="box-title"></h3>

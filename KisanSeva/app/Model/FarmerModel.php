@@ -162,10 +162,36 @@ class FarmerModel
         $result = $request->commit();
 
         if (!FileMaker::isError($result)) {
+            return $request->getRecordId();
+        }
+        return false;
+    }
+
+    /**
+    * Function to Create a Post.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param array $input - Contains all the data to be inserted in the record.
+    * @param int $UserId - Contains the id of the user.
+    * @param string $CropName - Contains the name of the crop.
+    *
+    * @return - Boolian value if any error occured or not.
+    */
+    public static function addImage($layout, $filename, $postId)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+
+        $request = $fmobj->createRecord($layout);
+        $request->setField('__kfn_CropPostId', $postId);
+        $request->setField('MediaPostUrl_t', $filename);
+        $result = $request->commit();
+
+        if (!FileMaker::isError($result)) {
             return true;
         }
-        return $result->getMessage();
+        return false;
     }
+
 
     /**
     * Function to edit the details of user.
@@ -176,7 +202,7 @@ class FarmerModel
     *
     * @return - Boolian value if any error occured or not.
     */
-    public static function editRecords($layout, $input, $userId)
+    public static function editRecords($layout, $input, $userId, $filename)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $request = $fmobj->newEditCommand($layout, $userId);
@@ -184,6 +210,9 @@ class FarmerModel
         $request->setField('UserName_xt', FarmerModel::Sanitize($input['Name']));
         $request->setField('UserContact_xn', FarmerModel::Sanitize($input['Contact']));
         $request->setField('UserAddress_xt', FarmerModel::Sanitize($input['Address']));
+        if($filename != 0) {
+            $request->setField('UserImage_t', $filename);
+        }
         $result = $request->execute();
 
         if (!FileMaker::isError($result)) {

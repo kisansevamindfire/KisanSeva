@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Model\FarmerModel;
 use App\Http\Requests;
 use App\Classes;
+use Filemaker;
 
 /**
 * Class containing all functions for the services of farmer.
@@ -81,16 +82,19 @@ class FarmerServices
     * @param int $userId - contains the id of the user who made the post.
     * @return - Returns a boolian value if post made or not.
     */
-    public static function createPost($request, $userId)
+    public static function createPost($request, $userId, $filename)
     {
         $cropName = FarmerModel::find('Crop', $request['Crop'] , '___kpn_CropId');
         $return = FarmerModel::addPost('CropPost', $request, $userId, $cropName[0]->getField('CropName_xt'));
 
-        if ($return != true) {
-            return false;
+        if ($return) {
+            if($filename != 0) {
+                $addImage = FarmerModel::addImage('MediaPost', $filename, $return);
+           }
+           return true;
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -187,7 +191,7 @@ class FarmerServices
     {
         $profileData = FarmerModel::find('User', $userId, '___kpn_UserId');
 
-        if ($profileData != false) {
+        if ($profileData) {
             return $profileData;
         }
 
@@ -234,9 +238,9 @@ class FarmerServices
     * @param $user - contains the id of the user who made the post.
     * @return - Returns a boolian value if post made or not.
     */
-    public static function editProfile($request, $userId)
+    public static function editProfile($request, $userId, $filename)
     {
-        $editProfile = FarmerModel::editRecords('User', $request , $userId);
+        $editProfile = FarmerModel::editRecords('User', $request , $userId, $filename);
 
         if ($editProfile != true) {
             return false;
@@ -256,6 +260,8 @@ class FarmerServices
         //get all crop details
         $cropDetails= FarmerModel::find('CropPostDetailsPortal', $id , 'RecordId_n');
         $cropRecord = $cropDetails[0]->getRelatedSet('Crop 2');
+        $imagePosts = $cropDetails[0]->getRelatedSet('Crop_CropPost_MediaPost');
+
         //get all category details
         $categoryName = FarmerModel::find('Category', $cropRecord[0]->getField('Crop 2::__kfn_CategoryId'),
          '___kpn_CategoryId');
@@ -272,13 +278,13 @@ class FarmerServices
                 $j++;
             }
         } else { $commentRecords = 0; $commentUser = 0; }
-
+        if (FileMaker::isError($imagePosts)) { $imagePosts = 0; }
         //check if the crops are sold or not.
         if ($cropDetails[0]->getField('Sold_n') == 1) {
             $bidDetails = FarmerModel::find('Bids', $cropDetails[0]->getField('__kfn_AcceptedBid'), '___kpn_BidId');
             $dealerDetails[0] = FarmerModel::find('User', $bidDetails[0]->getField('__kfn_UserId'), '___kpn_UserId');
             return compact('cropDetails', 'categoryName', 'bidDetails', 'dealerDetails', 'id',
-             'commentRecords', 'commentUser');
+             'commentRecords', 'commentUser', 'imagePosts');
         }
         //search for any bids on post
         $bidDetails = FarmerModel::find('Bids', $cropDetails[0]->getField('___kpn_CropPostId'),
@@ -292,12 +298,12 @@ class FarmerServices
                 $i++;
             }
             return compact('cropDetails', 'categoryName', 'bidDetails', 'dealerDetails', 'id',
-             'commentRecords', 'commentUser');
+             'commentRecords', 'commentUser', 'imagePosts');
         }
 
         $bidDetails = false;
         return compact('cropDetails', 'categoryName', 'bidDetails', 'id', 'commentRecords',
-         'commentUser');
+         'commentUser', 'imagePosts');
     }
 
      /**
