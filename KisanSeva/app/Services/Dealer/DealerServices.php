@@ -68,7 +68,7 @@ class DealerServices
 
     public static function findAllPosts($request, $user)
     {
-        $crops = DealerModel::findAll('CropPost', $user, '__kfn_UserId');
+        $crops = DealerModel::findAll('CropPost');
         if ($crops !== false) {
             $i=0;
             foreach ($crops as $crop) {
@@ -79,18 +79,20 @@ class DealerServices
                 );
                 $cropDetails[$i] = [ $cropRecord[0]->getField('CropName_xt'),
                 $cropRecord[0]->getField('___kpn_CropId')];
-                $categoryRecord = DealerModel::Find(
-                    'Category',
+                $categoryRecord = DealerModel::Find('Category',
                     $cropRecord[0]->getField('__kfn_CategoryId'),
                     '___kpn_CategoryId'
                 );
+                $bidDetails[$i] = DealerModel::findBids('Bids', $crop->getField('___kpn_CropPostId'),
+                $user);
                 $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
                 $i = $i + 1;
             }
                 $PostRecords = array(
                     $crops,
                     $cropDetails,
-                    $categoryDetails
+                    $categoryDetails,
+                    $bidDetails
                     );
                 return compact('PostRecords');
         }
@@ -112,7 +114,7 @@ class DealerServices
         return false;
     }
 
-        /**
+    /**
     * Function to find a specific crop post.
     *
     * @param 1. $request - contains the record id of post.
@@ -139,7 +141,7 @@ class DealerServices
         } else { $commentRecords = 0; $commentUser = 0; }
         if (FileMaker::isError($imagePosts)) { $imagePosts = 0; }
 
-        $bidDetails = dealerModel::findBids('Bids', $cropDetails[0]->getField('___kpn_CropPostId'),
+        $bidDetails = DealerModel::findBids('Bids', $cropDetails[0]->getField('___kpn_CropPostId'),
          $userId);
 
         return compact('cropDetails', 'categoryName', 'bidDetails', 'id', 'commentRecords',
