@@ -70,6 +70,7 @@ $(document).ready(function(){
      $("#basepriceError").hide();
      $("#expirytimeError").hide();
      $("#categoryError").hide();
+     $("#bidError").hide();
 
      errorName = false;
      errorContact = false;
@@ -78,9 +79,14 @@ $(document).ready(function(){
      errorBasePrice = false;
      errorExpiryTime = false;
      errorCategory = false;
+     errorBid = false;
 
      $("#inputName").focusout(function(){
           checkName();
+     });
+
+     $("#bid").focusout(function(){
+          checkBid();
      });
 
      $("#inputContact").focusout(function(){
@@ -230,7 +236,7 @@ $(document).ready(function(){
      * @param null
      * @return boolian value for true or false
      */
-     function checkExpiryTime(){;
+     function checkExpiryTime(){
           if($("#ExpiryTime").val() === "")
           {
                $("#expirytimeError").html("Insert Expiry Time");
@@ -243,7 +249,57 @@ $(document).ready(function(){
           }
      }
 
+     /**
+     * Function to check Bid Field
+     *
+     * @param null
+     * @return boolian value for true or false
+     */
+     function checkBid(){
+          if($("#bid").val() === "")
+          {
+               $("#bidError").html("Please Insert Bid");
+               $("#bidError").show();
+               errorBid = true;
+          }
+          else if(parseInt($("#bid").val()) < parseInt($("#basePrice").val()))
+          {
+               $("#bidError").html("Bid cannot be smaller than Base Price");
+               $("#bidError").show();
+               errorBid = true;
+          }
+          else
+          {
+               $("#bidError").hide();
+          }
+     }
+
      var shouldRun = false;
+
+    /**
+     * Function to check all fields after he submit post button is clicked.
+     *
+     * @param null
+     * @return boolian value for true or false
+     */
+     $("#submitBid").on('click' , function(e){
+
+        if (shouldRun === true) {
+          shouldRun = false;
+          return;
+        }
+        e.preventDefault();
+
+        errorBid = false;
+
+        checkBid();
+
+        if(errorBid === false)
+        {
+               shouldRun = true;
+               $(this).trigger('click');
+        }
+    });
      /**
      * Function to check after the submit button is clicked on edit profile.
      *

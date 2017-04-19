@@ -43,7 +43,6 @@ class FarmerModel
     * @param string $layout - contains name of the layout.
     * @param int $id - contains record id of specific farming tip to be displayed.
     * @param string $field - contains the field on whose basis to be searched.
-    *
     * @return - Filemaker results of Farming Tip found.
     */
     public static function find($layout, $id, $field)
@@ -66,7 +65,6 @@ class FarmerModel
     * @param string $layout - contains name of the layout.
     * @param int $id - contains record id of specific farming tip to be displayed.
     * @param string $field - contains the field on whose basis to be searched.
-    *
     * @return - Filemaker results of Farming Tip found.
     */
     public static function findComment($layout, $id, $field)
@@ -90,7 +88,6 @@ class FarmerModel
     * @param string $layout - contains name of the layout.
     * @param int $id - contains record id of specific farming tip to be displayed.
     * @param string $field - contains the field on whose basis to be searched.
-    *
     * @return - Filemaker results of Farming Tip found.
     */
     public static function findPostSorted($layout, $id, $field)
@@ -114,7 +111,6 @@ class FarmerModel
     * @param string $layout - contains name of the layout.
     * @param string $cropName - contains crop name of the crop to find.
     * @param int $user - contains the id of the user.
-    *
     * @return - Filemaker results of posts found.
     */
     public static function findPosts($layout, $cropName, $user)
@@ -138,7 +134,6 @@ class FarmerModel
     * @param array $input - Contains all the data to be inserted in the record.
     * @param int $UserId - Contains the id of the user.
     * @param string $CropName - Contains the name of the crop.
-    *
     * @return - Boolian value if any error occured or not.
     */
     public static function addPost($layout, $input, $UserId, $CropName)
@@ -168,19 +163,17 @@ class FarmerModel
     }
 
     /**
-    * Function to Create a Post.
+    * Function to add Image to crop post.
     *
     * @param string $layout - contains name of the layout.
-    * @param array $input - Contains all the data to be inserted in the record.
-    * @param int $UserId - Contains the id of the user.
-    * @param string $CropName - Contains the name of the crop.
-    *
+    * @param string $filename - Contains the name of thr image file.
+    * @param int postId - contains the id of the post.
     * @return - Boolian value if any error occured or not.
     */
     public static function addImage($layout, $filename, $postId)
     {
         $fmobj = FilemakerWrapper::getConnection();
-
+        //command to create record of image.
         $request = $fmobj->createRecord($layout);
         $request->setField('__kfn_CropPostId', $postId);
         $request->setField('MediaPostUrl_t', $filename);
@@ -199,14 +192,14 @@ class FarmerModel
     * @param string $layout - contains name of the layout.
     * @param array @input - Contains all data for edit.
     * @param int $UserId - Contains the id of the user.
-    *
+    * @param string $filename - Contains the name of profile image.
     * @return - Boolian value if any error occured or not.
     */
     public static function editRecords($layout, $input, $userId, $filename)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $request = $fmobj->newEditCommand($layout, $userId);
-
+        //setting fields for edit.
         $request->setField('UserName_xt', FarmerModel::Sanitize($input['Name']));
         $request->setField('UserContact_xn', FarmerModel::Sanitize($input['Contact']));
         $request->setField('UserAddress_xt', FarmerModel::Sanitize($input['Address']));
@@ -227,7 +220,6 @@ class FarmerModel
     * @param string $layout - contains name of the layout.
     * @param int $postRecordId - Contains the id of the post.
     * @param int $id - Contains the bid id.
-    *
     * @return - Boolian value if any error occured or not.
     */
     public static function editPost($layout, $postRecordId, $id)
@@ -252,13 +244,12 @@ class FarmerModel
     * @param array $input - Contains all the data to be inserted in the record.
     * @param int $UserId - Contains the id of the user.
     * @param int $id - Contains the id of the post.
-    *
     * @return - Boolian value if any error occured or not.
     */
     public static function createComment($layout, $input, $userId, $id)
     {
         $fmobj = FilemakerWrapper::getConnection();
-
+        //command to create new comment record.
         $request = $fmobj->createRecord($layout);
         $request->setField('__kfn_CropPostId', $id);
         $request->setField('__kfn_UserId', $userId);

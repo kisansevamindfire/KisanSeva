@@ -133,7 +133,7 @@
                       </span>
                       <div class="row">
                         <div class="col-xs-3">
-                          @if( $profileData[0]->getfield('EnableDisable_xn') === 0 )
+                          @if( $profileData[0]->getfield('EnableDisable_xn') == 0 )
                             <span class="label description label-success">Enabled</span>
                           @else
                             <span class="label description label-danger">Disabled</span>

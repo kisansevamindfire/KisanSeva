@@ -112,13 +112,17 @@ Route::group(['middleware' => ['web']], function () {
     //Route to get all user details and register.
     Route::post('register','LoginController@register');
 
+    //Route to get all user details and register.
+    Route::post('details/{id}/addBid','DealerController@addBid');
+
     //Route to edit profile of user.
     Route::post('editProfile','FarmerController@editProfile');
 
     Route::post('editProfileDealer','DealerController@editProfileDealer');
 
-});
-
     //Dealer will see his previous purchases
     Route::get('viewprevious', 'DealerController@viewprevious');
+});
+
+
 

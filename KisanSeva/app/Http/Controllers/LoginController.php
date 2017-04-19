@@ -28,7 +28,6 @@ class LoginController extends Controller
     * Function to sign in to the required user home page.
     *
     * @param array Reguest - Contains all data of user for login.
-    *
     * @return - Returns to the route of desired user.
     */
    public function login(Request $request)
@@ -71,7 +70,6 @@ class LoginController extends Controller
     * Function to register a user.
     *
     * @param array Reguest - Contains all data of user to register.
-    *
     * @return - Returns to the route of desired user.
     */
     public function register(Request $request)
@@ -111,7 +109,6 @@ class LoginController extends Controller
     * Function to signout.
     *
     * @param array Reguest - Contains all session data.
-    *
     * @return - Returns to login view.
     */
     public function signout(Request $request)

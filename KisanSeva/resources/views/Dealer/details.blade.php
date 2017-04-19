@@ -43,8 +43,26 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"></h3>
+              <h3><b>Farmer Details</b></h3>
+              <hr>
               <span class="counter pull-right"></span>
+          <div class="row">
+                <div class="col-xs-8">
+                    <h5><b>{{ $details['userPostDetails'][0]->getField('UserName_xt') }}</b></h5>
+                    <p><strong>Email : </strong> {{ $details['userPostDetails'][0]->getField('UserEmail_xt') }} </p>
+                    <p><strong>Contact : </strong>{{ $details['userPostDetails'][0]->getField('UserContact_xn') }} </p>
+                    <p><strong>Address : </strong>{{ $details['userPostDetails'][0]->getField('UserAddress_xt') }} </p>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <figure>
+                      @if($details['userPostDetails'][0]->getField('UserImage_t') == "")
+                        <img src="{{ asset('images/userImage.png') }}" alt="User profile picture" class="profile-user-img img-responsive img-circle">
+                      @else
+                        <img src="{{ asset('images/'.$details['userPostDetails'][0]->getField('UserImage_t')) }}" alt="User profile picture" class="profile-user-img img-responsive img-circle">
+                      @endif
+                    </figure>
+                </div>
+            </div>
                 <table class="table table-hover table-bordered results">
                   <thead>
                     <tr>
@@ -67,14 +85,14 @@
                               <td>{{ $details['cropDetails'][0]->getField('CropName_t') }}</td>
                               <td>{{ $details['cropDetails'][0]->getField('PublishedTime_t') }}</td>
                               <td>{{ $details['cropDetails'][0]->getField('Quantity_xn') }}</td>
-                              <td>Rs {{ $details['cropDetails'][0]->getField('CropPrice_xn') }}</td>
+                              <td>Rs {{ number_format($details['cropDetails'][0]->getField('CropPrice_xn')) }}</td>
                               @php
                                 $today_time = strtotime($date);
                                 $expire_time = strtotime($details['cropDetails'][0]->getField('CropExpiryTime_xi'));
                                 if($details['cropDetails'][0]->getField('Sold_n') == 1) { @endphp
                                   <td><span class="label label-success">Sold</span></td>
-                                @php } elseif ($expire_time < $today_time) { @endphp
-                                  <td><span class="label label-danger">Expired</span></td>
+                                @php } elseif ($details['bidDetails'] != false) { @endphp
+                                  <td><span class="label label-danger">In Process</span></td>
                                 @php } else { @endphp
                                   <td><span class="label label-primary">Active</span></td>
                               @php } @endphp
@@ -128,17 +146,29 @@
             @endif
         </div>
         <div class="col-xs-6">
+        @if($details['imagePosts'] != 0)
           <div class="box">
             <div class="box-header">
               <h3 class="box-title"></h3>
               <span class="counter pull-right"></span>
-                <form class="form-horizontal" action="addBid" method="Post">
+                @foreach($details['imagePosts'] as $imagePost)
+                  <img src="{{ asset('images/'.$imagePost->getField('Crop_CropPost_MediaPost::MediaPostUrl_t')) }}">
+                @endforeach
+            </div>
+          </div>
+          @endif
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title"></h3>
+              <span class="counter pull-right"></span>
+              @if($details['bidDetails'] == false)
+                <form class="form-horizontal" action="{{ $details['id'] }}/addBid" method="Post">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="form-group">
                     <label for="bid" class="col-sm-2 control-label">Enter Bid</label>
                     <div class="col-sm-5">
-                      <input type="text" class="form-control" id="bid" placeholder="Bid" name="bid">
-                      <span class="errorMessage" id="nameError"></span>
+                      <input type="number" class="form-control" id="bid" placeholder="Bid" name="bid">
+                      <span class="errorMessage" id="bidError"></span>
                       <input type="hidden" class="form-control" id="basePrice" name="basePrice" value="{{ $details['cropDetails'][0]->getField('CropPrice_xn') }}">
                     </div>
                   </div>
@@ -149,6 +179,9 @@
                     </div>
                   </div>
               </form>
+              @else
+                <h4>Bid Made Of Rs {{  number_format($details['bidDetails'][0]->getField('BidPrice_xn')) }}</h4>
+              @endif
             </div>
           </div>
         </div>
