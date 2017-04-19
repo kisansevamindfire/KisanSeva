@@ -37,6 +37,11 @@
       <h1>
         Crop Details
       </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ URL::to('dealer') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ URL::to('viewads') }}"><i class="fa fa-dashboard"></i> View Post</a></li>
+        <li class="active">Post Details</li>
+      </ol>
     </section>
     <section class="content">
       <div class="row">
