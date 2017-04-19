@@ -66,7 +66,7 @@
                       $date = date("m/d/Y");
                       $time = date("h:i:sa");
                       $i = 0 ;
-                    @endphp                <!-- /.box-header -->
+                    @endphp
                     @if(empty($PostRecords[0]))
                       {{ "No post present." }}
                     @else
@@ -77,12 +77,18 @@
                         @endphp
                         @if($expire_time > $today_time)
                         <tr>
-                          <td>{{ $PostRecords[1][$i][0] }}</td>
+                          <td>{{ $PostRecords[2][$i][0] }}</td>
                           <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
                           <td>Rs {{ number_format($PostRecord[0]->getField('CropPrice_xn')) }}</td>
-                          <td><span class="label label-primary">Active</span></td>
+                          @if($PostRecords[3][$i] == false)
+                            <td><span class="label label-primary">Active</span></td>
+                          @elseif($PostRecord[0]->getField('Sold_n') == 1)
+                            <td><span class="label label-success">Sold</span></td>
+                          @else
+                            <td><span class="label label-danger">In Process</span></td>
+                          @endif
                           <?php $id = $PostRecord[0]->getrecordid() ?>
                             <td><Button class="label label-info" onclick="window.location='{{ url("details",[$id]) }}'">View</Button></td>
                         </tr>
