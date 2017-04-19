@@ -80,6 +80,7 @@ class FarmerServices
     *
     * @param array $request - contains all data of the post to be created.
     * @param int $userId - contains the id of the user who made the post.
+    * @param string $filename - contains the name of the image file.
     * @return - Returns a boolian value if post made or not.
     */
     public static function createPost($request, $userId, $filename)
@@ -115,11 +116,7 @@ class FarmerServices
         //count the no of posts, the posts sold, expired and earnings.
         $count = count($posts);
         $lastPostTime = "No Posts Made Yet";
-        $totalPosts = 0;
-        $postSold = 0;
-        $postActive = 0;
-        $postExpired = 0;
-        $totalEarning = 0;
+        $totalPosts = 0; $postSold = 0; $postActive = 0; $postExpired = 0; $totalEarning = 0;
         if ($posts) {
             foreach ($posts as $post) {
                 $expire_time = strtotime($post->getField('CropExpiryTime_xi'));
@@ -138,12 +135,7 @@ class FarmerServices
         }
 
         $countPost = array(
-            $totalPosts,
-            $postSold,
-            $lastPostTime,
-            $postActive,
-            $postExpired,
-            $totalEarning
+            $totalPosts, $postSold, $lastPostTime, $postActive, $postExpired, $totalEarning
         );
 
         return compact('countPost');

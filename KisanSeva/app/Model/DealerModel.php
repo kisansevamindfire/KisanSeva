@@ -58,6 +58,27 @@ class DealerModel
     *        3. $field - contains the field on whose basis to be searched.
     * @return - Filemaker results of Farming Tip found.
     */
+    public static function findBids($layout, $cropId, $userId)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindCommand($layout);
+        $cmd->addFindCriterion('__kfn_CropPostId', $cropId);
+        $cmd->addFindCriterion('__kfn_UserId', $userId);
+        $result = $cmd->execute();
+        if (!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return false;
+    }
+
+    /**
+    * Function to search for data in some find criterion.
+    *
+    * @param 1. $layout - contains name of the layout.
+    *        2. $id - contains record id of specific farming tip to be displayed.
+    *        3. $field - contains the field on whose basis to be searched.
+    * @return - Filemaker results of Farming Tip found.
+    */
     public static function findComment($layout, $id, $field)
     {
         $fmobj = FilemakerWrapper::getConnection();
@@ -108,6 +129,22 @@ class DealerModel
             $request->setField('UserImage_t', $filename);
         }
         $result = $request->execute();
+
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
+
+    public static function addBid($bid, $id, $userId)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+
+        $request = $fmobj->createRecord('Bids');
+        $request->setField('__kfn_CropPostId', $id);
+        $request->setField('BidPrice_xn', $bid);
+        $request->setField('__kfn_UserId', $userId);
+        $result = $request->commit();
 
         if (!FileMaker::isError($result)) {
             return true;

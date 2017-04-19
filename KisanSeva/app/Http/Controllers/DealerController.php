@@ -8,27 +8,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Model\DealerModel;
-
 use App\Http\Requests;
-
 use App\Classes;
-
 use Illuminate\Routing\Controller;
-
 use App\Services\Dealer\DealerServices;
-
 use Validator;
-
 use Session;
-
 use App\Post;
-
 use Illuminate\Support\Facades\Redirect;
-
 use Illuminate\Support\Facades\URL;
-
 use Image;
 
 class DealerController extends Controller
@@ -46,7 +35,7 @@ class DealerController extends Controller
         $dashboardData = DealerServices::DashboardDataDealer($sessionArray['user']);
         return view('dealer.index', compact('dashboardData'));
     }
-  
+
     public function viewprevious()
     {
         return view("Dealer.viewprevious");
@@ -89,7 +78,7 @@ class DealerController extends Controller
     */
     public function details(Request $request)
     {
-        $details = DealerServices::getadDetails($request->id);
+        $details = DealerServices::getadDetails($request->id, $request->session()->get('user'));
         return view('Dealer.details', compact('details'));
     }
 
@@ -142,5 +131,27 @@ class DealerController extends Controller
         //if validation succesful edit the profile
         $request->session()->put('name', $request->Name);
         return redirect('profileDealer');
+    }
+
+    /**
+    * Function to add new Bid.
+    *
+    * Author : Satyapriya Baral
+    * @param 1. mixed $request - contains all data of bid.
+    * @return - Returns to the ad details view.
+    */
+    public function addBid(Request $request)
+    {
+        //validation of field for bid.
+        $validator = Validator::make($request->all(),[
+            'bid' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        DealerServices::addBid($request->bid, $request->id, $request->session()->get('user'));
+        return back();
     }
 }

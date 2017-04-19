@@ -8,7 +8,7 @@
   @section('title')
     <title>Dealer | Profile</title>
   @stop
-  
+
   @section('sidebar')
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
@@ -115,7 +115,7 @@
                           </span>
                           <div class="row">
                             <div class="col-xs-3">
-                              @if( $profileDataDealer[0]->getfield('EnableDisable_xn') === 0 )
+                              @if( $profileDataDealer[0]->getfield('EnableDisable_xn') == 0 )
                                 <span class="label description label-success">Enabled</span>
                               @else
                                 <span class="label description label-danger">Disabled</span>
@@ -123,16 +123,10 @@
                             </div>
                           </div>
                       </div>
-                      <div class="user-block">
-                            <span class="username">
-                              <a href="#">Rating</a>
-                            </span>
-                        <span class="description"></span>
-                      </div>
                     </div>
                     <hr>
                     <h5>Edit Profile</h5>
-                    <hr>                                    
+                    <hr>
                     <form id="editProfileForm" class="form-horizontal" action="editProfileDealer" method="Post" enctype="multipart/form-data">
                     <!--<form class="form-horizontal" action="editProfile" method="Post">-->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">

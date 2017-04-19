@@ -131,7 +131,7 @@ function googleTranslateElementInit() {
 <script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.222') }}"></script>
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.22') }}"></script>
 <script src="{{ asset('template/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);

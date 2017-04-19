@@ -72,7 +72,7 @@
                           <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
-                          <td>Rs {{ $PostRecord[0]->getField('CropPrice_xn') }}</td>
+                          <td>Rs {{ number_format($PostRecord[0]->getField('CropPrice_xn')) }}</td>
                           <td><span class="label label-primary">Active</span></td>
                           <?php $id = $PostRecord[0]->getrecordid() ?>
                             <td><Button class="label label-info" onclick="window.location='{{ url("details",[$id]) }}'">View</Button></td>
