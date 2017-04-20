@@ -16,7 +16,6 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Session;
 
-
 /**
 * Class containing all functions for the login services.
 */
@@ -32,6 +31,7 @@ class LoginServices
     public static function login($request)
     {
         $records = UserModel::userDetails('User', $request);
+
         if ($records !== false) {
             return $records;
         }
@@ -47,6 +47,7 @@ class LoginServices
     public static function register($request)
     {
         $records = UserModel::addUsers('User', $request);
+
         if ($records !== false) {
             return true;
         }
@@ -86,8 +87,9 @@ class LoginServices
     public static function verifyEmail($request)
     {
         $records = UserModel::find('User', $request['Email'], 'UserEmail_xt');
-        if($records) {
-            if($records[0]->getField('__kfn_UserType') != 1) {
+        //creates a random number and send it with email
+        if ($records) {
+            if ($records[0]->getField('__kfn_UserType') != 1) {
                 $str = "12375839qwertyuiolkghsacvbnmx";
                 $str = str_shuffle($str);
                 $str = substr($str, 0, 10);
@@ -136,5 +138,4 @@ class LoginServices
         $editUser = UserModel::editPassword('User', $password, $rId);
         return $editUser;
     }
-
 }

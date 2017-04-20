@@ -111,7 +111,7 @@ class FarmerController extends Controller
     public function createPost(Request $request)
     {
         //validation of crop data to be posted
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'Category' => 'required',
             'Crop' => 'required',
             'Quantity' => 'required',
@@ -124,11 +124,11 @@ class FarmerController extends Controller
             return redirect('addpost')->withErrors($validator);
         }
         //creating the post if validatinn is succesful);
-        if($request->hasfile('imageData')) {
+        if ($request->hasfile('imageData')) {
             $image = $request->file('imageData');
             $filename = time().'.'.$image->getClientOriginalExtension();
             $location = public_path('images/'.$filename);
-            Image::make($image)->resize(150,150)->save($location);
+            Image::make($image)->resize(150, 150)->save($location);
             $addPost = FarmerServices::createPost($request->all(), $request->session()->get('user'), $filename);
         } else {
             $addPost = FarmerServices::createPost($request->all(), $request->session()->get('user'), 0);
@@ -185,7 +185,7 @@ class FarmerController extends Controller
     public function editProfile(Request $request)
     {
         //validation of field for edit.
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'Name' => 'required|min:5',
             'Contact' => 'required|min:10|max:10'
         ]);
@@ -195,11 +195,11 @@ class FarmerController extends Controller
         }
 
         $sessionArray = $request->session()->all();
-        if($request->hasfile('imageData')) {
+        if ($request->hasfile('imageData')) {
             $image = $request->file('imageData');
             $filename = time().'.'.$image->getClientOriginalExtension();
             $location = public_path('images/'.$filename);
-            Image::make($image)->resize(200,200)->save($location);
+            Image::make($image)->resize(200, 200)->save($location);
             $request->session()->put('userImage', $filename);
             FarmerServices::editProfile($request->all(), $sessionArray['recordId'], $filename);
         } else {
@@ -231,7 +231,7 @@ class FarmerController extends Controller
     public function comment(Request $request)
     {
         //validation of comment data
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'commentData' => 'required',
         ]);
 

@@ -23,16 +23,17 @@ class UserModel
     *
     * @param string $layout - contains name of the layout.
     * @param array $input - contains all the fields to search the user
-    *
     * @return - Filemaker results of all records found.
     */
     public static function userDetails($layout, $input)
     {
         $fmobj = FilemakerWrapper::getConnection();
+        //command to find according to criterion
         $cmd = $fmobj->newFindCommand($layout);
         $cmd->addFindCriterion('UserEmail_xt', '=='.$input['Email']);
         $cmd->addFindCriterion('UserPassword_xt', '=='.$input['Password']);
         $result = $cmd->execute();
+
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
         }
@@ -43,13 +44,14 @@ class UserModel
     *
     * @param string $layout - contains name of the layout.
     * @param array $input - Contains all the data to be inserted in the record.
-    *
     * @return - Boolian value if any error occured or not.
     */
     public static function addUsers($layout, $input)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $request = $fmobj->createRecord($layout);
+
+        //sets all field of the new user
         $request->setField('__kfn_UserType', $input['UserType']);
         $request->setField('UserName_xt', $input['Name']);
         $request->setField('UserPassword_xt', $input['Password']);
@@ -59,6 +61,7 @@ class UserModel
         $request->setField('EnableDisable_xn', 0);
         $request->setField('UserRating_n', 0);
         $result = $request->commit();
+
         if (!FileMaker::isError($result)) {
             return true;
         }
@@ -71,15 +74,16 @@ class UserModel
     * @param string $layout - contains name of the layout.
     * @param string $data - contains email data.
     * @param string $field - contains the field on whose basis to be searched.
-    *
     * @return - Boolian value if the result is found or not.
     */
     public static function find($layout, $data, $field)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindCommand($layout);
+        //find records according to criterion
         $cmd->addFindCriterion($field, "==".$data);
         $result = $cmd->execute();
+
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
         }
@@ -92,7 +96,6 @@ class UserModel
     * @param string $layout - contains name of the layout.
     * @param string token - contains the random token value.
     * @param int $UserId - Contains the id of the user.
-    *
     * @return - Boolian value if any error occured or not.
     */
     public static function edit($layout, $token, $Id)
@@ -115,13 +118,14 @@ class UserModel
     * @param string $layout - contains name of the layout.
     * @param string $token - contains the random token value.
     * @param string $email - contains th email address of user.
-    *
     * @return - Boolian value if the result is found or not.
     */
     public static function findUser($layout, $token, $email)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindCommand($layout);
+
+        //find user for by its email and token number
         $cmd->addFindCriterion('UserEmail_xt', "==".$email);
         $cmd->addFindCriterion('token_t', "==".$token);
         $result = $cmd->execute();
@@ -137,14 +141,13 @@ class UserModel
     * @param string $layout - contains name of the layout.
     * @param string $password - contains the new password.
     * @param int $rId - Contains the id of the user.
-    *
     * @return - Boolian value if any error occured or not.
     */
     public static function editPassword($layout, $password, $rId)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $request = $fmobj->newEditCommand($layout, $rId);
-
+        //setting the new password after changing
         $request->setField('UserPassword_xt', $password);
         $result = $request->execute();
 
@@ -153,5 +156,4 @@ class UserModel
         }
         return $result->getMessage();
     }
-
 }

@@ -13,6 +13,9 @@ use App\Http\Requests;
 use App\Classes;
 use Filemaker;
 
+/**
+* Class containing all functions for the services of dealer.
+*/
 class DealerServices
 {
 
@@ -22,7 +25,7 @@ class DealerServices
     * @param int $userId - contains the id of user.
     * @return - Returns a boolian value if post made or not.
     */
-    public static function DashboardDataDealer($userId)
+    public static function dashboardDataDealer($userId)
     {
         $posts = DealerModel::find('CropPost', $userId, '__kfn_UserId');
         //get current date.
@@ -34,7 +37,11 @@ class DealerServices
         //count the no of posts, the posts sold, expired and earnings.
         $count = count($posts);
         $lastPostTime = "No Posts Made Yet";
-        $totalPosts = 0; $postSold = 0; $postActive = 0; $postExpired = 0; $totalEarning = 0;
+        $totalPosts = 0;
+        $postSold = 0;
+        $postActive = 0;
+        $postExpired = 0;
+        $totalEarning = 0;
         if ($posts) {
             foreach ($posts as $post) {
                 $expire_time = strtotime($post->getField('CropExpiryTime_xi'));
@@ -43,10 +50,11 @@ class DealerServices
                     $postSold++;
                     $bidAccepted = DealerModel::find('Bids', $post->getField('__kfn_AcceptedBid'), '___kpn_BidId');
                     $totalEarning = $totalEarning + $bidAccepted[0]->getField('BidPrice_xn');
-                }
-                elseif ($expire_time < $today_time) {
+                } elseif ($expire_time < $today_time) {
                     $postExpired++;
-                } else { $postActive++; }
+                } else {
+                    $postActive++;
+                }
             }
             $lastPostTime = $posts[$count-1]->getField('PublishedTime_t');
         }
@@ -81,13 +89,9 @@ class DealerServices
                 //get all crop details of the post
                 $cropDetails[$i] = [ $cropRecord[0]->getField('CropName_xt'),
                 $cropRecord[0]->getField('___kpn_CropId')];
-                $categoryRecord = DealerModel::Find('Category',
-                    $cropRecord[0]->getField('__kfn_CategoryId'),
-                    '___kpn_CategoryId'
-                );
+                $categoryRecord = DealerModel::Find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
                 //find all the bid details
-                $bidDetails[$i] = DealerModel::findDetails('Bids', $crop->getField('___kpn_CropPostId'),
-                $user, '__kfn_CropPostId', '__kfn_UserId');
+                $bidDetails[$i] = DealerModel::findDetails('Bids', $crop->getField('___kpn_CropPostId'), $user, '__kfn_CropPostId', '__kfn_UserI');
                 $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
                 $i = $i + 1;
             }
@@ -126,37 +130,36 @@ class DealerServices
     */
     public static function getadDetails($id, $userId)
     {
-        $cropDetails = DealerModel::find('CropPostDetailsPortal', $id , 'RecordId_n');
+        $cropDetails = DealerModel::find('CropPostDetailsPortal', $id, 'RecordId_n');
         $cropRecord = $cropDetails[0]->getRelatedSet('Crop 2');
         //get the category details of crop
-        $categoryName = DealerModel::find('Category', $cropRecord[0]->getField('Crop 2::__kfn_CategoryId'),
-         '___kpn_CategoryId');
+        $categoryName = DealerModel::find('Category', $cropRecord[0]->getField('Crop 2::__kfn_CategoryId'), '___kpn_CategoryId');
         //get all the comment details of post
-        $commentRecords = DealerModel::findComment('Comment', $cropDetails[0]->getField('___kpn_CropPostId'),
-         '__kfn_CropPostId');
+        $commentRecords = DealerModel::findComment('Comment', $cropDetails[0]->getField('___kpn_CropPostId'), '__kfn_CropPostId');
         //get all the related image of post
         $imagePosts = $cropDetails[0]->getRelatedSet('Crop_CropPost_MediaPost');
         $userPostDetails = DealerModel::find('User', $cropDetails[0]->getField('__kfn_UserId'), '___kpn_UserId');
 
         //if any comment found set all data to an array
-        if(!empty($commentRecords)) {
+        if (!empty($commentRecords)) {
             $j = 0;
             foreach ($commentRecords as $commentRecord) {
-                $commentUser[$j] = DealerModel::find('User', $commentRecord->getField('__kfn_UserId'),
-                 '___kpn_UserId');
+                $commentUser[$j] = DealerModel::find('User', $commentRecord->getField('__kfn_UserId'), '___kpn_UserId');
                 $j++;
             }
-        } else { $commentRecords = 0; $commentUser = 0; }
-        if (FileMaker::isError($imagePosts)) { $imagePosts = 0; }
+        } else {
+            $commentRecords = 0;
+            $commentUser = 0;
+        }
+        if (FileMaker::isError($imagePosts)) {
+            $imagePosts = 0;
+        }
 
         //get all rating data of farmer.
-        $ratingData = DealerModel::findDetails('Rating', $cropDetails[0]->getField('___kpn_CropPostId'),
-            $userId,'__kfn_PostId','__kfn_UserId');
-        $bidDetails = DealerModel::findDetails('Bids', $cropDetails[0]->getField('___kpn_CropPostId'),
-         $userId, '__kfn_CropPostId', '__kfn_UserId');
+        $ratingData = DealerModel::findDetails('Rating', $cropDetails[0]->getField('___kpn_CropPostId'), $userId, '__kfn_PostId', '__kfn_UserId');
+        $bidDetails = DealerModel::findDetails('Bids', $cropDetails[0]->getField('___kpn_CropPostId'), $userId, '__kfn_CropPostId', '__kfn_UserId');
         //send all data by an array
-        return compact('cropDetails', 'categoryName', 'bidDetails', 'id', 'commentRecords',
-         'commentUser', 'imagePosts', 'userPostDetails', 'ratingData');
+        return compact('cropDetails', 'categoryName', 'bidDetails', 'id', 'commentRecords', 'commentUser', 'imagePosts', 'userPostDetails', 'ratingData');
     }
 
     /**
@@ -167,9 +170,9 @@ class DealerServices
     * @param int $id - contains id of the crop on which comment made
     * @return - Returns boolian value of comment made or not.
     */
-    public static function CommentDealer($request, $userId, $id)
+    public static function commentDealer($request, $userId, $id)
     {
-        $bid = DealerModel::CommentDealer('Comment', $request, $userId ,$id);
+        $bid = DealerModel::commentDealer('Comment', $request, $userId, $id);
         return true;
     }
 
@@ -185,7 +188,7 @@ class DealerServices
     public static function editProfileDealer($request, $userId, $filename)
     {
         //go to edit command to edit the profile of user.
-        $editProfileDealer = DealerModel::editRecords('User', $request , $userId, $filename);
+        $editProfileDealer = DealerModel::editRecords('User', $request, $userId, $filename);
 
         if ($editProfileDealer != true) {
             return false;
@@ -213,7 +216,7 @@ class DealerServices
     * Function to add rating.
     *
     * Author : Satyapriya Baral
-    * @param 1. mixed $request - contains all data of rating.
+    * @param mixed $request - contains all data of rating.
     * @return - Returns to the ad details view.
     */
     public static function addRating($farmerId, $postId, $rating, $userId)
@@ -223,7 +226,7 @@ class DealerServices
         $userRated = DealerModel::find('User', $farmerId, '___kpn_UserId');
 
         //set the user rating
-        if($userRated[0]->getField('TotalRated_n') == "") {
+        if ($userRated[0]->getField('TotalRated_n') == "") {
             DealerModel::editUserRating($userRated[0]->getRecordId(), $rating, 1);
         } else {
             //calculate the avg rating of user.
