@@ -3,7 +3,7 @@
 * File: DealerController.php
 * Purpose: Calls the DealerModal class to fetch the data from filemaker database
 * Date: 24-Mar-2017
-* Author: Saurabh Mehta
+* Author: Saurabh Mehta, Satyapriya Baral
 */
 namespace App\Http\Controllers;
 
@@ -20,11 +20,14 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Image;
 
+/**
+* Class containing all functions for interaction with the dealer views.
+*/
 class DealerController extends Controller
 {
 
-        /**
-    * Function to go to Farmer View.
+    /**
+    * Function to go to Dealer Home Page.
     *
     * @param array $request - Contains all session data.
     * @return - Returns to the desired view of desired user.
@@ -36,15 +39,19 @@ class DealerController extends Controller
         return view('dealer.index', compact('dashboardData'));
     }
 
-    public function viewprevious()
-    {
-        return view("Dealer.viewprevious");
-    }
-
+    /**
+    * Function to view all the crop post.
+    *
+    * Author : Satyapriya Baral
+    * @param array $request - contains all the session data.
+    * @return - Returns to the crop post view.
+    */
     public function viewads(Request $request)
     {
         $sessionArray = $request->session()->all();
+        //gets all post details.
         $records = DealerServices::findAllPosts($request->all(), $sessionArray['user']);
+        //if records found return records else display an error.
         if ($records !== false) {
             return view('Dealer.viewads', $records);
         }
@@ -52,7 +59,7 @@ class DealerController extends Controller
     }
 
     /**
-    * Function to get all profile data of farmer.
+    * Function to get all profile data of dealer.
     *
     * @param 1. $request - contains all session data.
     * @return - Returns to the Crop post page.
@@ -60,8 +67,8 @@ class DealerController extends Controller
     public function profileDealer(Request $request)
     {
         $sessionArray = $request->session()->all();
+        //get all profile details.
         $profileDataDealer = DealerServices::profileDealer($sessionArray['user']);
-       // $post = DealerServices::postCountDealer($sessionArray['user']);
 
         if ($profileDataDealer != false) {
             return view('Dealer.profileDealer', compact('profileDataDealer', 'post'));
@@ -71,28 +78,40 @@ class DealerController extends Controller
     }
 
     /**
-    * Function to Find all Crops Under Category.
+    * Function to Find details of a specific post.
     *
-    * @param 1. $request - contains id of the Category and all session data.
+    * Author - Satyapriya Baral
+    * @param array $request - contains id of the Crop post and all session data.
     * @return - Filemaker results of Crops Found under Category.
     */
     public function details(Request $request)
     {
+        //get specigic post details by its id.
         $details = DealerServices::getadDetails($request->id, $request->session()->get('user'));
         return view('Dealer.details', compact('details'));
     }
 
+    /**
+    * Function to add comment by the dealer.
+    *
+    * Author : Satyapriya Baral
+    * @param mixed $request - contains all comment data and session data.
+    * @return - Returns to the ad details view.
+    */
     public function commentDealer(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        //validate the comment field
+        $validator = Validator::make($request->all(), [
             'commentData' => 'required',
         ]);
-
+        //if validator fails return error.
         if ($validator->fails()) {
             return redirect('details')->withErrors($validator);
         }
+
+        //if validation succesful create a new comment record.
         $sessionArray = $request->session()->all();
-        $addComment = DealerServices::CommentDealer($request->all(), $sessionArray['user'], $request->id);
+        $addComment = DealerServices::commentDealer($request->all(), $sessionArray['user'], $request->id);
         if ($addComment) {
             return back();
         }
@@ -100,35 +119,36 @@ class DealerController extends Controller
     }
 
     /**
-    * Function to sign in to the required user home page.
+    * Function to edit the profile of dealer.
     *
-    * @param array Reguest - Contains all data of user for login.
-    * @return - Returns to the route of desired user.
+    * @param array Reguest - Contains all data of dealer profile.
+    * @return - Returns to the profile page after editing.
     */
     public function editProfileDealer(Request $request)
     {
-        //validation of field for edit.
-        $validator = Validator::make($request->all(),[
+        //validation of profile details for edit.
+        $validator = Validator::make($request->all(), [
             'Name' => 'required|min:5',
             'Contact' => 'required|min:10|max:10'
         ]);
-
+        //if validation fails return with error.
         if ($validator->fails()) {
             return redirect('profileDealer')->withErrors($validator);
         }
-
+        //upload the image of dealer.
         $sessionArray = $request->session()->all();
-        if($request->hasfile('imageData')) {
+        if ($request->hasfile('imageData')) {
             $image = $request->file('imageData');
             $filename = time().'.'.$image->getClientOriginalExtension();
             $location = public_path('images/'.$filename);
-            Image::make($image)->resize(200,200)->save($location);
+            Image::make($image)->resize(200, 200)->save($location);
             $request->session()->put('userImage', $filename);
+            //upload all profile details of dealer.
             DealerServices::editProfileDealer($request->all(), $sessionArray['recordId'], $filename);
         } else {
             DealerServices::editProfileDealer($request->all(), $sessionArray['recordId'], 0);
         }
-        //if validation succesful edit the profile
+        //change the name of the user edited.
         $request->session()->put('name', $request->Name);
         return redirect('profileDealer');
     }
@@ -137,20 +157,20 @@ class DealerController extends Controller
     * Function to add new Bid.
     *
     * Author : Satyapriya Baral
-    * @param 1. mixed $request - contains all data of bid.
+    * @param array $request - contains all data of bid.
     * @return - Returns to the ad details view.
     */
     public function addBid(Request $request)
     {
         //validation of field for bid.
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'bid' => 'required',
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
-
+        //create a new bid.
         DealerServices::addBid($request->bid, $request->id, $request->session()->get('user'));
         return back();
     }
@@ -159,11 +179,12 @@ class DealerController extends Controller
     * Function to add rating.
     *
     * Author : Satyapriya Baral
-    * @param 1. mixed $request - contains all data of rating.
+    * @param array $request - contains all data of rating.
     * @return - Returns to the ad details view.
     */
     public function addRating(Request $request)
     {
+        //create a new rating.
         DealerServices::addRating($request->farmerId, $request->postId, $request->rating, $request->session()->get('user'));
     }
 }

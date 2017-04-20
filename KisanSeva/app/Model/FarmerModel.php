@@ -148,12 +148,12 @@ class FarmerModel
         }
 
         $request = $fmobj->createRecord($layout);
-        $request->setField('__kfn_CropId', FarmerModel::Sanitize($input['Crop']));
-        $request->setField('CropPrice_xn', FarmerModel::Sanitize($input['BasePrice']));
-        $request->setField('CropName_t', FarmerModel::Sanitize($CropName));
-        $request->setField('CropExpiryTime_xi', FarmerModel::Sanitize($newDate));
-        $request->setField('__kfn_UserId', FarmerModel::Sanitize($UserId));
-        $request->setField('Quantity_xn', FarmerModel::Sanitize($str));
+        $request->setField('__kfn_CropId', FarmerModel::sanitize($input['Crop']));
+        $request->setField('CropPrice_xn', FarmerModel::sanitize($input['BasePrice']));
+        $request->setField('CropName_t', FarmerModel::sanitize($CropName));
+        $request->setField('CropExpiryTime_xi', FarmerModel::sanitize($newDate));
+        $request->setField('__kfn_UserId', FarmerModel::sanitize($UserId));
+        $request->setField('Quantity_xn', FarmerModel::sanitize($str));
         $result = $request->commit();
 
         if (!FileMaker::isError($result)) {
@@ -200,10 +200,10 @@ class FarmerModel
         $fmobj = FilemakerWrapper::getConnection();
         $request = $fmobj->newEditCommand($layout, $userId);
         //setting fields for edit.
-        $request->setField('UserName_xt', FarmerModel::Sanitize($input['Name']));
-        $request->setField('UserContact_xn', FarmerModel::Sanitize($input['Contact']));
-        $request->setField('UserAddress_xt', FarmerModel::Sanitize($input['Address']));
-        if($filename != 0) {
+        $request->setField('UserName_xt', FarmerModel::sanitize($input['Name']));
+        $request->setField('UserContact_xn', FarmerModel::sanitize($input['Contact']));
+        $request->setField('UserAddress_xt', FarmerModel::sanitize($input['Address']));
+        if ($filename != 0) {
             $request->setField('UserImage_t', $filename);
         }
         $result = $request->execute();
@@ -253,7 +253,7 @@ class FarmerModel
         $request = $fmobj->createRecord($layout);
         $request->setField('__kfn_CropPostId', $id);
         $request->setField('__kfn_UserId', $userId);
-        $request->setField('CommentData_xt', FarmerModel::Sanitize($input['commentData']));
+        $request->setField('CommentData_xt', FarmerModel::sanitize($input['commentData']));
         $result = $request->commit();
 
         if (!FileMaker::isError($result)) {
@@ -282,7 +282,7 @@ class FarmerModel
     * @param mixed $value - contains the value to be sanitized.
     * @return - Returns the value after sanitizing.
     */
-    public static function Sanitize($value)
+    public static function sanitize($value)
     {
         $retvar = trim($value);
         $retvar = strip_tags($retvar);
