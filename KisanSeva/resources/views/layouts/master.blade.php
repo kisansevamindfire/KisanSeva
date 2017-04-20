@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+* File    : master.blade.php
+* Author  : Satyapriya Baral
+* Date    : 28-Mar-2017
+* Purpose : Master template for all pages  -->
 <html>
 <head>
   <meta charset="utf-8">
@@ -8,7 +13,7 @@
   <!-- Bootstrap 3.3.6 -->
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.1') }}">
+  <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.156') }}">
 
   <link rel="icon" type="image/png" href="{{ asset('template/dist/img/favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('template/dist/css/fresh-bootstrap-table.css') }}">
@@ -110,7 +115,6 @@ function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
 }
 </script>
-
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 
@@ -131,12 +135,13 @@ function googleTranslateElementInit() {
 <script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.22') }}"></script>
+<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.3455532') }}"></script>
+<script type="text/javascript" src="{{ asset('template/dist/js/rating.js?ver=1.4.3') }}"></script>
 <script src="{{ asset('template/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
-<script src="{{ asset('template/plugins/morris/morris.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('template/dist/js/rating.js') }}"></script>
 
 <script src="{{ asset('template/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 

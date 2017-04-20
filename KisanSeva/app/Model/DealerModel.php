@@ -58,12 +58,12 @@ class DealerModel
     *        3. $field - contains the field on whose basis to be searched.
     * @return - Filemaker results of Farming Tip found.
     */
-    public static function findBids($layout, $cropId, $userId)
+    public static function findDetails($layout, $cropId, $userId, $field1, $field2)
     {
         $fmobj = FilemakerWrapper::getConnection();
         $cmd = $fmobj->newFindCommand($layout);
-        $cmd->addFindCriterion('__kfn_CropPostId', $cropId);
-        $cmd->addFindCriterion('__kfn_UserId', $userId);
+        $cmd->addFindCriterion($field1, $cropId);
+        $cmd->addFindCriterion($field2, $userId);
         $result = $cmd->execute();
         if (!FileMaker::isError($result)) {
             return $result->getRecords();
@@ -145,6 +145,46 @@ class DealerModel
         $request->setField('BidPrice_xn', $bid);
         $request->setField('__kfn_UserId', $userId);
         $result = $request->commit();
+
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
+
+    public static function addRating($postId, $rating, $userId)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+
+        $request = $fmobj->createRecord('Rating');
+        $request->setField('__kfn_PostId', $postId);
+        $request->setField('Rating_n', $rating);
+        $request->setField('__kfn_UserId', $userId);
+        $result = $request->commit();
+
+        if (!FileMaker::isError($result)) {
+            return true;
+        }
+        return $result->getMessage();
+    }
+
+    /**
+    * Function to edit the details of user.
+    *
+    * @param string $layout - contains name of the layout.
+    * @param array @input - Contains all data for edit.
+    * @param int $UserId - Contains the id of the user.
+    *
+    * @return - Boolian value if any error occured or not.
+    */
+    public static function editUserRating($RecordId, $totalRating, $totalRated)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $request = $fmobj->newEditCommand('User', $RecordId);
+
+        $request->setField('UserRating_n', $totalRating);
+        $request->setField('TotalRated_n', $totalRated);
+        $result = $request->execute();
 
         if (!FileMaker::isError($result)) {
             return true;

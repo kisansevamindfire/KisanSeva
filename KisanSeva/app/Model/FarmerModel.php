@@ -268,6 +268,20 @@ class FarmerModel
     * @param mixed $value - contains the value to be sanitized.
     * @return - Returns the value after sanitizing.
     */
+    public static function delete($id)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $deleteRecord = $fmobj->newDeleteCommand('CropPost', $id);
+        $result = $deleteRecord->execute();
+        return $result;
+    }
+
+    /**
+    * Function to sanitize the value that will be stored in the database.
+    *
+    * @param mixed $value - contains the value to be sanitized.
+    * @return - Returns the value after sanitizing.
+    */
     public static function Sanitize($value)
     {
         $retvar = trim($value);

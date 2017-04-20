@@ -15,6 +15,7 @@ $(document).ready(function(){
   */
   $("#category").on("change",function(){
     var cat_id = $(this).val();
+    //sets the div where crops to be displayed.
     var div=$(this).parent().parent();
     var op=" ";
     $.ajax({
@@ -30,36 +31,6 @@ $(document).ready(function(){
         div.find('.cropName').append(op);
       }
     })
-  });
-  /**
-  * Ajax call to search crops according to crop post
-  *
-  * @param Null
-  * @return Null
-  */
-  $(".search").keyup(function () {
-    var searchTerm = $(".search").val();
-    var listItem = $('.results tbody').children('tr');
-    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-
-  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
-        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
-    }
-  });
-
-  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','false');
-  });
-
-  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','true');
-  });
-
-  var jobCount = $('.results tbody tr[visible="true"]').length;
-    $('.counter').text(jobCount + ' item');
-
-  if(jobCount == '0') {$('.no-result').show();}
-    else {$('.no-result').hide();}
   });
 
       //errors are hidden and will show when error occurs.
@@ -112,6 +83,7 @@ $(document).ready(function(){
      $("#ExpiryTime").focusout(function(){
           checkExpiryTime();
      });
+
      /**
      * Function to validate name Field
      *
@@ -359,5 +331,4 @@ $(document).ready(function(){
                $(this).trigger('click');
         }
     });
-
 })

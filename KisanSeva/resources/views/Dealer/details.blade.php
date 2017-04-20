@@ -20,13 +20,7 @@
       <li class="treeview">
         <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
-          <span>View Ads</span>
-        </a>
-      </li>
-      <li class="treeview">
-        <a href="{{ URL::to('viewprevious') }}">
-          <i class="fa fa-files-o"></i>
-          <span>Purchasing History</span>
+          <span>View Crop Posts</span>
         </a>
       </li>
     </ul>
@@ -66,6 +60,23 @@
                         <img src="{{ asset('images/'.$details['userPostDetails'][0]->getField('UserImage_t')) }}" alt="User profile picture" class="profile-user-img img-responsive img-circle">
                       @endif
                     </figure>
+                      <div>
+                      Rating : {{ round($details['userPostDetails'][0]->getField('UserRating_n'), 1) }}
+                    </div>
+                    @if(($details['cropDetails'][0]->getField('Sold_n') == 1) and ($details['ratingData'] == false))
+                    <div class="rating_star" id="rating_star">
+                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="1_star">
+                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="2_star">
+                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="3_star">
+                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="4_star">
+                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="5_star">
+                    </div>
+                    </br>
+                    <div>
+                      <input type="button" class="btn btn-primary btn-sm" value="Submit Rating" id="submitRating"/>
+                    </div>
+                    <div id="response"></div>
+                    @endif
                 </div>
             </div>
                 <table class="table table-hover table-bordered results">
@@ -95,9 +106,9 @@
                                 $today_time = strtotime($date);
                                 $expire_time = strtotime($details['cropDetails'][0]->getField('CropExpiryTime_xi'));
                                 if($details['cropDetails'][0]->getField('Sold_n') == 1) { @endphp
-                                  <td><span class="label label-success">Sold</span></td>
+                                  <td><span class="label label-success">Purchased</span></td>
                                 @php } elseif ($details['bidDetails'] != false) { @endphp
-                                  <td><span class="label label-danger">In Process</span></td>
+                                  <td><span class="label label-danger">Processing</span></td>
                                 @php } else { @endphp
                                   <td><span class="label label-primary">Active</span></td>
                               @php } @endphp
@@ -192,6 +203,8 @@
         </div>
     </section>
   <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
+  <script type="text/javascript">
+  var urlRating = "{{ URL::to('addRating/'.$details['userPostDetails'][0]->getField('___kpn_UserId')).'/'.$details['cropDetails'][0]->getField('___kpn_CropPostId') }}";
+  </script>
 @stop
 

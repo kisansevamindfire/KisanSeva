@@ -154,4 +154,16 @@ class DealerController extends Controller
         DealerServices::addBid($request->bid, $request->id, $request->session()->get('user'));
         return back();
     }
+
+    /**
+    * Function to add rating.
+    *
+    * Author : Satyapriya Baral
+    * @param 1. mixed $request - contains all data of rating.
+    * @return - Returns to the ad details view.
+    */
+    public function addRating(Request $request)
+    {
+        DealerServices::addRating($request->farmerId, $request->postId, $request->rating, $request->session()->get('user'));
+    }
 }

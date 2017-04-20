@@ -23,13 +23,7 @@
       <li class="active treeview">
         <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
-          <span>View Ads</span>
-        </a>
-      </li>
-      <li class="treeview">
-        <a href="{{ URL::to('viewprevious') }}">
-          <i class="fa fa-files-o"></i>
-          <span>Purchasing History</span>
+          <span>View Crop Posts</span>
         </a>
       </li>
     </ul>
@@ -85,9 +79,9 @@
                           @if($PostRecords[3][$i] == false)
                             <td><span class="label label-primary">Active</span></td>
                           @elseif($PostRecord[0]->getField('Sold_n') == 1)
-                            <td><span class="label label-success">Sold</span></td>
+                            <td><span class="label label-success">Purchased</span></td>
                           @else
-                            <td><span class="label label-danger">In Process</span></td>
+                            <td><span class="label label-danger">Processing</span></td>
                           @endif
                           <?php $id = $PostRecord[0]->getrecordid() ?>
                             <td><Button class="label label-info" onclick="window.location='{{ url("details",[$id]) }}'">View</Button></td>
