@@ -65,6 +65,7 @@
                           <th data-field="basePrice" data-sortable="true">Base Price</th>
                           <th data-field="status">Status</th>
                           <th data-field="action">Action</th>
+                          <th data-field="delete">Delete</th>
                         </thead>
                         <tbody>
                           @php
@@ -86,15 +87,19 @@
                               @php
                                 $today_time = strtotime($date);
                                 $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
-                                if($PostRecord[0]->getField('Sold_n') == 1) { @endphp
+                              @endphp
+                                @if($PostRecord[0]->getField('Sold_n') == 1)
                                   <td><span class="label label-success">Sold</span></td>
-                                @php } elseif ($expire_time < $today_time) { @endphp
+                                @elseif ($PostRecords[2][$i] != false)
+                                  <td><span class="label label-info">Bid Made</span></td>
+                                @elseif ($expire_time < $today_time)
                                   <td><span class="label label-danger">Expired</span></td>
-                                @php } else { @endphp
+                                @else
                                   <td><span class="label label-primary">Active</span></td>
-                              @php } @endphp
+                              @endif
                               <?php $id = $PostRecord[0]->getrecordid() ?>
                               <td><Button class="label label-info" onclick="window.location='{{ url("postDetails",[$id]) }}'">View</Button></td>
+                              <td><Button class="label label-danger glyphicon glyphicon-remove-sign" onclick="window.location='{{ url("deletePost",[$id]) }}'">Delete</Button></td>
                             </tr>
                             @php $i = $i+1; @endphp
                             @endforeach

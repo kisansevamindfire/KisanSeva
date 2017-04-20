@@ -27,7 +27,6 @@ class LoginServices
     * Function to get all user data.
     *
     * @param array Reguest - Contains all data of user for login.
-    *
     * @return - Returns to the route of desired user.
     */
     public static function login($request)
@@ -43,7 +42,6 @@ class LoginServices
     * Function to register a user.
     *
     * @param array Reguest - Contains all data of user for login.
-    *
     * @return - Returns to the route of desired user.
     */
     public static function register($request)
@@ -59,7 +57,6 @@ class LoginServices
     * Function to check if email is present or not.
     *
     * @param array Reguest - Contains all data of user for login.
-    *
     * @return - Returns to the route of desired user.
     */
     public static function checkEmail($request)
@@ -72,7 +69,6 @@ class LoginServices
     * Function to check if email is present or not.
     *
     * @param array Reguest - Contains all data of user for login.
-    *
     * @return - Returns to the route of desired user.
     */
     public static function findImage($id)
@@ -85,7 +81,6 @@ class LoginServices
     * Function to verify the email and generate a random token value.
     *
     * @param array Reguest - Contains email data.
-    *
     * @return - Returns the token value and the record id of user.
     */
     public static function verifyEmail($request)
@@ -108,7 +103,6 @@ class LoginServices
     *
     * @param int id - contains the record id of user.
     * @param string token - contains the random token value
-    *
     * @return - Returns boolian value if the edit is succesful or not.
     */
     public static function addToken($id, $token)
@@ -122,7 +116,6 @@ class LoginServices
     *
     * @param string email - Contains user email address.
     * @param string token - contains random charecters.
-    *
     * @return - Returns all data of the user.
     */
     public static function checkEmailUser($email, $token)
@@ -136,7 +129,6 @@ class LoginServices
     *
     * @param string Password - Contains the new password.
     * @param int rId - contains the record id of user.
-    *
     * @return - Returns boolian value if edit succesful or not.
     */
     public static function editPassword($password, $rId)

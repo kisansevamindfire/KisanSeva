@@ -62,6 +62,12 @@ Route::group(['middleware' => ['web']], function () {
         //Details page for dealer
         Route::get('details/{id}', 'DealerController@details');
 
+        //Details page for dealer
+        Route::get('deletePost/{id}', 'FarmerController@delete');
+
+        //Details page for dealer
+        Route::get('addRating/{farmerId}/{postId}', 'DealerController@addRating');
+
         //Comments section for Dealer
         Route::post('details/{id}/commentData','DealerController@commentDealer');
 

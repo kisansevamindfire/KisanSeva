@@ -246,4 +246,16 @@ class FarmerController extends Controller
         }
         return back();
     }
+
+    /**
+    * Function to Delete Post.
+    *
+    * @param  array $request - contains all data of post to be deleted.
+    * @return - Return bollian value for true or false.
+    */
+    public function delete(Request $request)
+    {
+        $deletePost = FarmerServices::delete($request->id);
+        return back();
+    }
 }

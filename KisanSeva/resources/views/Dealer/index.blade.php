@@ -20,13 +20,7 @@
       <li class="treeview">
         <a href="{{ URL::to('viewads') }}">
           <i class="fa fa-files-o"></i>
-          <span>View Ads</span>
-        </a>
-      </li>
-      <li class="treeview">
-        <a href="{{ URL::to('viewprevious') }}">
-          <i class="fa fa-files-o"></i>
-          <span>Purchasing History</span>
+          <span>View Crop Posts</span>
         </a>
       </li>
     </ul>

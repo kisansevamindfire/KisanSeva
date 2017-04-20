@@ -159,13 +159,15 @@ class FarmerServices
                 $cropRecord = FarmerModel::find('Crop', $post->getField('__kfn_CropId'), '___kpn_CropId');
                 $categoryRecord = FarmerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'),
                  '___kpn_CategoryId');
+                $bidDetails[$i] =  FarmerModel::find('Bids', $post->getField('___kpn_CropPostId'), '__kfn_CropPostId');
                 $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
                 $i = $i + 1;
             }
 
             $PostRecords = array(
                 $posts,
-                $categoryDetails
+                $categoryDetails,
+                $bidDetails
             );
 
             return compact('PostRecords');
@@ -328,5 +330,17 @@ class FarmerServices
     {
         $bid = FarmerModel::createComment('Comment', $request, $userId ,$id);
         return true;
+    }
+
+    /**
+    * Function to Delete Post.
+    *
+    * @param  array $request - contains all data of post to be deleted.
+    * @return - Return bollian value for true or false.
+    */
+    public static function delete($id)
+    {
+        $deletePost = FarmerModel::delete($id);
+        return $deletePost;
     }
 }

@@ -90,20 +90,13 @@
               <strong><i class="fa fa-book margin-r-5"></i> Email</strong>
               <p class="text-muted">
                 {{ $profileData[0]->getfield('UserEmail_xt') }}
-              </p>
-
+             </p>
               <hr>
-
               <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
               <p class="text-muted">{{ $profileData[0]->getfield('UserAddress_xt') }}</p>
-
               <hr>
-
               <strong><i class="fa fa-pencil margin-r-5"></i> Contact</strong>
-
               <p class="text-muted">{{ $profileData[0]->getfield('UserContact_xn') }}</p>
-
               <p>
               </p>
             </div>
@@ -145,7 +138,7 @@
                         <span class="username">
                           <a href="#">Rating</a>
                         </span>
-                    <span class="description"></span>
+                    <span class="description">{{ round($profileData[0]->getfield('UserRating_n'), 1) }}</span>
                   </div>
                 </div>
                 <hr>
