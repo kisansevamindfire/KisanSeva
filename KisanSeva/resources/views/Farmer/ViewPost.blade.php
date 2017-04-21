@@ -112,11 +112,11 @@
         </div>
       </section>
   </div>
-  <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
-  <script type="text/javascript" src="{{ asset('template/dist/js/jquery-1.11.2.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('template/dist/js/bootstrap-table.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('template/dist/js/tableScript.js?ver=1.7') }}">
+  <script src="{{ asset('assets/template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('assets/custom/js/script.js?ver=1.4.11') }}"></script>
+  <script type="text/javascript" src="{{ asset('assets/template/dist/js/jquery-1.11.2.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('assets/template/dist/js/bootstrap-table.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('assets/template/dist/js/tableScript.js?ver=1.7') }}">
   </script>
 @stop
 

@@ -83,6 +83,26 @@ class DealerModel
     }
 
     /**
+    * Function to Show all Records in a specific layout.
+    *
+    * @param string $layout - contains name of the layout.
+    * @return - Filemaker results of all records found.
+    */
+    public static function findAllCrops($layout)
+    {
+        $fmobj = FilemakerWrapper::getConnection();
+        $cmd = $fmobj->newFindAllCommand($layout);
+
+        $cmd->addSortRule('___kpn_CropPostId', 1, FILEMAKER_SORT_DESCEND);
+        $result = $cmd->execute();
+        //if any error return result not found else return data.
+        if (!FileMaker::isError($result)) {
+            return $result->getRecords();
+        }
+        return ["No", "records", "Found", $result->getMessage()];
+    }
+
+    /**
     * Function to search all comments in sorted order.
     *
     * @param string $layout - contains name of the layout.
