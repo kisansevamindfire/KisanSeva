@@ -89,15 +89,13 @@
                   <p>
                   </p>
                 </div>
-                <!-- /.box-body -->
               </div>
-              <!-- /.box -->
             </div>
-            <!-- /.col -->
             <div class="col-md-9">
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+                  <li><a href="#editProfile" data-toggle="tab">Edit Profile</a></li>
                 </ul>
                 <div class="tab-content">
                 <div class="active tab-pane" id="activity">
@@ -118,9 +116,8 @@
                           </div>
                       </div>
                     </div>
-                    <hr>
-                    <h5>Edit Profile</h5>
-                    <hr>
+                </div>
+              <div class="tab-pane" id="editProfile">
                     <form id="editProfileForm" class="form-horizontal" action="editProfileDealer" method="Post" enctype="multipart/form-data">
                     <!--<form class="form-horizontal" action="editProfile" method="Post">-->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -157,16 +154,11 @@
                         </div>
                       </div>
                     </form>
-                </div>
               </div>
-              <!-- /.nav-tabs-custom -->
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
 
         </section>
-        <!-- /.content -->
       </div>
       <div class="control-sidebar-bg"></div>
     </div>

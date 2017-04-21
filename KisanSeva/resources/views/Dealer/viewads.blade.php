@@ -76,12 +76,12 @@
                           <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
                           <td>Rs {{ number_format($PostRecord[0]->getField('CropPrice_xn')) }}</td>
-                          @if($PostRecords[3][$i] == false)
-                            <td><span class="label label-primary">Active</span></td>
-                          @elseif($PostRecord[0]->getField('Sold_n') == 1)
+                          @if($PostRecord[0]->getField('Sold_n') == 1)
                             <td><span class="label label-success">Purchased</span></td>
-                          @else
+                          @elseif($PostRecords[3][$i] != false)
                             <td><span class="label label-danger">Processing</span></td>
+                          @else
+                            <td><span class="label label-primary">Active</span></td>
                           @endif
                           <?php $id = $PostRecord[0]->getrecordid() ?>
                             <td><Button class="label label-info" onclick="window.location='{{ url("details",[$id]) }}'">View</Button></td>
