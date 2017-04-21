@@ -126,8 +126,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('editProfileDealer','DealerController@editProfileDealer');
 
-    //Dealer will see his previous purchases
-    Route::get('viewprevious', 'DealerController@viewprevious');
 });
 
 

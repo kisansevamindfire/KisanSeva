@@ -13,10 +13,10 @@
   <!-- Bootstrap 3.3.6 -->
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ asset('template/dist/css/main.css?ver=1.4.156') }}">
+  <link rel="stylesheet" href="{{ asset('assets/custom/css/main.css?ver=1.4.156') }}">
 
-  <link rel="icon" type="image/png" href="{{ asset('template/dist/img/favicon.ico') }}">
-  <link rel="stylesheet" href="{{ asset('template/dist/css/fresh-bootstrap-table.css') }}">
+  <link rel="icon" type="image/png" href="{{ asset('assets/template/dist/img/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/dist/css/fresh-bootstrap-table.css') }}">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 
@@ -24,21 +24,21 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('template/dist/css/AdminLTE.min.css?ver=1.4.10') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/dist/css/AdminLTE.min.css?ver=1.4.10') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins -->
-  <link rel="stylesheet" href="{{ asset('template/dist/css/skins/_all-skins.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/dist/css/skins/_all-skins.min.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('template/plugins/datatables/dataTables.bootstrap.css') }}">
-  <link rel="stylesheet" href="{{ asset('template/plugins/iCheck/flat/blue.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/plugins/datatables/dataTables.bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/plugins/iCheck/flat/blue.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('template/plugins/morris/morris.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/plugins/morris/morris.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('template/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
-  <link rel="stylesheet" href="{{ asset('template/plugins/datepicker/datepicker3.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/plugins/datepicker/datepicker3.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('template/plugins/daterangepicker/daterangepicker.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/plugins/daterangepicker/daterangepicker.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -115,45 +115,41 @@ function googleTranslateElementInit() {
 }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="{{ asset('template/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/template/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- FastClick -->
-<script src="{{ asset('template/plugins/fastclick/fastclick.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/fastclick/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('template/dist/js/app.min.js') }}"></script>
+<script src="{{ asset('assets/template/dist/js/app.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="{{ asset('bower_components/jquery-validation/dist/jquery.validate.js') }}"></script>
 
-<script src="{{ asset('bower_components/jquery-validation/dist/jquery.validate.min.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('template/dist/js/demo.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/template/dist/js/demo.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
-<script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.3455532') }}"></script>
-<script type="text/javascript" src="{{ asset('template/dist/js/rating.js?ver=1.4.3') }}"></script>
-<script src="{{ asset('template/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/custom/js/script.js?ver=1.4.3455532') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/custom/js/rating.js?ver=1.4.3') }}"></script>
+<script src="{{ asset('assets/template/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
-<script type="text/javascript" src="{{ asset('template/dist/js/rating.js') }}"></script>
 
-<script src="{{ asset('template/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 
-<script src="{{ asset('template/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-<script src="{{ asset('template/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-<script src="{{ asset('template/plugins/knob/jquery.knob.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/knob/jquery.knob.js') }}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="{{ asset('template/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
-<script src="{{ asset('template/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 
-<script src="{{ asset('template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+<script src="{{ asset('assets/template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
 <script type="text/javascript">
 var url = "{{ URL::to('viewCrops') }}";
 </script>

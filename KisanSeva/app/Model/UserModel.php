@@ -52,12 +52,12 @@ class UserModel
         $request = $fmobj->createRecord($layout);
 
         //sets all field of the new user
-        $request->setField('__kfn_UserType', $input['UserType']);
-        $request->setField('UserName_xt', $input['Name']);
-        $request->setField('UserPassword_xt', $input['Password']);
-        $request->setField('UserContact_xn', $input['Number']);
-        $request->setField('UserAddress_xt', $input['Address']);
-        $request->setField('UserEmail_xt', $input['Email']);
+        $request->setField('__kfn_UserType', UserModel::sanitize($input['UserType']));
+        $request->setField('UserName_xt', UserModel::sanitize($input['Name']));
+        $request->setField('UserPassword_xt', UserModel::sanitize($input['Password']));
+        $request->setField('UserContact_xn', UserModel::sanitize($input['Number']));
+        $request->setField('UserAddress_xt', UserModel::sanitize($input['Address']));
+        $request->setField('UserEmail_xt', UserModel::sanitize($input['Email']));
         $request->setField('EnableDisable_xn', 0);
         $request->setField('UserRating_n', 0);
         $result = $request->commit();
@@ -155,5 +155,19 @@ class UserModel
             return true;
         }
         return $result->getMessage();
+    }
+
+    /**
+    * Function to sanitize the value that will be stored in the database.
+    *
+    * @param mixed $value - contains the value to be sanitized.
+    * @return - Returns the value after sanitizing.
+    */
+    public static function sanitize($value)
+    {
+        $retvar = trim($value);
+        $retvar = strip_tags($retvar);
+        $retvar = htmlspecialchars($retvar);
+        return $retvar;
     }
 }

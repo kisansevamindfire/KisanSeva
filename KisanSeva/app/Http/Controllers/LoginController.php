@@ -181,8 +181,7 @@ class LoginController extends Controller
                 'name' => "kisansevaodisha@gmail.com",
                 'email' => $request->Email,
                 'subject' => "Reset Password",
-                'content' => "To reset your password please visit this link: http://localhost/Project
-                /KisanSeva/KisanSeva/public/reset/$rid/$random/$request->Email"
+                'content' => "To reset your password please visit this link: http://localhost/Project/KisanSeva/KisanSeva/public/reset/$rid/$random/$request->Email"
                 );
             //send mail to the user mail address.
             Mail::send('email.test', $dataEmail, function ($message) use ($dataEmail) {

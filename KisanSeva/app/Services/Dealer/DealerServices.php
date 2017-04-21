@@ -27,40 +27,38 @@ class DealerServices
     */
     public static function dashboardDataDealer($userId)
     {
-        $posts = DealerModel::find('CropPost', $userId, '__kfn_UserId');
+        $posts = DealerModel::findAll('CropPost');
         //get current date.
         date_default_timezone_set('Asia/Kolkata');
         $date = date("m/d/Y");
         $time = date("h:i:sa");
         $today_time = strtotime($date);
 
-        //count the no of posts, the posts sold, expired and earnings.
-        $count = count($posts);
-        $lastPostTime = "No Posts Made Yet";
-        $totalPosts = 0;
-        $postSold = 0;
+        $postPurchased = 0;
         $postActive = 0;
-        $postExpired = 0;
-        $totalEarning = 0;
+        $postRejected = 0;
+        $totalExpenditure = 0;
         if ($posts) {
             foreach ($posts as $post) {
                 $expire_time = strtotime($post->getField('CropExpiryTime_xi'));
-                $totalPosts++;
                 if ($post->getField('Sold_n') == 1) {
-                    $postSold++;
-                    $bidAccepted = DealerModel::find('Bids', $post->getField('__kfn_AcceptedBid'), '___kpn_BidId');
-                    $totalEarning = $totalEarning + $bidAccepted[0]->getField('BidPrice_xn');
-                } elseif ($expire_time < $today_time) {
-                    $postExpired++;
-                } else {
+                    $bidDetails = DealerModel::findDetails('Bids', $post->getField('___kpn_CropPostId'), $userId, '__kfn_CropPostId', '__kfn_UserId');
+                    if ($bidDetails != false) {
+                        if ($post->getField('__kfn_AcceptedBid') == $bidDetails[0]->getField('___kpn_BidId')) {
+                            $postPurchased++;
+                            $totalExpenditure = $totalExpenditure + $bidDetails[0]->getField('BidPrice_xn');
+                        } else {
+                            $postRejected++;
+                        }
+                    }
+                } elseif ($expire_time > $today_time) {
                     $postActive++;
                 }
             }
-            $lastPostTime = $posts[$count-1]->getField('PublishedTime_t');
         }
 
         $countPost = array(
-            $totalPosts, $postSold, $lastPostTime, $postActive, $postExpired, $totalEarning
+            $postPurchased, $postActive, $postRejected, $totalExpenditure
         );
 
         return compact('countPost');
@@ -76,7 +74,7 @@ class DealerServices
     */
     public static function findAllPosts($request, $user)
     {
-        $crops = DealerModel::findAll('CropPost');
+        $crops = DealerModel::findAllCrops('CropPost');
         //if crops found get all crop details
         if ($crops !== false) {
             $i=0;
@@ -89,9 +87,9 @@ class DealerServices
                 //get all crop details of the post
                 $cropDetails[$i] = [ $cropRecord[0]->getField('CropName_xt'),
                 $cropRecord[0]->getField('___kpn_CropId')];
-                $categoryRecord = DealerModel::Find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
+                $categoryRecord = DealerModel::find('Category', $cropRecord[0]->getField('__kfn_CategoryId'), '___kpn_CategoryId');
                 //find all the bid details
-                $bidDetails[$i] = DealerModel::findDetails('Bids', $crop->getField('___kpn_CropPostId'), $user, '__kfn_CropPostId', '__kfn_UserI');
+                $bidDetails[$i] = DealerModel::findDetails('Bids', $crop->getField('___kpn_CropPostId'), $user, '__kfn_CropPostId', '__kfn_UserId');
                 $categoryDetails[$i] = [$categoryRecord[0]->getField('CategoryName_xt')];
                 $i = $i + 1;
             }

@@ -47,8 +47,8 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>{{ $dashboardData['countPost'][5] }}</h3>
-                <p>Total Earning</p>
+                <h3>Rs {{ number_format($dashboardData['countPost'][3]) }}</h3>
+                <p>Total Expenditure</p>
               </div>
               <div class="icon">
                 <i class="fa fa-money"></i>
@@ -61,14 +61,14 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>{{ $dashboardData['countPost'][3] }}</h3>
+              <h3>{{ $dashboardData['countPost'][1] }}</h3>
 
               <p>Crop Post Active</p>
             </div>
             <div class="icon">
               <i class=""></i>
             </div>
-            <a href="{{ URL::to('viewpost') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ URL::to('viewads') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -76,14 +76,14 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>{{ $dashboardData['countPost'][1] }}</h3>
+              <h3>{{ $dashboardData['countPost'][0] }}</h3>
 
-              <p>Crop Post Sold</p>
+              <p>Crop Post Purchased</p>
             </div>
             <div class="icon">
               <i class=""></i>
             </div>
-            <a href="{{ URL::to('viewpost') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ URL::to('viewads') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -91,14 +91,14 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>{{ $dashboardData['countPost'][4] }}</h3>
+              <h3>{{ $dashboardData['countPost'][2] }}</h3>
 
-              <p>Crop Post Expired</p>
+              <p>Crop Post Rejected</p>
             </div>
             <div class="icon">
               <i class=""></i>
             </div>
-            <a href={{ URL::to('viewpost') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ URL::to('viewads') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -110,7 +110,6 @@
           <div class="box box-info">
             <div class="box-header">
               <i class="fa fa-envelope"></i>
-
               <h3 class="box-title">Quick Email</h3>
               <!-- tools box -->
               <div class="pull-right box-tools">

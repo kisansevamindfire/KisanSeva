@@ -59,7 +59,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>{{ $dashboardData['countPost'][5] }}</h3>
+              <h3>Rs {{ $dashboardData['countPost'][5] }}</h3>
 
               <p>Total Earning</p>
             </div>
@@ -114,16 +114,12 @@
             <a href={{ URL::to('viewpost') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
-
-
       </div>
       <div class="row">
         <section class="col-lg-7 connectedSortable">
           <div class="box box-info">
             <div class="box-header">
               <i class="fa fa-envelope"></i>
-
               <h3 class="box-title">Quick Email</h3>
               <!-- tools box -->
               <div class="pull-right box-tools">
@@ -152,7 +148,6 @@
             </div>
           </div>
         </section>
-
       </div>
     </section>
   </div>

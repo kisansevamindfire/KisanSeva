@@ -64,18 +64,20 @@
                       Rating : {{ round($details['userPostDetails'][0]->getField('UserRating_n'), 1) }}
                     </div>
                     @if(($details['cropDetails'][0]->getField('Sold_n') == 1) and ($details['ratingData'] == false))
-                    <div class="rating_star" id="rating_star">
-                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="1_star">
-                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="2_star">
-                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="3_star">
-                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="4_star">
-                        <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="5_star">
-                    </div>
-                    </br>
-                    <div>
-                      <input type="button" class="btn btn-primary btn-sm" value="Submit Rating" id="submitRating"/>
-                    </div>
-                    <div id="response"></div>
+                      @if($details['cropDetails'][0]->getField('__kfn_AcceptedBid') == $details['bidDetails'][0]->getField('___kpn_BidId'))
+                        <div class="rating_star" id="rating_star">
+                          <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="1_star">
+                          <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="2_star">
+                          <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="3_star">
+                          <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="4_star">
+                          <img class="StarSize" src="{{ asset('details/img/starInactive.png') }}" id="5_star">
+                        </div>
+                        </br>
+                      <div>
+                        <input type="button" class="btn btn-primary btn-sm" value="Submit Rating" id="submitRating"/>
+                      </div>
+                      <div id="response"></div>
+                      @endif
                     @endif
                 </div>
             </div>
@@ -105,13 +107,18 @@
                               @php
                                 $today_time = strtotime($date);
                                 $expire_time = strtotime($details['cropDetails'][0]->getField('CropExpiryTime_xi'));
-                                if($details['cropDetails'][0]->getField('Sold_n') == 1) { @endphp
+                              @endphp
+                                @if($details['cropDetails'][0]->getField('Sold_n') == 1)
+                                 @if($details['cropDetails'][0]->getField('__kfn_AcceptedBid') == $details['bidDetails'][0]->getField('___kpn_BidId'))
                                   <td><span class="label label-success">Purchased</span></td>
-                                @php } elseif ($details['bidDetails'] != false) { @endphp
+                                  @else
+                                  <td><span class="label label-danger">Rejected Bid</span></td>
+                                  @endif
+                                @elseif ($details['bidDetails'] != false)
                                   <td><span class="label label-danger">Processing</span></td>
-                                @php } else { @endphp
+                                @else
                                   <td><span class="label label-primary">Active</span></td>
-                              @php } @endphp
+                              @endif
                               </tr>
                         </tbody>
                     <tr class="warning no-result">

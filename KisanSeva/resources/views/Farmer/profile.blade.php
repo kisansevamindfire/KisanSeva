@@ -109,6 +109,7 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+              <li><a href="#editProfile" data-toggle="tab">Edit Profile</a></li>
             </ul>
             <div class="tab-content">
             <div class="active tab-pane" id="activity">
@@ -141,9 +142,8 @@
                     <span class="description">{{ round($profileData[0]->getfield('UserRating_n'), 1) }}</span>
                   </div>
                 </div>
-                <hr>
-                <h5>Edit Profile</h5>
-                <hr>
+            </div>
+              <div class="tab-pane" id="editProfile">
                 <form id="editProfileForm" class="form-horizontal" action="editProfile" method="Post" enctype="multipart/form-data">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="form-group">
@@ -179,16 +179,10 @@
                     </div>
                   </div>
                 </form>
-            </div>
+              </div>
           </div>
-          <!-- /.nav-tabs-custom -->
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-
     </section>
-    <!-- /.content -->
   </div>
   <div class="control-sidebar-bg"></div>
 </div>

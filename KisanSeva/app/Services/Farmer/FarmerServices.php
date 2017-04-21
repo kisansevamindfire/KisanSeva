@@ -213,7 +213,7 @@ class FarmerServices
         if ($posts) {
             foreach ($posts as $post) {
                 $totalPosts++;
-                if ($post->getField('Sold_n') === 1) {
+                if ($post->getField('Sold_n') == 1) {
                     $postSold++;
                 }
             }

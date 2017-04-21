@@ -69,23 +69,38 @@
                           $today_time = strtotime($date);
                           $expire_time = strtotime($PostRecord[0]->getField('CropExpiryTime_xi'));
                         @endphp
-                        @if($expire_time > $today_time)
+                        @if($expire_time > $today_time || $PostRecord[0]->getField('Sold_n') == 1)
+                         @if(($PostRecord[0]->getField('Sold_n') == 1) and ($PostRecords[3][$i] != false))
                         <tr>
                           <td>{{ $PostRecords[2][$i][0] }}</td>
                           <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
                           <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
                           <td>Rs {{ number_format($PostRecord[0]->getField('CropPrice_xn')) }}</td>
-                          @if($PostRecords[3][$i] == false)
-                            <td><span class="label label-primary">Active</span></td>
-                          @elseif($PostRecord[0]->getField('Sold_n') == 1)
-                            <td><span class="label label-success">Purchased</span></td>
+                          @if($PostRecord[0]->getField('__kfn_AcceptedBid') != $PostRecords[3][$i][0]->getField('___kpn_BidId'))
+                            <td><span class="label label-danger">Rejected Bid</span></td>
                           @else
-                            <td><span class="label label-danger">Processing</span></td>
+                            <td><span class="label label-success">Purchased</span></td>
                           @endif
                           <?php $id = $PostRecord[0]->getrecordid() ?>
                             <td><Button class="label label-info" onclick="window.location='{{ url("details",[$id]) }}'">View</Button></td>
                         </tr>
+                        @elseif($PostRecord[0]->getField('Sold_n') != 1)
+                          <tr>
+                          <td>{{ $PostRecords[2][$i][0] }}</td>
+                          <td>{{ $PostRecord[0]->getField('CropName_t') }}</td>
+                          <td>{{ $PostRecord[0]->getField('PublishedTime_t') }}</td>
+                          <td>{{ $PostRecord[0]->getField('Quantity_xn') }}</td>
+                          <td>Rs {{ number_format($PostRecord[0]->getField('CropPrice_xn')) }}</td>
+                          @if($PostRecords[3][$i] != false)
+                            <td><span class="label label-danger">Processing</span></td>
+                          @else
+                            <td><span class="label label-primary">Active</span></td>
+                          @endif
+                          <?php $id = $PostRecord[0]->getrecordid() ?>
+                            <td><Button class="label label-info" onclick="window.location='{{ url("details",[$id]) }}'">View</Button></td>
+                        </tr>
+                        @endif
                         @endif
                         @php $i = $i+1; @endphp
                       @endforeach
@@ -98,11 +113,11 @@
         </div>
       </section>
     </div>
-    <script src="{{ asset('template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('template/dist/js/script.js?ver=1.4.11') }}"></script>
-    <script type="text/javascript" src="{{ asset('template/dist/js/jquery-1.11.2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('template/dist/js/bootstrap-table.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('template/dist/js/tableScript.js') }}">
+    <script src="{{ asset('assets/template/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/custom/js/script.js?ver=1.4.11') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/template/dist/js/jquery-1.11.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/template/dist/js/bootstrap-table.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/template/dist/js/tableScript.js') }}">
     </script>
   @stop
 
